@@ -13,6 +13,15 @@ const ExpensesList: React.FC = () => {
     console.log("Adding expense:", newExpense);
     setExpenses((prevExpenses) => [...prevExpenses, newExpense]);
   };
+
+  const updateExpense = (updatedExpense: Expense) => {
+    setExpenses((prevExpenses) =>
+      prevExpenses.map((expense) =>
+        expense.id === updatedExpense.id ? updatedExpense : expense
+      )
+    );
+  };
+
   return (
     <Container maxW="container.lg" p={[1, 2, 3]}>
       <VStack p={[1, 2, 3]}>
@@ -26,21 +35,16 @@ const ExpensesList: React.FC = () => {
             <ActualVsPlannedExpenses />
           </Box>
           <Box>
-            <ExpensesTable expenses={expenses} />
-          </Box>
-        </Stack>
-        <Stack
-          width="100%"
-          direction={["column", "column", "row"]}
-          mt={[1, 2, 3]}
-          mb={[1, 2, 3]}
-          spacing={[1, 2, 3]}
-        >
-          <Box width={["100%", "50%", "33%"]}>
-            <AddExpense onAddExpense={addExpense} />
+            <ExpensesTable
+              expenses={expenses}
+              onUpdatedExpense={updateExpense}
+            />
+            <Box width={["100%", "50%", "33%"]}>
+              <AddExpense onAddExpense={addExpense} />
+            </Box>
           </Box>
           <Spacer>
-            <Box width="300px" position="fixed" right="0" p="4">
+            <Box width="300px" position="absolute" right="0" p="4">
               <Calculator />
             </Box>
           </Spacer>

@@ -18,10 +18,12 @@ export interface AddExpenseProps {
 
 export interface ExpensesTableProps {
   expenses: Expense[];
+  onUpdatedExpense: (updatedExpense: Expense) => void;
 }
 
 export interface EditExpensesProps {
   isOpen: boolean;
   onClose: () => void;
-  expenseId: string;
+  expense: Expense;
+  onUpdatedExpense: (updatedExpense: Expense) => void;
 }

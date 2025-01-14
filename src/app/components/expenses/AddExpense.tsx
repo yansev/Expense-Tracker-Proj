@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, FormControl, FormLabel, Input } from "@chakra-ui/react";
+import { Button, FormControl, FormLabel, Input, Toast } from "@chakra-ui/react";
 import { AddExpenseProps } from "../../../entities/expense/model";
 import {
   Modal,
@@ -11,7 +11,7 @@ import {
   ModalCloseButton,
   useDisclosure,
 } from "@chakra-ui/react";
-
+import { SmallAddIcon } from "@chakra-ui/icons";
 const AddExpense: React.FC<AddExpenseProps> = ({ onAddExpense }) => {
   const [title, setTitle] = useState<string>(""); // Title of the expense
   const [month, setMonth] = useState<string>(""); // Month of the expense
@@ -31,20 +31,35 @@ const AddExpense: React.FC<AddExpenseProps> = ({ onAddExpense }) => {
       actualAmount: actualAmount || 0,
     };
 
+    const resetForm = () => {
+      setTitle("");
+      setMonth("");
+      setPlannedAmount(0);
+      setActualAmount(0);
+    };
+
     onAddExpense(newExpense);
-    alert("Data Added Successfully!");
+    Toast({
+      title: "Data Added Successfully!",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+    });
+    resetForm();
     onClose();
   };
 
   return (
     <>
-      <Button onClick={onOpen}>Add New Expense</Button>
+      <Button onClick={onOpen}>
+        <SmallAddIcon /> Add Expense
+      </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>New Expense</ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton color="red" />
           <ModalBody>
             <form onSubmit={handleSubmit}>
               <FormControl>
@@ -98,14 +113,14 @@ const AddExpense: React.FC<AddExpenseProps> = ({ onAddExpense }) => {
                 />
               </FormControl>
 
-              <Button variant="ghost" type="submit">
+              <Button type="submit" colorScheme="green" mt={3}>
                 Add Expense
               </Button>
             </form>
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose} mt={3}>
+            <Button colorScheme="red" mr={3} onClick={onClose} mt={3}>
               Close
             </Button>
           </ModalFooter>

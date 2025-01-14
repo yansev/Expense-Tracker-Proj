@@ -11,19 +11,21 @@ import {
   Flex,
   useDisclosure,
 } from "@chakra-ui/react";
-import { ExpensesTableProps } from "../../entities/expense/model";
+import { Expense, ExpensesTableProps } from "../../entities/expense/model";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { useState } from "react";
 import EditExpense from "../components/expenses/EditExpenses";
 
-const ExpensesTable: React.FC<ExpensesTableProps> = ({ expenses }) => {
-  const [selectedExpenseId, setSelectedExpenseId] = useState<string | null>(
-    null
-  );
+const ExpensesTable: React.FC<ExpensesTableProps> = ({
+  expenses,
+  onUpdatedExpense,
+}) => {
+  const [selectedExpense, setSelectedExpense] = useState<Expense | null>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const handleEditClick = (id: string) => {
-    setSelectedExpenseId(id);
+  const handleEditClick = (expense: Expense) => {
+    console.log("Edit clicked for expense:", expense);
+    setSelectedExpense(expense);
     onOpen();
   };
 
@@ -61,7 +63,7 @@ const ExpensesTable: React.FC<ExpensesTableProps> = ({ expenses }) => {
                     as="button"
                     mr="10px"
                     aria-label="Edit Expense"
-                    onClick={() => handleEditClick(expense.id.toString())}
+                    onClick={() => handleEditClick(expense)}
                   >
                     <AiOutlineEdit />
                   </Link>
@@ -77,16 +79,17 @@ const ExpensesTable: React.FC<ExpensesTableProps> = ({ expenses }) => {
           <Tr>
             <Th>Total</Th>
             <Th></Th>
-            <Th>{totalPlanned}</Th>
-            <Th>{totalActual}</Th>
+            <Th textAlign="right">{totalPlanned}</Th>
+            <Th textAlign="right">{totalActual}</Th>
           </Tr>
         </Tfoot>
       </Table>
-      {selectedExpenseId && (
+      {selectedExpense && (
         <EditExpense
           isOpen={isOpen}
           onClose={onClose}
-          expenseId={selectedExpenseId}
+          expense={selectedExpense}
+          onUpdatedExpense={onUpdatedExpense}
         />
       )}
     </TableContainer>
