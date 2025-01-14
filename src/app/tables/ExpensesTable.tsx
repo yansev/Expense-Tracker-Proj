@@ -15,18 +15,36 @@ import { Expense, ExpensesTableProps } from "../../entities/expense/model";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { useState } from "react";
 import EditExpense from "../components/expenses/EditExpenses";
+import DeleteExpense from "../components/expenses/DeleteExpense";
 
 const ExpensesTable: React.FC<ExpensesTableProps> = ({
   expenses,
   onUpdatedExpense,
+  onDeleteExpense,
 }) => {
   const [selectedExpense, setSelectedExpense] = useState<Expense | null>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isOpenDelete,
+    onOpen: onOpenDelete,
+    onClose: onCloseDelete,
+  } = useDisclosure();
 
   const handleEditClick = (expense: Expense) => {
     console.log("Edit clicked for expense:", expense);
     setSelectedExpense(expense);
     onOpen();
+  };
+
+  const handleDeleteClick = (expense: Expense) => {
+    console.log("Deleted", expense);
+    setSelectedExpense(expense);
+    onOpenDelete();
+  };
+
+  const handleDeleteExpense = (expense: Expense) => {
+    onDeleteExpense(expense);
+    onCloseDelete();
   };
 
   const totalPlanned = expenses.reduce(
@@ -67,7 +85,12 @@ const ExpensesTable: React.FC<ExpensesTableProps> = ({
                   >
                     <AiOutlineEdit />
                   </Link>
-                  <Link href={`/expenses/${expense.id}/delete`} mr="10px">
+                  <Link
+                    as="button"
+                    mr="10px"
+                    aria-label="Delete Expense"
+                    onClick={() => handleDeleteClick(expense)}
+                  >
                     <AiOutlineDelete />
                   </Link>
                 </Flex>
@@ -85,12 +108,20 @@ const ExpensesTable: React.FC<ExpensesTableProps> = ({
         </Tfoot>
       </Table>
       {selectedExpense && (
-        <EditExpense
-          isOpen={isOpen}
-          onClose={onClose}
-          expense={selectedExpense}
-          onUpdatedExpense={onUpdatedExpense}
-        />
+        <>
+          <EditExpense
+            isOpen={isOpen}
+            onClose={onClose}
+            expense={selectedExpense}
+            onUpdatedExpense={onUpdatedExpense}
+          />
+          <DeleteExpense
+            isOpenDelete={isOpenDelete}
+            onCloseDelete={onCloseDelete}
+            expense={selectedExpense}
+            onDeleteExpense={handleDeleteExpense}
+          />
+        </>
       )}
     </TableContainer>
   );

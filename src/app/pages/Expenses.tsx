@@ -1,13 +1,23 @@
 import React, { useState } from "react";
 import AddExpense from "../components/expenses/AddExpense";
-import { Box, Spacer, VStack, Stack, Container } from "@chakra-ui/react";
+import {
+  Box,
+  Spacer,
+  VStack,
+  Stack,
+  Container,
+  Button,
+  useDisclosure,
+} from "@chakra-ui/react";
 import ExpensesTable from "../tables/ExpensesTable";
-import Calculator from "../components/calculator/Calculator";
 import { Expense } from "../../entities/expense/model";
 import ActualVsPlannedExpenses from "../charts/ExpensesChart";
+import CalcModal from "../components/calculator/CalcModal";
+import { AiFillCalculator } from "react-icons/ai";
 
 const ExpensesList: React.FC = () => {
   const [expenses, setExpenses] = useState<Expense[]>([]);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const addExpense = (newExpense: Expense) => {
     console.log("Adding expense:", newExpense);
@@ -19,6 +29,12 @@ const ExpensesList: React.FC = () => {
       prevExpenses.map((expense) =>
         expense.id === updatedExpense.id ? updatedExpense : expense
       )
+    );
+  };
+
+  const deleteExpense = (expense: Expense) => {
+    setExpenses((prevExpenses) =>
+      prevExpenses.filter((e) => e.id !== expense.id)
     );
   };
 
@@ -38,6 +54,7 @@ const ExpensesList: React.FC = () => {
             <ExpensesTable
               expenses={expenses}
               onUpdatedExpense={updateExpense}
+              onDeleteExpense={deleteExpense}
             />
             <Box width={["100%", "50%", "33%"]}>
               <AddExpense onAddExpense={addExpense} />
@@ -45,7 +62,10 @@ const ExpensesList: React.FC = () => {
           </Box>
           <Spacer>
             <Box width="300px" position="absolute" right="0" p="4">
-              <Calculator />
+              <Button onClick={onOpen} position="absolute" right="0">
+                <AiFillCalculator />
+                <CalcModal isOpen={isOpen} onClose={onClose} />
+              </Button>
             </Box>
           </Spacer>
         </Stack>

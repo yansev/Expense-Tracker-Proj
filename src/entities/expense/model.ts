@@ -19,6 +19,7 @@ export interface AddExpenseProps {
 export interface ExpensesTableProps {
   expenses: Expense[];
   onUpdatedExpense: (updatedExpense: Expense) => void;
+  onDeleteExpense: (expense: Expense) => void;
 }
 
 export interface EditExpensesProps {
@@ -26,4 +27,11 @@ export interface EditExpensesProps {
   onClose: () => void;
   expense: Expense;
   onUpdatedExpense: (updatedExpense: Expense) => void;
+}
+
+export interface DeleteExpensesProps {
+  isOpenDelete: boolean;
+  onCloseDelete: () => void;
+  expense: Expense;
+  onDeleteExpense: (expense: Expense) => void;
 }
