@@ -48,6 +48,11 @@ const IncomeTable: React.FC<IncomeTableProps> = ({
     onCloseDeleteIncome();
   };
 
+  const formatDateToMonthName = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleString("default", { month: "long" });
+  };
+
   const amount = income.reduce((sum, expense) => sum + expense.amount, 0);
 
   return (
@@ -69,7 +74,7 @@ const IncomeTable: React.FC<IncomeTableProps> = ({
             {income.map((income, index) => (
               <Tr key={index}>
                 <Td>{income.source}</Td>
-                <Td>{income.month}</Td>
+                <Td>{formatDateToMonthName(income.month)}</Td>
                 <Td isNumeric>{income.amount}</Td>
                 <Td>
                   <Flex>

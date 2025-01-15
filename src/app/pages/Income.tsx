@@ -8,32 +8,68 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import IncomeTable from "../components/income/IncomeTable";
-import ActualVsPlannedExpenses from "../charts/ExpensesChart";
 import CalcModal from "../components/calculator/CalcModal";
 import { AiFillCalculator } from "react-icons/ai";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Income } from "../../entities/expense/model";
 import AddIncome from "../components/income/AddIncome";
-
+import axios from "axios";
 const ExpensesList: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [income, setIncome] = useState<Income[]>([]);
 
-  const addIncome = (newIncome: Income) => {
+  useEffect(() => {
+    const fetchIncome = async () => {
+      const response = await axios.get("http://localhost:3030/income");
+      setIncome(response.data);
+    };
+    fetchIncome();
+  }, []);
+
+  const addIncome = async (newIncome: Income) => {
     console.log("Adding income:", newIncome);
-    setIncome((prevIncome) => [...prevIncome, newIncome]);
+    try {
+      const response = await axios.post(
+        "http://localhost:3030/income",
+        newIncome
+      );
+      setIncome((prevIncome) => [...prevIncome, response.data]);
+      console.log("Added income:", response.data);
+    } catch (error) {
+      console.error("Error adding income:", error);
+    }
   };
 
-  const updateIncome = (updatedIncome: Income) => {
-    setIncome((prevIncome) =>
-      prevIncome.map((income) =>
-        income.id === updatedIncome.id ? updatedIncome : income
-      )
-    );
+  const updateIncome = async (updatedIncome: Income) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:3030/income/${updatedIncome.id}`,
+        updatedIncome
+      );
+      console.log("Updated income:", response.data);
+      if (response.status === 200 || response.status === 204) {
+        setIncome((prevIncome) =>
+          prevIncome.map((income) =>
+            income.id === updatedIncome.id ? updatedIncome : income
+          )
+        );
+      }
+    } catch (error) {
+      console.error("Error updating income:", error);
+    }
   };
 
-  const deleteIncome = (income: Income) => {
-    setIncome((prevIncome) => prevIncome.filter((e) => e.id != income.id));
+  const deleteIncome = async (income: Income) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:3030/income/${income.id}`
+      );
+      if (response.status === 200) {
+        setIncome((prevIncome) => prevIncome.filter((e) => e.id != income.id));
+      }
+    } catch (error) {
+      console.error("Error deleting income:", error);
+    }
   };
 
   return (
@@ -46,7 +82,7 @@ const ExpensesList: React.FC = () => {
           spacing={[1, 2, 3]}
         >
           <Box width={["100vw", "75vw", "50vw"]}>
-            <ActualVsPlannedExpenses />
+            {/* <ActualVsPlannedExpenses /> */}
           </Box>
           <Box width={["100vw", "75vw", "50vw"]} position="relative">
             <IncomeTable

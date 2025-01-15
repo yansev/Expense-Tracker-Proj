@@ -36,6 +36,10 @@ export interface DeleteExpensesProps {
   onDeleteExpense: (expense: Expense) => void;
 }
 
+export interface ExpensesChartProps {
+  expenses: Expense[];
+}
+
 export interface Income {
   id: number;
   source: string;

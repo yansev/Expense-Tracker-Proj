@@ -49,6 +49,11 @@ const ExpensesTable: React.FC<ExpensesTableProps> = ({
     onCloseDelete();
   };
 
+  const formatDateToMonthName = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleString("default", { month: "long" });
+  };
+
   const totalPlanned = expenses.reduce(
     (sum, expense) => sum + expense.plannedAmount,
     0
@@ -78,7 +83,7 @@ const ExpensesTable: React.FC<ExpensesTableProps> = ({
             {expenses.map((expense, index) => (
               <Tr key={index}>
                 <Td>{expense.title}</Td>
-                <Td>{expense.month}</Td>
+                <Td>{formatDateToMonthName(expense.month)}</Td>
                 <Td isNumeric>{expense.plannedAmount}</Td>
                 <Td isNumeric>{expense.actualAmount}</Td>
                 <Td>
