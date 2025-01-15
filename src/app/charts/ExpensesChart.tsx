@@ -8,6 +8,7 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import { Container, Heading } from "@chakra-ui/react";
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -30,21 +31,23 @@ const ActualVsPlannedExpenses: React.FC = () => {
       {
         label: "Planned Amount",
         data: [data.amount],
-        backgroundColor: "#36A2EB",
+        backgroundColor: "#D0E3FF",
       },
       {
         label: "Actual Amount",
         data: [data2.amount],
-        backgroundColor: "#FF6384",
+        backgroundColor: "#EDF1F6",
       },
     ],
   };
 
   return (
-    <div>
-      <h1>Actual Amount vs Planned Amount</h1>
+    <Container maxW="full">
+      <Heading size="md" mb={4} textAlign="center">
+        Actual Amount vs Planned Amount
+      </Heading>
       <Bar data={chartData} />
-    </div>
+    </Container>
   );
 };
 

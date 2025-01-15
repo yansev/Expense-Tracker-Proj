@@ -14,7 +14,7 @@ import {
 
 export const Navbar = () => {
   return (
-    <HStack bg="blue.900" width="full" color="white" p={[1, 2, 3]}>
+    <HStack backgroundColor="#081F5C" width="full" p={[1, 2, 3]}>
       <Breadcrumb
         ml={[2, 3, 4]}
         mt={[2, 3, 4]}
@@ -23,7 +23,7 @@ export const Navbar = () => {
         separator={<MinusIcon color="gray.500" />}
         width="100vw"
       >
-        <BreadcrumbItem>
+        <BreadcrumbItem color="#f7f2eb">
           <BreadcrumbLink href="/">
             <HStack spacing={[1, 2, 3]}>
               <AiOutlineHome />
@@ -32,7 +32,7 @@ export const Navbar = () => {
           </BreadcrumbLink>
         </BreadcrumbItem>
 
-        <BreadcrumbItem>
+        <BreadcrumbItem color="#f7f2eb">
           <BreadcrumbLink href="/income">
             <HStack spacing="10px">
               <AiOutlineCalculator />
@@ -41,7 +41,7 @@ export const Navbar = () => {
           </BreadcrumbLink>
         </BreadcrumbItem>
 
-        <BreadcrumbItem>
+        <BreadcrumbItem color="#f7f2eb">
           <BreadcrumbLink href="/expenses">
             <HStack spacing={[1, 2, 3]}>
               <AiOutlineCreditCard />
@@ -50,7 +50,7 @@ export const Navbar = () => {
           </BreadcrumbLink>
         </BreadcrumbItem>
 
-        <BreadcrumbItem>
+        <BreadcrumbItem color="#f7f2eb">
           <BreadcrumbLink href="/bills">
             <HStack spacing="10px">
               <AiOutlineDollarCircle />
@@ -59,7 +59,7 @@ export const Navbar = () => {
           </BreadcrumbLink>
         </BreadcrumbItem>
 
-        <BreadcrumbItem>
+        <BreadcrumbItem color="#f7f2eb">
           <BreadcrumbLink href="/savings">
             <HStack spacing={[1, 2, 3]}>
               <AiOutlineDollarCircle />

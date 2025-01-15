@@ -24,6 +24,10 @@ function App() {
             <Route path="/expenses/:id/delete" element={<Expenses />} />
 
             <Route path="/income" element={<Income />} />
+            <Route path="/income/add" element={<Income />} />
+            <Route path="/income/:id/edit" element={<Income />} />
+            <Route path="/income/:id/delete" element={<Income />} />
+
             <Route path="/bills" element={<Bills />} />
           </Routes>
         </Box>

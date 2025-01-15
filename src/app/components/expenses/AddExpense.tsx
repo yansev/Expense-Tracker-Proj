@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Button, FormControl, FormLabel, Input, Toast } from "@chakra-ui/react";
+import {
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  useToast,
+} from "@chakra-ui/react";
 import { AddExpenseProps } from "../../../entities/expense/model";
 import {
   Modal,
@@ -19,6 +25,7 @@ const AddExpense: React.FC<AddExpenseProps> = ({ onAddExpense }) => {
   const [actualAmount, setActualAmount] = useState<number>(0); // Amount for the expense
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,7 +46,7 @@ const AddExpense: React.FC<AddExpenseProps> = ({ onAddExpense }) => {
     };
 
     onAddExpense(newExpense);
-    Toast({
+    toast({
       title: "Data Added Successfully!",
       status: "success",
       duration: 3000,
@@ -54,7 +61,6 @@ const AddExpense: React.FC<AddExpenseProps> = ({ onAddExpense }) => {
       <Button onClick={onOpen}>
         <SmallAddIcon /> Add Expense
       </Button>
-
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
