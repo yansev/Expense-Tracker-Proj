@@ -16,15 +16,26 @@ import CalcModal from "../components/calculator/CalcModal";
 import { AiFillCalculator } from "react-icons/ai";
 import axios from "axios";
 import { useEffect } from "react";
+import { useMonth } from "../components/expenses/MonthContext";
+import MonthSelector from "../components/expenses/MonthSelector";
 
 const ExpensesList: React.FC = () => {
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { selectedMonth } = useMonth();
+
+  console.log({
+    expenseMonth: expenses[0]?.month,
+    selectedMonth,
+    matches: expenses[0]?.month === selectedMonth,
+    expenseData: expenses[0],
+  });
 
   useEffect(() => {
     const fetchExpenses = async () => {
       try {
         const response = await axios.get("http://localhost:3030/expenses");
+        console.log("Fetched Expenses:", response.data);
         setExpenses(response.data);
       } catch (error) {
         console.error("Error fetching expenses:", error);
@@ -86,6 +97,7 @@ const ExpensesList: React.FC = () => {
   return (
     <Container maxW="container.xl" p={[1, 2, 3]}>
       <VStack p={[1, 2, 3]} align="center">
+        <MonthSelector />
         <Stack
           direction={["column", "column", "row"]}
           mt={[1, 2, 3]}
@@ -98,6 +110,7 @@ const ExpensesList: React.FC = () => {
           <Box width={["100vw", "75vw", "50vw"]} position="relative">
             <ExpensesTable
               expenses={expenses}
+              selectedMonth={selectedMonth}
               onUpdatedExpense={updateExpense}
               onDeleteExpense={deleteExpense}
             />

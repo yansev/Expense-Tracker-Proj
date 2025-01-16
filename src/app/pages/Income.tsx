@@ -11,12 +11,14 @@ import IncomeTable from "../components/income/IncomeTable";
 import CalcModal from "../components/calculator/CalcModal";
 import { AiFillCalculator } from "react-icons/ai";
 import { useState, useEffect } from "react";
-import { Income } from "../../entities/expense/model";
+import { Income, Expense } from "../../entities/expense/model";
 import AddIncome from "../components/income/AddIncome";
 import axios from "axios";
+import IncomeGraph from "../components/income/IncomeGraph";
 const ExpensesList: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [income, setIncome] = useState<Income[]>([]);
+  const [expenses, setExpenses] = useState<Expense[]>([]);
 
   useEffect(() => {
     const fetchIncome = async () => {
@@ -24,6 +26,14 @@ const ExpensesList: React.FC = () => {
       setIncome(response.data);
     };
     fetchIncome();
+  }, []);
+
+  useEffect(() => {
+    const fetchExpenses = async () => {
+      const response = await axios.get("http://localhost:3030/expenses");
+      setExpenses(response.data);
+    };
+    fetchExpenses();
   }, []);
 
   const addIncome = async (newIncome: Income) => {
@@ -82,7 +92,7 @@ const ExpensesList: React.FC = () => {
           spacing={[1, 2, 3]}
         >
           <Box width={["100vw", "75vw", "50vw"]}>
-            {/* <ActualVsPlannedExpenses /> */}
+            <IncomeGraph income={income} expenses={expenses} />
           </Box>
           <Box width={["100vw", "75vw", "50vw"]} position="relative">
             <IncomeTable

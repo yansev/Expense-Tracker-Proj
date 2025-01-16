@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface Expense {
   id: number;
   title: string;
@@ -7,19 +9,14 @@ export interface Expense {
 }
 
 export interface AddExpenseProps {
-  onAddExpense: (expense: {
-    id: number;
-    title: string;
-    month: string;
-    plannedAmount: number;
-    actualAmount: number;
-  }) => void;
+  onAddExpense: (expense: Expense) => void;
 }
 
 export interface ExpensesTableProps {
   expenses: Expense[];
   onUpdatedExpense: (updatedExpense: Expense) => void;
   onDeleteExpense: (expense: Expense) => void;
+  selectedMonth: string;
 }
 
 export interface EditExpensesProps {
@@ -74,4 +71,28 @@ export interface DeleteIncomeProps {
   onCloseDeleteIncome: () => void;
   income: Income;
   onDeleteIncome: (income: Income) => void;
+}
+
+export interface IncomeChartProps {
+  income: Income[];
+  expenses?: Expense[];
+}
+
+export interface MonthContextProps {
+  selectedMonth: string;
+  setSelectedMonth: (month: string) => void;
+}
+
+export interface MonthProviderProps {
+  children: ReactNode;
+}
+
+export interface MonthContextProps {
+  selectedMonth: string;
+  setSelectedMonth: (month: string) => void;
+}
+
+export interface MonthSelectorProps {
+  selectedMonth: string;
+  onMonthChange: (month: string) => void;
 }

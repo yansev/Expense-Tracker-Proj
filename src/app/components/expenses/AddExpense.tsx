@@ -33,18 +33,14 @@ const AddExpense: React.FC<AddExpenseProps> = ({ onAddExpense }) => {
     const newExpense = {
       id: Date.now(),
       title,
-      month,
+      month: new Date(month + "-01").toLocaleString("default", {
+        month: "long",
+      }),
       plannedAmount: plannedAmount || 0,
       actualAmount: actualAmount || 0,
     };
 
-    const resetForm = () => {
-      setTitle("");
-      setMonth("");
-      setPlannedAmount(0);
-      setActualAmount(0);
-    };
-
+    console.log("Submitting new expense:", newExpense);
     onAddExpense(newExpense);
     toast({
       title: "Data Added Successfully!",
@@ -54,6 +50,13 @@ const AddExpense: React.FC<AddExpenseProps> = ({ onAddExpense }) => {
     });
     resetForm();
     onClose();
+  };
+
+  const resetForm = () => {
+    setTitle("");
+    setMonth("");
+    setPlannedAmount(0);
+    setActualAmount(0);
   };
 
   return (

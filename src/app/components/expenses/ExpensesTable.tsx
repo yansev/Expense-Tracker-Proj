@@ -18,12 +18,36 @@ import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { useState } from "react";
 import EditExpense from "./EditExpenses";
 import DeleteExpense from "./DeleteExpense";
+import { useMonth } from "./MonthContext";
 
 const ExpensesTable: React.FC<ExpensesTableProps> = ({
   expenses,
   onUpdatedExpense,
   onDeleteExpense,
 }) => {
+  const { selectedMonth } = useMonth();
+
+  // Debug logs
+  console.log("Raw expenses data:", expenses);
+  console.log("Current selected month:", selectedMonth);
+
+  const filteredExpenses =
+    selectedMonth === "All" || !selectedMonth
+      ? expenses
+      : expenses.filter((expense) => {
+          // Debug each comparison
+          const matches = expense.month === selectedMonth;
+          console.log({
+            expenseMonth: expense.month,
+            selectedMonth,
+            matches,
+            expenseData: expense,
+          });
+          return matches;
+        });
+
+  console.log("Filtered results:", filteredExpenses);
+
   const [selectedExpense, setSelectedExpense] = useState<Expense | null>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -31,6 +55,8 @@ const ExpensesTable: React.FC<ExpensesTableProps> = ({
     onOpen: onOpenDelete,
     onClose: onCloseDelete,
   } = useDisclosure();
+
+  const formatDateToMonthName = (monthString: string) => monthString;
 
   const handleEditClick = (expense: Expense) => {
     console.log("Edit clicked for expense:", expense);
@@ -49,16 +75,12 @@ const ExpensesTable: React.FC<ExpensesTableProps> = ({
     onCloseDelete();
   };
 
-  const formatDateToMonthName = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleString("default", { month: "long" });
-  };
-
-  const totalPlanned = expenses.reduce(
+  // Calculate totals from filtered expenses
+  const totalPlanned = filteredExpenses.reduce(
     (sum, expense) => sum + expense.plannedAmount,
     0
   );
-  const totalActual = expenses.reduce(
+  const totalActual = filteredExpenses.reduce(
     (sum, expense) => sum + expense.actualAmount,
     0
   );
@@ -67,7 +89,7 @@ const ExpensesTable: React.FC<ExpensesTableProps> = ({
     <Container maxW="container.xl">
       <TableContainer>
         <Heading size="md" mb={4} textAlign="center" color="#081F5C">
-          Expenses
+          Expenses for {selectedMonth || "Whole Year"}
         </Heading>
         <Table size="sm">
           <Thead backgroundColor="#081F5C">
@@ -80,7 +102,7 @@ const ExpensesTable: React.FC<ExpensesTableProps> = ({
             </Tr>
           </Thead>
           <Tbody>
-            {expenses.map((expense, index) => (
+            {filteredExpenses.map((expense, index) => (
               <Tr key={index}>
                 <Td>{expense.title}</Td>
                 <Td>{formatDateToMonthName(expense.month)}</Td>

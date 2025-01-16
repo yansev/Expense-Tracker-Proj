@@ -1,25 +1,18 @@
 {
   "expenses": [
     {
-      "id": "1736926258833",
-      "title": "title",
-      "month": "2025-01",
+      "id": "1737044187073",
+      "title": "jyfjh",
+      "month": "March",
       "plannedAmount": 1000,
-      "actualAmount": 999
+      "actualAmount": 600
     },
     {
-      "id": 1736927693234,
-      "title": "hello",
-      "month": "2025-02",
+      "id": 1737044264687,
+      "title": "food",
+      "month": "January",
       "plannedAmount": 1000,
-      "actualAmount": 500
-    },
-    {
-      "id": 1736927713249,
-      "title": "allowance",
-      "month": "2025-02",
-      "plannedAmount": 8000,
-      "actualAmount": 7500
+      "actualAmount": 300
     }
   ],
   "income": [
