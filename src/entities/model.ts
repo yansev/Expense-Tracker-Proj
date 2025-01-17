@@ -55,6 +55,7 @@ export interface AddIncomeProps {
 
 export interface IncomeTableProps {
   income: Income[];
+  selectedMonth: string;
   onUpdatedIncome: (updatedIncome: Income) => void;
   onDeleteIncome: (income: Income) => void;
 }
@@ -95,4 +96,9 @@ export interface MonthContextProps {
 export interface MonthSelectorProps {
   selectedMonth: string;
   onMonthChange: (month: string) => void;
+}
+
+export interface IncomeExpensesTableProps {
+  income: Income[];
+  expenses: Expense[];
 }

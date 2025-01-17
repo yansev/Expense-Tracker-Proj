@@ -1,4 +1,4 @@
-import { Button, FormLabel } from "@chakra-ui/react";
+import { Button, FormLabel, Select } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
 import { FormControl } from "@chakra-ui/react";
 import {
@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { SmallAddIcon } from "@chakra-ui/icons";
 import React, { useState } from "react";
-import { AddIncomeProps } from "../../../entities/expense/model";
+import { AddIncomeProps } from "../../../entities/model";
 import { useDisclosure, useToast } from "@chakra-ui/react";
 
 const AddIncome: React.FC<AddIncomeProps> = ({ onAddIncome }) => {
@@ -76,14 +76,26 @@ const AddIncome: React.FC<AddIncomeProps> = ({ onAddIncome }) => {
 
               <FormControl>
                 <FormLabel>Month</FormLabel>
-                <Input
-                  type="month"
+                <Select
                   id="month"
                   value={month}
                   onChange={(e) => setMonth(e.target.value)}
-                  placeholder="Month"
+                  placeholder="Select month"
                   required
-                />
+                >
+                  <option value="January">January</option>
+                  <option value="February">February</option>
+                  <option value="March">March</option>
+                  <option value="April">April</option>
+                  <option value="May">May</option>
+                  <option value="June">June</option>
+                  <option value="July">July</option>
+                  <option value="August">August</option>
+                  <option value="September">September</option>
+                  <option value="October">October</option>
+                  <option value="November">November</option>
+                  <option value="December">December</option>
+                </Select>
               </FormControl>
 
               <FormControl>

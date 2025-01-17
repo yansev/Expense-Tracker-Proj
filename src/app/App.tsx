@@ -5,8 +5,8 @@ import Savings from "./pages/Savings";
 import Home from "./pages/Home";
 import Expenses from "./pages/Expenses";
 import Income from "./pages/Income";
-import Bills from "./components/AddBills";
-import { MonthProvider } from "./components/expenses/MonthContext";
+import Bills from "./components/bills/AddBills";
+import { MonthProvider } from "./components/MonthContext";
 
 function App() {
   return (

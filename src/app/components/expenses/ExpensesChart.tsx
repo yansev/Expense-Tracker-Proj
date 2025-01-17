@@ -9,8 +9,8 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { Container, Heading } from "@chakra-ui/react";
-import { ExpensesChartProps } from "../../../entities/expense/model";
-import { useMonth } from "./MonthContext";
+import { ExpensesChartProps } from "../../../entities/model";
+import { useMonth } from "../MonthContext";
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 

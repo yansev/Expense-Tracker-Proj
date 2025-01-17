@@ -1,8 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
-import {
-  MonthContextProps,
-  MonthProviderProps,
-} from "../../../entities/expense/model";
+import { MonthContextProps, MonthProviderProps } from "../../entities/model";
 
 const MonthContext = createContext<MonthContextProps | undefined>(undefined);
 

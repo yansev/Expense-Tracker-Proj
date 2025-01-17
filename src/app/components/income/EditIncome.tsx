@@ -13,18 +13,18 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
+  Select,
 } from "@chakra-ui/react";
-import { EditIncomeProps } from "../../../entities/expense/model";
-
+import { EditIncomeProps } from "../../../entities/model";
 const EditIncome: React.FC<EditIncomeProps> = ({
+  income,
   isOpen,
   onClose,
-  income,
   onUpdatedIncome,
 }) => {
-  const [source, setSource] = useState(income.source);
-  const [month, setMonth] = useState(income.month);
-  const [amount, setAmount] = useState<number>(income.amount);
+  const [source, setSource] = useState(income?.source || "");
+  const [month, setMonth] = useState(income?.month || "");
+  const [amount, setAmount] = useState<number>(income?.amount || 0);
 
   useEffect(() => {
     if (income) {
@@ -40,9 +40,12 @@ const EditIncome: React.FC<EditIncomeProps> = ({
     const updatedIncome = {
       ...income,
       source,
-      month,
+      month: new Date(month + "-01").toLocaleString("en-US", {
+        month: "long",
+      }),
       amount,
     };
+    console.log("Updated income:", updatedIncome);
     onUpdatedIncome(updatedIncome);
     onClose();
   };
@@ -51,44 +54,56 @@ const EditIncome: React.FC<EditIncomeProps> = ({
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Edit Expense</ModalHeader>
+        <ModalHeader>Edit Income</ModalHeader>
         <ModalCloseButton color="red" />
         <ModalBody>
           <Container>
             <VStack spacing={4}>
               <form onSubmit={handleSubmit}>
                 <FormControl>
-                  <FormLabel>Expense Source</FormLabel>
+                  <FormLabel>Income Source</FormLabel>
                   <Input
                     type="text"
                     id="title"
                     value={source}
                     onChange={(e) => setSource(e.target.value)}
-                    placeholder="Enter expense title"
+                    placeholder="Enter income title"
                     required
                   />
                 </FormControl>
 
                 <FormControl>
                   <FormLabel>Month</FormLabel>
-                  <Input
-                    type="month"
+                  <Select
                     id="month"
                     value={month}
                     onChange={(e) => setMonth(e.target.value)}
-                    placeholder="Month"
+                    placeholder="Select month"
                     required
-                  />
+                  >
+                    <option value="January">January</option>
+                    <option value="February">February</option>
+                    <option value="March">March</option>
+                    <option value="April">April</option>
+                    <option value="May">May</option>
+                    <option value="June">June</option>
+                    <option value="July">July</option>
+                    <option value="August">August</option>
+                    <option value="September">September</option>
+                    <option value="October">October</option>
+                    <option value="November">November</option>
+                    <option value="December">December</option>
+                  </Select>
                 </FormControl>
 
                 <FormControl>
-                  <FormLabel>Planned Amount</FormLabel>
+                  <FormLabel>Amount</FormLabel>
                   <Input
                     type="number"
-                    id="plannedAmount"
+                    id="amount"
                     value={amount}
                     onChange={(e) => setAmount(parseFloat(e.target.value))}
-                    placeholder="Enter planned amount"
+                    placeholder="Enter amount"
                     required
                   />
                 </FormControl>

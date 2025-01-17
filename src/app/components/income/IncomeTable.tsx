@@ -13,17 +13,19 @@ import {
   Link,
   useDisclosure,
 } from "@chakra-ui/react";
-import { Income, IncomeTableProps } from "../../../entities/expense/model";
+import { Income, IncomeTableProps } from "../../../entities/model";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { useState } from "react";
 import EditIncome from "./EditIncome";
 import DeleteIncome from "./DeleteIncome";
+import { useMonth } from "../MonthContext";
 
 const IncomeTable: React.FC<IncomeTableProps> = ({
   income,
   onUpdatedIncome,
   onDeleteIncome,
 }) => {
+  const { selectedMonth } = useMonth();
   const [selectedIncome, setSelectedIncome] = useState<Income | null>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -32,13 +34,30 @@ const IncomeTable: React.FC<IncomeTableProps> = ({
     onClose: onCloseDeleteIncome,
   } = useDisclosure();
 
+  const formatMonthToLongName = (monthString: string) => {
+    const [year, month] = monthString.split("-");
+    const date = new Date(`${year}-${month}-01`);
+    return date.toLocaleString("default", { month: "long" });
+  };
+
+  const filteredIncome =
+    selectedMonth === "All" || !selectedMonth
+      ? income
+      : income.filter((incomeItem) => {
+          const formattedMonth = formatMonthToLongName(incomeItem.month);
+          return formattedMonth === selectedMonth;
+        });
+
+  console.log("Filtered results:", filteredIncome);
+
   const handleEditClick = (income: Income) => {
+    console.log("Editing income:", income);
     setSelectedIncome(income);
     onOpen();
   };
 
   const handleDeleteClick = (income: Income) => {
-    console.log("Deleted", income);
+    console.log("Deleting income:", income);
     setSelectedIncome(income);
     onOpenDeleteIncome();
   };
@@ -48,18 +67,13 @@ const IncomeTable: React.FC<IncomeTableProps> = ({
     onCloseDeleteIncome();
   };
 
-  const formatDateToMonthName = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleString("default", { month: "long" });
-  };
-
-  const amount = income.reduce((sum, expense) => sum + expense.amount, 0);
+  const amount = filteredIncome.reduce((sum, income) => sum + income.amount, 0);
 
   return (
     <Container maxW="container.xl">
       <TableContainer>
         <Heading size="md" mb={4} textAlign="center" color="#081F5C">
-          Income
+          Income for {selectedMonth || "Whole Year"}
         </Heading>
         <Table size="sm">
           <Thead>
@@ -71,10 +85,10 @@ const IncomeTable: React.FC<IncomeTableProps> = ({
             </Tr>
           </Thead>
           <Tbody>
-            {income.map((income, index) => (
+            {filteredIncome.map((income, index) => (
               <Tr key={index}>
                 <Td>{income.source}</Td>
-                <Td>{formatDateToMonthName(income.month)}</Td>
+                <Td>{formatMonthToLongName(income.month)}</Td>
                 <Td isNumeric>{income.amount}</Td>
                 <Td>
                   <Flex>

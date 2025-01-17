@@ -13,8 +13,10 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
+  Select,
+  useToast,
 } from "@chakra-ui/react";
-import { EditExpensesProps } from "../../../entities/expense/model";
+import { EditExpensesProps } from "../../../entities/model";
 
 const EditExpense: React.FC<EditExpensesProps> = ({
   isOpen,
@@ -40,6 +42,8 @@ const EditExpense: React.FC<EditExpensesProps> = ({
     }
   }, [expense]);
 
+  const toast = useToast();
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const updatedExpense = {
@@ -49,6 +53,12 @@ const EditExpense: React.FC<EditExpensesProps> = ({
       plannedAmount,
       actualAmount,
     };
+    toast({
+      title: "Data UpdatedSuccessfully!",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+    });
     onUpdatedExpense(updatedExpense);
     onClose();
   };
@@ -77,14 +87,26 @@ const EditExpense: React.FC<EditExpensesProps> = ({
 
                 <FormControl>
                   <FormLabel>Month</FormLabel>
-                  <Input
-                    type="month"
+                  <Select
                     id="month"
                     value={month}
                     onChange={(e) => setMonth(e.target.value)}
-                    placeholder="Month"
+                    placeholder="Select month"
                     required
-                  />
+                  >
+                    <option value="January">January</option>
+                    <option value="February">February</option>
+                    <option value="March">March</option>
+                    <option value="April">April</option>
+                    <option value="May">May</option>
+                    <option value="June">June</option>
+                    <option value="July">July</option>
+                    <option value="August">August</option>
+                    <option value="September">September</option>
+                    <option value="October">October</option>
+                    <option value="November">November</option>
+                    <option value="December">December</option>
+                  </Select>
                 </FormControl>
 
                 <FormControl>

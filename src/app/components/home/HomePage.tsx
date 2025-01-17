@@ -1,5 +1,5 @@
 // src/pages/HomePage.tsx
-import Summary from "../Summary";
+import Summary from "./Summary";
 
 const HomePage: React.FC = () => {
   return (

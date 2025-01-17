@@ -10,14 +10,14 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import ExpensesTable from "../components/expenses/ExpensesTable";
-import { Expense } from "../../entities/expense/model";
+import { Expense } from "../../entities/model";
 import ActualVsPlannedExpenses from "../components/expenses/ExpensesChart";
 import CalcModal from "../components/calculator/CalcModal";
 import { AiFillCalculator } from "react-icons/ai";
 import axios from "axios";
 import { useEffect } from "react";
-import { useMonth } from "../components/expenses/MonthContext";
-import MonthSelector from "../components/expenses/MonthSelector";
+import { useMonth } from "../components/MonthContext";
+import MonthSelector from "../components/MonthSelector";
 
 const ExpensesList: React.FC = () => {
   const [expenses, setExpenses] = useState<Expense[]>([]);

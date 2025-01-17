@@ -13,12 +13,12 @@ import {
   Container,
   Heading,
 } from "@chakra-ui/react";
-import { Expense, ExpensesTableProps } from "../../../entities/expense/model";
+import { Expense, ExpensesTableProps } from "../../../entities/model";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { useState } from "react";
 import EditExpense from "./EditExpenses";
 import DeleteExpense from "./DeleteExpense";
-import { useMonth } from "./MonthContext";
+import { useMonth } from "../MonthContext";
 
 const ExpensesTable: React.FC<ExpensesTableProps> = ({
   expenses,

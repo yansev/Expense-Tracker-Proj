@@ -11,44 +11,67 @@ import IncomeTable from "../components/income/IncomeTable";
 import CalcModal from "../components/calculator/CalcModal";
 import { AiFillCalculator } from "react-icons/ai";
 import { useState, useEffect } from "react";
-import { Income, Expense } from "../../entities/expense/model";
+import { Income, Expense } from "../../entities/model";
 import AddIncome from "../components/income/AddIncome";
 import axios from "axios";
 import IncomeGraph from "../components/income/IncomeGraph";
-const ExpensesList: React.FC = () => {
+import { useMonth } from "../components/MonthContext";
+import MonthSelector from "../components/MonthSelector";
+import IncomeExpensesTable from "../components/income/IncomeExpensesTable";
+
+const IncomeList: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [income, setIncome] = useState<Income[]>([]);
   const [expenses, setExpenses] = useState<Expense[]>([]);
+  const { selectedMonth } = useMonth();
 
-  useEffect(() => {
-    const fetchIncome = async () => {
+  const fetchIncome = async () => {
+    try {
       const response = await axios.get("http://localhost:3030/income");
       setIncome(response.data);
-    };
+    } catch (error) {
+      console.error("Error fetching income:", error);
+    }
+  };
+
+  useEffect(() => {
     fetchIncome();
   }, []);
 
-  useEffect(() => {
-    const fetchExpenses = async () => {
-      const response = await axios.get("http://localhost:3030/expenses");
-      setExpenses(response.data);
-    };
-    fetchExpenses();
-  }, []);
-
   const addIncome = async (newIncome: Income) => {
-    console.log("Adding income:", newIncome);
     try {
-      const response = await axios.post(
-        "http://localhost:3030/income",
-        newIncome
-      );
-      setIncome((prevIncome) => [...prevIncome, response.data]);
-      console.log("Added income:", response.data);
+      await axios.post("http://localhost:3030/income", newIncome);
+      fetchIncome(); // Now fetchIncome is accessible here
     } catch (error) {
       console.error("Error adding income:", error);
     }
   };
+
+  useEffect(() => {
+    const fetchExpenses = async () => {
+      try {
+        const response = await axios.get("http://localhost:3030/expenses");
+        setExpenses(response.data);
+      } catch (error) {
+        console.error("Error fetching expenses:", error);
+      }
+    };
+    fetchExpenses();
+  }, []);
+
+  // const addIncome = async (newIncome: Income) => {
+  //   console.log("Adding income:", newIncome);
+  //   try {
+  //     const response = await axios.post(
+  //       "http://localhost:3030/income",
+  //       newIncome
+  //     );
+  //     setIncome((prevIncome) => [...prevIncome, response.data]);
+  //     console.log("Added income:", response.data);
+  //   } catch (error) {
+  //     console.error("Error adding income:", error);
+  //   }
+  // };
 
   const updateIncome = async (updatedIncome: Income) => {
     try {
@@ -85,6 +108,7 @@ const ExpensesList: React.FC = () => {
   return (
     <Container maxW="container.xl" p={[1, 2, 3]}>
       <VStack p={[1, 2, 3]} align="center">
+        <MonthSelector />
         <Stack
           direction={["column", "column", "row"]}
           mt={[1, 2, 3]}
@@ -93,10 +117,12 @@ const ExpensesList: React.FC = () => {
         >
           <Box width={["100vw", "75vw", "50vw"]}>
             <IncomeGraph income={income} expenses={expenses} />
+            <IncomeExpensesTable income={income} expenses={expenses} />
           </Box>
           <Box width={["100vw", "75vw", "50vw"]} position="relative">
             <IncomeTable
               income={income}
+              selectedMonth={selectedMonth}
               onUpdatedIncome={updateIncome}
               onDeleteIncome={deleteIncome}
             />
@@ -123,4 +149,4 @@ const ExpensesList: React.FC = () => {
   );
 };
 
-export default ExpensesList;
+export default IncomeList;

@@ -1,6 +1,6 @@
-import Bills from "../components/AddBills";
+import Bills from "../components/bills/AddBills";
 import Calculator from "../components/calculator/Calculator";
-import BillsTable from "../tables/BillsTable";
+import BillsTable from "../components/bills/BillsTable";
 import { Box, Spacer, VStack } from "@chakra-ui/react";
 
 const BillsPage: React.FC = () => {

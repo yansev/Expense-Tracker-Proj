@@ -1,5 +1,5 @@
 import React from "react";
-import SummaryPage from "../components/Summary";
+import SummaryPage from "../components/home/HomePage";
 import { Box, HStack, Spacer } from "@chakra-ui/react";
 import Calculator from "../components/calculator/Calculator";
 

@@ -1,7 +1,7 @@
 import React from "react";
-import SavingsPlanner from "../components/SavingsPlanner";
+import SavingsPlanner from "../components/savings/SavingsPlanner";
 import { Box, VStack } from "@chakra-ui/react";
-import SavingsChallenge from "../components/SavingsChallenge";
+import SavingsChallenge from "../components/savings/SavingsChallenge";
 
 const SavingsPlannerPage: React.FC = () => (
   <VStack>

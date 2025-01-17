@@ -8,7 +8,7 @@ import {
   ModalCloseButton,
   Button,
 } from "@chakra-ui/react";
-import { DeleteIncomeProps } from "../../../entities/expense/model";
+import { DeleteIncomeProps } from "../../../entities/model";
 
 const DeleteIncome: React.FC<DeleteIncomeProps> = ({
   isOpenDeleteIncome,
@@ -30,7 +30,10 @@ const DeleteIncome: React.FC<DeleteIncomeProps> = ({
           <Button
             colorScheme="red"
             mr={3}
-            onClick={() => onDeleteIncome(income)}
+            onClick={() => {
+              console.log("Deleting income:", income);
+              onDeleteIncome(income);
+            }}
           >
             Delete
           </Button>
