@@ -9,12 +9,14 @@ import {
   Container,
   Heading,
 } from "@chakra-ui/react";
-import { IncomeExpensesTableProps } from "../../../entities/model";
+import { BalanceTableProps } from "../../../entities/model";
 import { useMonth } from "../MonthContext";
 
-const IncomeExpensesTable: React.FC<IncomeExpensesTableProps> = ({
+const IncomeExpensesTable: React.FC<BalanceTableProps> = ({
   income,
   expenses,
+  bills,
+  savings,
 }) => {
   const { selectedMonth } = useMonth();
 
@@ -25,7 +27,16 @@ const IncomeExpensesTable: React.FC<IncomeExpensesTableProps> = ({
   const totalExpenses =
     expenses?.reduce((total, expense) => total + expense.actualAmount, 0) || 0;
 
-  const balance = totalIncome - totalExpenses;
+  const totalBills = bills.reduce(
+    (total, bills) => total + (bills.actualAmount || 0),
+    0
+  );
+  const totalSavings = savings.reduce(
+    (total, savings) => total + (savings.amount || 0),
+    0
+  );
+
+  const balance = totalIncome - totalExpenses - totalBills - totalSavings;
 
   // const amount = filteredIncome.reduce((sum, income) => sum + income.amount, 0);
 
@@ -49,10 +60,18 @@ const IncomeExpensesTable: React.FC<IncomeExpensesTableProps> = ({
           </Thead>
           <Tbody>
             <Tr>
-              <Td isNumeric>{totalIncome}</Td>
-              <Td isNumeric>{totalExpenses}</Td>
-              <Td isNumeric>1000</Td>
-              <Td isNumeric>1000</Td>
+              <Td isNumeric>
+                {totalIncome.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              </Td>
+              <Td isNumeric>
+                {totalExpenses.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              </Td>
+              <Td isNumeric>
+                {totalBills.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              </Td>
+              <Td isNumeric>
+                {totalSavings.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              </Td>
               <Td isNumeric textAlign="right" fontWeight="bold">
                 {balance}
               </Td>

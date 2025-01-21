@@ -17,6 +17,7 @@ import MonthSelector from "../components/MonthSelector";
 import AddBills from "../components/bills/AddBills";
 import { Bill } from "../../entities/model";
 import BillsTable from "../components/bills/BillsTable";
+import Scheduler from "../components/bills/Scheduler";
 
 const Bills: React.FC = () => {
   const [bills, setBills] = useState<Bill[]>([]);
@@ -27,7 +28,6 @@ const Bills: React.FC = () => {
     const fetchBills = async () => {
       try {
         const response = await axios.get("http://localhost:3030/bills");
-        console.log("Fetched Bills:", response.data);
         setBills(response.data);
       } catch (error) {
         console.error("Error fetching bills:", error);
@@ -92,7 +92,7 @@ const Bills: React.FC = () => {
           spacing={[1, 2, 3]}
         >
           <Box width={["100vw", "75vw", "50vw"]}>
-            {/* <ActualVsPlannedExpenses expenses={expenses} /> */}
+            <Scheduler bills={bills} />
           </Box>
           <Box width={["100vw", "75vw", "50vw"]} position="relative">
             <BillsTable

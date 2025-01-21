@@ -11,7 +11,7 @@ import IncomeTable from "../components/income/IncomeTable";
 import CalcModal from "../components/calculator/CalcModal";
 import { AiFillCalculator } from "react-icons/ai";
 import { useState, useEffect } from "react";
-import { Income, Expense } from "../../entities/model";
+import { Income, Expense, Bill, Savings } from "../../entities/model";
 import AddIncome from "../components/income/AddIncome";
 import axios from "axios";
 import IncomeGraph from "../components/income/IncomeGraph";
@@ -23,6 +23,8 @@ const IncomeList: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [income, setIncome] = useState<Income[]>([]);
   const [expenses, setExpenses] = useState<Expense[]>([]);
+  const [bills, setBills] = useState<Bill[]>([]);
+  const [savings, setSavings] = useState<Savings[]>([]);
   const { selectedMonth } = useMonth();
 
   const fetchIncome = async () => {
@@ -57,6 +59,30 @@ const IncomeList: React.FC = () => {
       }
     };
     fetchExpenses();
+  }, []);
+
+  useEffect(() => {
+    const fetchBills = async () => {
+      try {
+        const response = await axios.get("http://localhost:3030/bills");
+        setBills(response.data);
+      } catch (error) {
+        console.error("Error fetching bills:", error);
+      }
+    };
+    fetchBills();
+  }, []);
+
+  useEffect(() => {
+    const fetchSavings = async () => {
+      try {
+        const response = await axios.get("http://localhost:3030/savings");
+        setSavings(response.data);
+      } catch (error) {
+        console.error("Error fetching savings:", error);
+      }
+    };
+    fetchSavings();
   }, []);
 
   // const addIncome = async (newIncome: Income) => {
@@ -117,7 +143,12 @@ const IncomeList: React.FC = () => {
         >
           <Box width={["100vw", "75vw", "50vw"]}>
             <IncomeGraph income={income} expenses={expenses} />
-            <IncomeExpensesTable income={income} expenses={expenses} />
+            <IncomeExpensesTable
+              income={income}
+              expenses={expenses}
+              bills={bills}
+              savings={savings}
+            />
           </Box>
           <Box width={["100vw", "75vw", "50vw"]} position="relative">
             <IncomeTable

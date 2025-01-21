@@ -12,8 +12,8 @@ import { useState, useEffect } from "react";
 import { MonthlyData, SavingsTableProps } from "../../../entities/model";
 
 const SavingsTable: React.FC<SavingsTableProps> = ({
-  savingsPercentage,
   income,
+  onTotalSavingsChange,
 }) => {
   const [incomeByMonth, setIncomeByMonth] = useState<MonthlyData[]>([]);
 
@@ -28,15 +28,23 @@ const SavingsTable: React.FC<SavingsTableProps> = ({
   };
 
   useEffect(() => {
+    const savingsPercentage = 20; // Fixed savings percentage
     // Map through the income data and calculate savings for each month
     const updatedIncomeByMonth = (income || []).map((data) => ({
       month: formatMonthToLongName(data.month),
       income: data.amount,
       savings: calculateSavings(data.amount, savingsPercentage),
+      expenses: 0,
+      bills: 0,
     }));
 
     setIncomeByMonth(updatedIncomeByMonth);
-  }, [savingsPercentage, income]);
+    const totalSavings = updatedIncomeByMonth.reduce(
+      (sum, item) => sum + item.savings,
+      0
+    );
+    onTotalSavingsChange(totalSavings);
+  }, [income, onTotalSavingsChange]);
 
   const totalIncome = incomeByMonth.reduce((sum, item) => sum + item.income, 0);
   const totalSavings = incomeByMonth.reduce(
@@ -60,16 +68,24 @@ const SavingsTable: React.FC<SavingsTableProps> = ({
           {incomeByMonth.map((item, index) => (
             <Tr key={index}>
               <Td>{item.month}</Td>
-              <Td isNumeric>{item.income}</Td>
-              <Td isNumeric>{item.savings.toFixed(2)}</Td>
+              <Td isNumeric>
+                {item.income.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              </Td>
+              <Td isNumeric>
+                {item.savings.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              </Td>
             </Tr>
           ))}
         </Tbody>
         <Tfoot>
           <Tr>
             <Th>Total</Th>
-            <Td isNumeric>{totalIncome}</Td>
-            <Td isNumeric>{totalSavings.toFixed(2)}</Td>
+            <Td isNumeric>
+              {totalIncome.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            </Td>
+            <Td isNumeric>
+              {totalSavings.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            </Td>
           </Tr>
         </Tfoot>
       </Table>

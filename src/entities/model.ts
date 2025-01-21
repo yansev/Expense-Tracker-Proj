@@ -98,9 +98,11 @@ export interface MonthSelectorProps {
   onMonthChange: (month: string) => void;
 }
 
-export interface IncomeExpensesTableProps {
+export interface BalanceTableProps {
   income: Income[];
   expenses: Expense[];
+  bills: Bill[];
+  savings: Savings[];
 }
 
 export interface Bill {
@@ -149,15 +151,30 @@ export interface Savings {
 export interface SavingsTableProps {
   savingsPercentage: number;
   income: Income[];
+  onTotalSavingsChange: (totalSavings: number) => void;
 }
 
 export interface MonthlyData {
   month: string;
   savings: number;
   income: number;
+  expenses: number;
+  bills: number;
 }
 
 export interface SavingsPlannerProps {
   totalIncome: number;
+  totalExpenses: number;
+  totalBills: number;
+  totalSavings: number;
   onSavingsChange: (percentage: number) => void;
+}
+
+export interface SchedulerProps {
+  bills: Bill[];
+}
+
+export interface SavingsContextProps {
+  savingsPercentage: number;
+  setSavingsPercentage: (percentage: number) => void;
 }

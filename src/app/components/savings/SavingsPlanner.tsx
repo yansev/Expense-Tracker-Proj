@@ -1,95 +1,83 @@
-import { HStack, VStack, Select, Text } from "@chakra-ui/react";
-import { useState } from "react";
+import { HStack, VStack, Text } from "@chakra-ui/react";
+import { useState, useEffect } from "react";
 import { SavingsPlannerProps } from "../../../entities/model";
 
 const SavingsPlanner: React.FC<SavingsPlannerProps> = ({
   totalIncome,
-  // onSavingsChange,
+  totalExpenses,
+  totalBills,
 }) => {
-  const [savingsPercentage, setSavingsPercentage] = useState<number>(0);
-  const [remainingIncome, setRemainingIncome] = useState<number>(totalIncome);
+  const [remainingBalance, setRemainingBalance] = useState<number>(0);
+  const totalSavings = totalIncome * 0.2;
 
-  const handleSavingsPercentageChange = (
-    e: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    const newSavingsPercentage = parseFloat(e.target.value);
-    setSavingsPercentage(newSavingsPercentage);
-    calculateRemainingIncome(totalIncome, newSavingsPercentage);
-  };
-
-  const calculateRemainingIncome = (
+  const calculateRemainingBalance = (
     income: number,
-    savingsPercentage: number
+    expenses: number,
+    savingsPercentage: number,
+    bills: number
   ) => {
-    const savingsAmount = (income * savingsPercentage) / 100;
-    const remaining = income - savingsAmount;
-    setRemainingIncome(remaining);
+    const savings = (income * savingsPercentage) / 100;
+    const remaining = income - expenses - bills - savings;
+    setRemainingBalance(remaining);
   };
 
-  const percentages = [
-    "5",
-    "10",
-    "15",
-    "20",
-    "25",
-    "30",
-    "35",
-    "40",
-    "45",
-    "50",
-  ];
-
-  // const handleSavingsChange = (value: number) => {
-  //   onSavingsChange(value);
-  // };
+  // Automatically apply a 20% savings percentage when the component mounts
+  useEffect(() => {
+    calculateRemainingBalance(totalIncome, totalExpenses, 20, totalBills);
+  }, [totalIncome, totalExpenses, totalBills, totalSavings]);
 
   return (
     <VStack spacing={4} align="center" p={4}>
+      <Text
+        fontSize="40px"
+        color="#FFFFFF"
+        p={2}
+        position="relative"
+        fontWeight="bold"
+      >
+        Remaining Balance:{" "}
+        {remainingBalance.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+      </Text>
       <HStack>
         <Text
-          fontSize="20px"
-          color="#FFFFFF"
-          fontWeight="bold"
-          display="inline-block"
-          w="100%"
-        >
-          Savings Percentage:
-        </Text>
-        <Select
-          placeholder="Select Savings Percentage"
-          value={savingsPercentage}
-          onChange={handleSavingsPercentageChange}
-          w="100%"
-          bg="#FFFFFF"
-          borderColor="#081F5C"
-          _hover={{ borderColor: "#054687" }}
-          _focus={{ borderColor: "#054687", boxShadow: "0 0 0 1px #054687" }}
-        >
-          {percentages.map((percentage) => (
-            <option key={percentage} value={percentage}>
-              {percentage}%
-            </option>
-          ))}
-        </Select>
-      </HStack>
-      <HStack>
-        <Text
-          fontSize="20px"
+          fontSize="10px"
           color="#FFFFFF"
           border="1px solid #ffffff"
           position="relative"
           p={2}
         >
-          Total Income: ${totalIncome.toFixed(2)}
+          Total Income:{" "}
+          {totalIncome.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
         </Text>
         <Text
-          fontSize="20px"
+          fontSize="10px"
           color="#FFFFFF"
           border="1px solid #ffffff"
           p={2}
           position="relative"
         >
-          Remaining Income: ${remainingIncome.toFixed(2)}
+          Total Expenses:{" "}
+          {totalExpenses.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+        </Text>
+        <Text
+          fontSize="10px"
+          color="#FFFFFF"
+          border="1px solid #ffffff"
+          p={2}
+          position="relative"
+        >
+          Total Bills:{" "}
+          {totalBills.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+        </Text>
+        <Text
+          fontSize="10px"
+          color="#FFFFFF"
+          border="1px solid #ffffff"
+          p={2}
+          position="relative"
+        >
+          Total Savings:{" "}
+          {totalSavings.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
         </Text>
       </HStack>
     </VStack>

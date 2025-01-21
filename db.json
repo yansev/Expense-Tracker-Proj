@@ -13,6 +13,27 @@
       "month": "February",
       "plannedAmount": 15000,
       "actualAmount": 10000
+    },
+    {
+      "id": "1737444313737",
+      "title": "Gasoline",
+      "month": "January",
+      "plannedAmount": 5000,
+      "actualAmount": 6000
+    },
+    {
+      "id": 1737467314011,
+      "title": "Clothes",
+      "month": "January",
+      "plannedAmount": 2000,
+      "actualAmount": 2000
+    },
+    {
+      "id": 1737471580626,
+      "title": "Car Downpayment",
+      "month": "April",
+      "plannedAmount": 40000,
+      "actualAmount": 40000
     }
   ],
   "income": [
@@ -26,56 +47,66 @@
       "id": "1737365000645",
       "source": "Part Time",
       "month": "February",
-      "amount": 10000
+      "amount": 20000
+    },
+    {
+      "id": 1737449388706,
+      "source": "Salary",
+      "month": "March",
+      "amount": 50000
+    },
+    {
+      "id": 1737471543994,
+      "source": "Salary",
+      "month": "April",
+      "amount": 75000
     }
   ],
   "bills": [
     {
-      "id": "1737340813467",
-      "title": "credit card",
-      "dueDate": "2025-01-20",
-      "plannedAmount": 1000,
-      "actualAmount": 700,
-      "billTitle": "title",
-      "paid": false
-    },
-    {
-      "id": "1737346788653",
-      "billTitle": "Credit Card",
-      "plannedAmount": 6000,
-      "actualAmount": 7000,
-      "dueDate": "2025-01-31",
-      "paid": false
-    },
-    {
-      "id": "1737346905253",
-      "billTitle": "electricity",
-      "plannedAmount": 3000,
-      "actualAmount": 3500,
-      "dueDate": "2025-01-15",
-      "paid": false
-    },
-    {
-      "id": "1737346936294",
-      "billTitle": "water",
-      "plannedAmount": 300,
-      "actualAmount": 300,
-      "dueDate": "2025-01-20"
-    },
-    {
-      "id": "1737351372455",
-      "billTitle": "Credit Card",
+      "id": "1737445172133",
+      "billTitle": "Credit",
       "plannedAmount": 10000,
-      "actualAmount": 9000,
-      "dueDate": "2025-03-12"
+      "actualAmount": 8000,
+      "dueDate": "2025-01-30",
+      "paid": true
     },
     {
-      "id": "1737352846755",
-      "billTitle": "Subdivision bills",
+      "id": "1737445375180",
+      "billTitle": "Electricity",
+      "plannedAmount": 5000,
+      "actualAmount": 6000,
+      "dueDate": "2025-01-30",
+      "paid": true
+    },
+    {
+      "id": "1737445401796",
+      "billTitle": "Water",
       "plannedAmount": 2000,
-      "actualAmount": 2000,
-      "dueDate": "2025-01-21",
-      "paid": false
+      "actualAmount": 1500,
+      "dueDate": "2025-01-25",
+      "paid": true
+    },
+    {
+      "id": "1737445421413",
+      "billTitle": "Subdivision Bills",
+      "plannedAmount": 800,
+      "actualAmount": 800,
+      "dueDate": "2025-02-05",
+      "paid": true
+    },
+    {
+      "id": "1737445437613",
+      "billTitle": "Rent",
+      "plannedAmount": 20000,
+      "actualAmount": 20000,
+      "dueDate": "2025-02-05",
+      "paid": true
+    }
+  ],
+  "savings": [
+    {
+      "percentage": 10
     }
   ]
 }

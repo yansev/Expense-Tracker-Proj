@@ -1,19 +1,14 @@
 import React from "react";
 import SummaryPage from "../components/home/HomePage";
-import { Box, HStack, Spacer } from "@chakra-ui/react";
+import { Box, VStack } from "@chakra-ui/react";
 
 const Summary: React.FC = () => (
-  <HStack>
+  <VStack>
     <Box>
       <SummaryPage />
     </Box>
-
-    <Spacer>
-      <Box width="20%" position="fixed" right="0" p="4">
-        {/* <DateTime /> */}
-      </Box>
-    </Spacer>
-  </HStack>
+    <Box>{/* <CalendarApp /> */}</Box>
+  </VStack>
 );
 
 export default Summary;
