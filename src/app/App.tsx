@@ -5,7 +5,7 @@ import Savings from "./pages/Savings";
 import Home from "./pages/Home";
 import Expenses from "./pages/Expenses";
 import Income from "./pages/Income";
-import Bills from "./components/bills/AddBills";
+import Bills from "./pages/Bills";
 import { MonthProvider } from "./components/MonthContext";
 
 function App() {
@@ -20,13 +20,7 @@ function App() {
 
               <Route path="/savings" element={<Savings />} />
 
-              {/* <Route
-              path="/expenses/*"
-              element={
-                  <Expenses />
-                
-              }
-            /> */}
+              {/* <Route path="/expenses/*" element={<Expenses />} /> */}
               <Route path="/expenses" element={<Expenses />} />
               <Route path="/expenses/add" element={<Expenses />} />
               <Route path="/expenses/:id/edit" element={<Expenses />} />
@@ -38,6 +32,9 @@ function App() {
               <Route path="/income/:id/delete" element={<Income />} />
 
               <Route path="/bills" element={<Bills />} />
+              <Route path="/bills/add" element={<Bills />} />
+              <Route path="/bills/:id/edit" element={<Bills />} />
+              <Route path="/bills/:id/delete" element={<Bills />} />
             </Routes>
           </Box>
         </Router>

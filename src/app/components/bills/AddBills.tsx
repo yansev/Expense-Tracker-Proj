@@ -1,108 +1,156 @@
+import { Button, FormLabel } from "@chakra-ui/react";
+import { Input } from "@chakra-ui/react";
+import { FormControl } from "@chakra-ui/react";
+import {
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+} from "@chakra-ui/react";
+import { SmallAddIcon } from "@chakra-ui/icons";
 import React, { useState } from "react";
-import axios from "axios";
-import { Button, FormControl, FormLabel, Input } from "@chakra-ui/react";
+import { AddBillsProps } from "../../../entities/model";
+import { useDisclosure, useToast } from "@chakra-ui/react";
 
-const Bills: React.FC = () => {
-  const [bill, setBill] = useState<string>(""); // Title of the expense
-  const [plannedAmount, setPlannedAmount] = useState<number>(); // Amount for the expense
-  const [actualAmount, setActualAmount] = useState<number>(); // Amount for the expense
-  const [dueDate, setDueDate] = useState<Date | null>(null); // Due date of the bill
-  const [isFormVisible, setIsFormVisible] = useState<boolean>(false); // Track from visibility
+const AddBills: React.FC<AddBillsProps> = ({ onAddBill }) => {
+  const [billTitle, setBillTitle] = useState<string>("");
+  const [dueDate, setDueDate] = useState<string>("");
+  const [plannedAmount, setPlannedAmount] = useState<number>(0);
+  const [actualAmount, setActualAmount] = useState<number>(0);
 
-  // Handle form submission
-  const handleSubmit = async (e: React.FormEvent) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Prepare the expense data
+    // Parse the dueDate and convert the month to a string
+    // const date = new Date(dueDate);
+    // const monthNames = [
+    //   "January",
+    //   "February",
+    //   "March",
+    //   "April",
+    //   "May",
+    //   "June",
+    //   "July",
+    //   "August",
+    //   "September",
+    //   "October",
+    //   "November",
+    //   "December",
+    // ];
+    // const formattedDueDate = monthNames[date.getMonth()];
+
     const newBill = {
-      bill,
-      plannedAmount,
-      actualAmount,
-      dueDate,
+      id: Date.now(),
+      billTitle: billTitle,
+      plannedAmount: plannedAmount || 0,
+      actualAmount: actualAmount || 0,
+      dueDate: dueDate,
+      paid: false,
+      // dueDate: formattedDueDate, // Use only the month
     };
 
-    try {
-      // Send a POST request to the backend
-      const response = await axios.post("/api/expenses", newBill);
-      console.log("Bill added:", response.data);
-
-      // Reset form fields after successful submission
-      setBill("");
+    const resetForm = () => {
+      setBillTitle("");
+      setDueDate("");
       setPlannedAmount(0);
       setActualAmount(0);
-      setDueDate(null);
-    } catch (error) {
-      console.error("Error adding expense:", error);
-    }
+    };
+
+    onAddBill(newBill);
+    toast({
+      title: "Bill Added Successfully!",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+    });
+    resetForm();
+    onClose();
   };
 
   return (
-    <div>
-      <Button onClick={() => setIsFormVisible(!isFormVisible)}>Add Bill</Button>
-      {isFormVisible && (
-        <form onSubmit={handleSubmit}>
-          <div>
-            <FormControl>
-              <FormLabel>Bill Title</FormLabel>
-              <Input
-                type="text"
-                id="bill"
-                value={bill}
-                onChange={(e) => setBill(e.target.value)}
-                placeholder="Enter bill title"
-                required
-              />
-            </FormControl>
-          </div>
+    <>
+      <Button onClick={onOpen}>
+        <SmallAddIcon /> Add Bill
+      </Button>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>New Bill</ModalHeader>
+          <ModalCloseButton color="red" />
+          <ModalBody>
+            <form onSubmit={handleSubmit}>
+              <FormControl>
+                <FormLabel>Bill Title</FormLabel>
+                <Input
+                  type="text"
+                  id="source"
+                  value={billTitle}
+                  onChange={(e) => setBillTitle(e.target.value || "")}
+                  placeholder="Enter bill title"
+                  required
+                />
+              </FormControl>
 
-          <div>
-            <FormControl>
-              <FormLabel>Due Date</FormLabel>
-              <Input
-                type="date"
-                id="dueDate"
-                value={dueDate ? dueDate.toISOString().split("T")[0] : ""}
-                onChange={(e) =>
-                  setDueDate(e.target.value ? new Date(e.target.value) : null)
-                }
-                placeholder="Due Date"
-                required
-              />
-            </FormControl>
-          </div>
+              <FormControl>
+                <FormLabel>Planned Amount</FormLabel>
+                <Input
+                  type="number"
+                  id="plannedAmount"
+                  value={plannedAmount}
+                  onChange={(e) =>
+                    setPlannedAmount(parseFloat(e.target.value) || 0)
+                  }
+                  placeholder="Enter planned amount"
+                  required
+                />
+              </FormControl>
 
-          <div>
-            <FormControl>
-              <FormLabel>Planned Amount</FormLabel>
-              <Input
-                type="number"
-                id="plannedAmount"
-                value={plannedAmount}
-                onChange={(e) => setPlannedAmount(parseFloat(e.target.value))}
-                placeholder="Enter planned amount"
-                required
-              />
-            </FormControl>
-          </div>
+              <FormControl>
+                <FormLabel>Actual Amount</FormLabel>
+                <Input
+                  type="number"
+                  id="actualAmount"
+                  value={actualAmount}
+                  onChange={(e) =>
+                    setActualAmount(parseFloat(e.target.value) || 0)
+                  }
+                  placeholder="Enter actual amount"
+                  required
+                />
+              </FormControl>
 
-          <div>
-            <FormControl>
-              <FormLabel>Actual Amount</FormLabel>
-              <Input
-                type="number"
-                id="actualAmount"
-                value={actualAmount}
-                onChange={(e) => setActualAmount(parseFloat(e.target.value))}
-                placeholder="Enter actual amount"
-              />
-            </FormControl>
-          </div>
+              <FormControl>
+                <FormLabel>Due Date</FormLabel>
+                <Input
+                  type="date"
+                  id="dueDate"
+                  value={dueDate}
+                  onChange={(e) => setDueDate(e.target.value)}
+                  required
+                />
+              </FormControl>
 
-          <button type="submit">Add Expense</button>
-        </form>
-      )}
-    </div>
+              <Button type="submit" colorScheme="green" mt={3}>
+                Add Bill
+              </Button>
+            </form>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme="red" mr={3} onClick={onClose} mt={3}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
   );
 };
 
-export default Bills;
+export default AddBills;

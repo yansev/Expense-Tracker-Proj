@@ -102,3 +102,62 @@ export interface IncomeExpensesTableProps {
   income: Income[];
   expenses: Expense[];
 }
+
+export interface Bill {
+  id: number;
+  billTitle: string;
+  dueDate: string;
+  paid: boolean;
+  plannedAmount: number;
+  actualAmount: number;
+}
+
+export interface AddBillsProps {
+  onAddBill: (bill: Bill) => void;
+}
+
+export interface EditBillsProps {
+  isOpen: boolean;
+  onClose: () => void;
+  bill: Bill;
+  onUpdatedBill: (updatedBill: Bill) => void;
+}
+
+export interface DeleteBillsProps {
+  isOpenDeleteBill: boolean;
+  onCloseDeleteBill: () => void;
+  bill: Bill;
+  onDeleteBill: (bill: Bill) => void;
+}
+
+export interface BillsTableProps {
+  bills: Bill[];
+  onUpdatedBill: (updatedBill: Bill) => void;
+  onDeleteBill: (bill: Bill) => void;
+  selectedMonth: string;
+}
+
+export interface Savings {
+  id: number;
+  month: string;
+  amount: number;
+  savingsPercentage: number;
+  income: Income[];
+  expenses: Expense[];
+}
+
+export interface SavingsTableProps {
+  savingsPercentage: number;
+  income: Income[];
+}
+
+export interface MonthlyData {
+  month: string;
+  savings: number;
+  income: number;
+}
+
+export interface SavingsPlannerProps {
+  totalIncome: number;
+  onSavingsChange: (percentage: number) => void;
+}

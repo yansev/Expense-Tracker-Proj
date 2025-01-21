@@ -35,32 +35,6 @@ const IncomeExpensesGraph: React.FC<IncomeChartProps> = ({
   });
 
   useEffect(() => {
-    const totalIncome = income.reduce(
-      (total, income) => total + (income.amount || 0),
-      0
-    );
-    const totalExpenses =
-      expenses?.reduce((total, expense) => total + expense.actualAmount, 0) ||
-      0;
-
-    setChartData({
-      labels: ["Income vs Expenses"],
-      datasets: [
-        {
-          label: "Income",
-          data: [totalIncome],
-          backgroundColor: "#D0E3FF",
-        },
-        {
-          label: "Expenses",
-          data: [totalExpenses],
-          backgroundColor: "#FFB6C1",
-        },
-      ],
-    });
-  }, [income, expenses]);
-
-  useEffect(() => {
     // Filter income and expenses based on the selected month
     const filteredIncome =
       selectedMonth === "All" || !selectedMonth
