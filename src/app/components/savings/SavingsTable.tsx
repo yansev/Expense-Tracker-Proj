@@ -17,10 +17,6 @@ const SavingsTable: React.FC<SavingsTableProps> = ({
 }) => {
   const [incomeByMonth, setIncomeByMonth] = useState<MonthlyData[]>([]);
 
-  const calculateSavings = (income: number, percentage: number) => {
-    return (income * percentage) / 100;
-  };
-
   const formatMonthToLongName = (monthString: string) => {
     const [year, month] = monthString.split("-");
     const date = new Date(`${year}-${month}-01`);
@@ -29,11 +25,10 @@ const SavingsTable: React.FC<SavingsTableProps> = ({
 
   useEffect(() => {
     const savingsPercentage = 20; // Fixed savings percentage
-    // Map through the income data and calculate savings for each month
     const updatedIncomeByMonth = (income || []).map((data) => ({
       month: formatMonthToLongName(data.month),
       income: data.amount,
-      savings: calculateSavings(data.amount, savingsPercentage),
+      savings: (data.amount * savingsPercentage) / 100,
       expenses: 0,
       bills: 0,
     }));

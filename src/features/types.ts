@@ -22,6 +22,7 @@ export interface SavingsChallenge {
 export interface SummaryData {
   income: number;
   expenses: number;
+  bills: number;
   savings: number;
 }
 

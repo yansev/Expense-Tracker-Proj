@@ -1,8 +1,8 @@
-import { HStack, VStack, Text } from "@chakra-ui/react";
+import { HStack, VStack, Text, Button } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
-import { SavingsPlannerProps } from "../../../entities/model";
+import { BalanceProps } from "../../entities/model";
 
-const SavingsPlanner: React.FC<SavingsPlannerProps> = ({
+const Balance: React.FC<BalanceProps> = ({
   totalIncome,
   totalExpenses,
   totalBills,
@@ -30,58 +30,82 @@ const SavingsPlanner: React.FC<SavingsPlannerProps> = ({
     <VStack spacing={4} align="center" p={4}>
       <Text
         fontSize="40px"
-        color="#FFFFFF"
         p={2}
         position="relative"
-        fontWeight="bold"
+        fontWeight="extrabold"
+        color="#91a56e"
       >
         Remaining Balance:{" "}
         {remainingBalance.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
       </Text>
       <HStack>
-        <Text
+        <Button
           fontSize="10px"
-          color="#FFFFFF"
-          border="1px solid #ffffff"
+          color="#91a56e"
+          border="1px solid #91a56e"
           position="relative"
           p={2}
+          as="a"
+          href="/income"
+          _hover={{
+            backgroundColor: "#91a56e",
+            color: "#ffffff",
+          }}
         >
           Total Income:{" "}
           {totalIncome.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-        </Text>
-        <Text
+        </Button>
+        <Button
           fontSize="10px"
-          color="#FFFFFF"
-          border="1px solid #ffffff"
+          color="#91a56e"
+          border="1px solid #91a56e"
           p={2}
           position="relative"
+          as="a"
+          href="/expenses"
+          _hover={{
+            backgroundColor: "#91a56e",
+            color: "#ffffff",
+          }}
         >
           Total Expenses:{" "}
           {totalExpenses.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-        </Text>
-        <Text
+        </Button>
+        <Button
           fontSize="10px"
-          color="#FFFFFF"
-          border="1px solid #ffffff"
+          color="#91a56e"
+          border="1px solid #91a56e"
           p={2}
           position="relative"
+          as="a"
+          href="/bills"
+          _hover={{
+            backgroundColor: "#91a56e",
+            color: "#ffffff",
+          }}
         >
           Total Bills:{" "}
           {totalBills.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-        </Text>
-        <Text
+        </Button>
+        <Button
           fontSize="10px"
-          color="#FFFFFF"
-          border="1px solid #ffffff"
+          color="#91a56e"
+          border="1px solid #91a56e"
           p={2}
           position="relative"
+          as="a"
+          href="/savings"
+          _hover={{
+            backgroundColor: "#91a56e",
+            color: "#ffffff",
+          }}
         >
           Total Savings:{" "}
           {totalSavings.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-        </Text>
+        </Button>
       </HStack>
     </VStack>
   );
 };
 
-export default SavingsPlanner;
+export default Balance;

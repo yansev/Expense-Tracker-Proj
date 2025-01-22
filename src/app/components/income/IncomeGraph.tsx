@@ -24,12 +24,12 @@ const IncomeExpensesGraph: React.FC<IncomeChartProps> = ({
       {
         label: "Income",
         data: [0],
-        backgroundColor: "#D0E3FF",
+        backgroundColor: "#91a56e",
       },
       {
         label: "Expenses",
         data: [0],
-        backgroundColor: "#FFB6C1",
+        backgroundColor: "#8f8b84",
       },
     ],
   });
@@ -63,12 +63,12 @@ const IncomeExpensesGraph: React.FC<IncomeChartProps> = ({
         {
           label: "Income",
           data: [totalIncome],
-          backgroundColor: "#D0E3FF",
+          backgroundColor: "#91a56e",
         },
         {
           label: "Expenses",
           data: [totalExpenses],
-          backgroundColor: "#FFB6C1",
+          backgroundColor: "#8f8b84",
         },
       ],
     });

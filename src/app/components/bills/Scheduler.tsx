@@ -11,8 +11,8 @@ import { useEffect, useState } from "react";
 import { SchedulerProps } from "../../../entities/model";
 
 const Scheduler: React.FC<SchedulerProps> = ({ bills }) => {
-  // const eventsService = useState(() => createEventsServicePlugin())[0];
-  const [eventsService] = useState(() => createEventsServicePlugin());
+  const eventsService = useState(() => createEventsServicePlugin())[0];
+  // const [eventsService] = useState(() => createEventsServicePlugin());
 
   const events = bills.map((bill) => ({
     id: bill.id.toString() || "default id",
@@ -34,7 +34,6 @@ const Scheduler: React.FC<SchedulerProps> = ({ bills }) => {
   });
 
   useEffect(() => {
-    // get all events
     eventsService.getAll();
   }, [eventsService]);
 

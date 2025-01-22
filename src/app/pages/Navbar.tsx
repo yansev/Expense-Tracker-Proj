@@ -14,17 +14,17 @@ import {
 
 export const Navbar = () => {
   return (
-    <HStack backgroundColor="#2d3250" width="100vw">
+    <HStack backgroundColor="#606e52" width="100vw">
       <Breadcrumb
         // ml="4"
         // mt="4"
         // mb="4"
         // spacing="4"
-        separator={<MinusIcon color="gray.500" />}
+        separator={<MinusIcon color="#c0cca4" />}
         width="100vw"
         px={[1, 2, 3]}
       >
-        <BreadcrumbItem color="#f7f2eb" backgroundColor="#2d3250" p="4">
+        <BreadcrumbItem color="#ffffff" backgroundColor="#606e52" p="4">
           <BreadcrumbLink href="/">
             <HStack spacing={[1, 2, 3]}>
               <AiOutlineHome />
@@ -33,7 +33,7 @@ export const Navbar = () => {
           </BreadcrumbLink>
         </BreadcrumbItem>
 
-        <BreadcrumbItem color="#f7f2eb" backgroundColor="#2d3250" p="4">
+        <BreadcrumbItem color="#ffffff" backgroundColor="#606e52" p="4">
           <BreadcrumbLink href="/income">
             <HStack spacing="10px">
               <AiOutlineCalculator />
@@ -42,7 +42,7 @@ export const Navbar = () => {
           </BreadcrumbLink>
         </BreadcrumbItem>
 
-        <BreadcrumbItem color="#f7f2eb" backgroundColor="#2d3250" p="4">
+        <BreadcrumbItem color="#ffffff" backgroundColor="#606e52" p="4">
           <BreadcrumbLink href="/expenses">
             <HStack spacing={[1, 2, 3]}>
               <AiOutlineCreditCard />
@@ -51,7 +51,7 @@ export const Navbar = () => {
           </BreadcrumbLink>
         </BreadcrumbItem>
 
-        <BreadcrumbItem color="#f7f2eb" backgroundColor="#2d3250" p="4">
+        <BreadcrumbItem color="#ffffff" backgroundColor="#606e52" p="4">
           <BreadcrumbLink href="/bills">
             <HStack spacing="10px">
               <AiOutlineDollarCircle />
@@ -60,7 +60,7 @@ export const Navbar = () => {
           </BreadcrumbLink>
         </BreadcrumbItem>
 
-        <BreadcrumbItem color="#f7f2eb" backgroundColor="#2d3250" p="4">
+        <BreadcrumbItem color="#ffffff" backgroundColor="#606e52" p="4">
           <BreadcrumbLink href="/savings">
             <HStack spacing={[1, 2, 3]}>
               <AiOutlineDollarCircle />

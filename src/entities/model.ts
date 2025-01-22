@@ -149,8 +149,8 @@ export interface Savings {
 }
 
 export interface SavingsTableProps {
-  savingsPercentage: number;
   income: Income[];
+  savings: Savings[];
   onTotalSavingsChange: (totalSavings: number) => void;
 }
 
@@ -162,12 +162,12 @@ export interface MonthlyData {
   bills: number;
 }
 
-export interface SavingsPlannerProps {
+export interface BalanceProps {
   totalIncome: number;
   totalExpenses: number;
   totalBills: number;
   totalSavings: number;
-  onSavingsChange: (percentage: number) => void;
+  // onSavingsChange: (percentage: number) => void;
 }
 
 export interface SchedulerProps {
@@ -177,4 +177,18 @@ export interface SchedulerProps {
 export interface SavingsContextProps {
   savingsPercentage: number;
   setSavingsPercentage: (percentage: number) => void;
+}
+
+export interface SummaryData {
+  income: number;
+  expenses: number;
+  bills: number;
+  savings: number;
+}
+
+export interface SummaryProps {
+  income: number;
+  expenses: number;
+  bills: number;
+  savings: number;
 }

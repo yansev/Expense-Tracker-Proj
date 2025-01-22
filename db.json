@@ -22,14 +22,14 @@
       "actualAmount": 6000
     },
     {
-      "id": 1737467314011,
+      "id": "1737467314011",
       "title": "Clothes",
       "month": "January",
       "plannedAmount": 2000,
       "actualAmount": 2000
     },
     {
-      "id": 1737471580626,
+      "id": "1737471580626",
       "title": "Car Downpayment",
       "month": "April",
       "plannedAmount": 40000,
@@ -44,22 +44,22 @@
       "amount": 50000
     },
     {
-      "id": "1737365000645",
-      "source": "Part Time",
-      "month": "February",
-      "amount": 20000
-    },
-    {
-      "id": 1737449388706,
+      "id": "1737449388706",
       "source": "Salary",
       "month": "March",
       "amount": 50000
     },
     {
-      "id": 1737471543994,
+      "id": "1737471543994",
       "source": "Salary",
       "month": "April",
-      "amount": 75000
+      "amount": 50000
+    },
+    {
+      "id": "1737509952950",
+      "source": "Salary",
+      "month": "May",
+      "amount": 50000
     }
   ],
   "bills": [
@@ -106,7 +106,8 @@
   ],
   "savings": [
     {
-      "percentage": 10
+      "percentage": 10,
+      "id": "b002"
     }
   ]
 }

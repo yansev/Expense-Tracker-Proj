@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Income, Expense, Bill, Savings } from "../../entities/model";
-import SavingsPlanner from "../components/savings/SavingsPlanner";
+import SavingsPlanner from "../components/Balance";
 import { Box, Grid, VStack } from "@chakra-ui/react";
 import SavingsTable from "../components/savings/SavingsTable";
 
 const SavingsPlannerPage: React.FC = () => {
   const [incomeData, setIncomeData] = useState<Income[]>([]);
   const [totalIncome, setTotalIncome] = useState(0);
-  const [savingsPercentage, setSavingsPercentage] = useState<number>(10);
+  // const [savingsPercentage, setSavingsPercentage] = useState<number>(10);
   const [expensesData, setExpensesData] = useState<Expense[]>([]);
   const [totalExpenses, setTotalExpenses] = useState(0);
   const [billsData, setBillsData] = useState<Bill[]>([]);
@@ -112,7 +112,7 @@ const SavingsPlannerPage: React.FC = () => {
         borderRadius="md"
         boxShadow="md"
         p={8}
-        bg="#F9B17A"
+        // bg="#F9B17A"
       >
         <Box mb="50px" w="100%">
           <SavingsPlanner
@@ -120,13 +120,14 @@ const SavingsPlannerPage: React.FC = () => {
             totalExpenses={totalExpenses}
             totalBills={totalBills}
             totalSavings={totalSavings}
-            onSavingsChange={setSavingsPercentage}
+            // onSavingsChange={setSavingsPercentage}
           />
         </Box>
         <Box w="100%" justifyContent="center">
           <SavingsTable
-            savingsPercentage={savingsPercentage}
+            // savingsPercentage={savingsPercentage}
             income={incomeData}
+            savings={savingsData}
             onTotalSavingsChange={setTotalSavings}
           />
         </Box>
