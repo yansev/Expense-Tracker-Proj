@@ -12,7 +12,7 @@ import {
   Flex,
   Link,
 } from "@chakra-ui/react";
-import { IncomeTableProps } from "../../../entities/model";
+import { IncomeTableProps } from "./types/IncomeTypes";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import EditIncome from "./EditIncome";
 import DeleteIncome from "./DeleteIncome";

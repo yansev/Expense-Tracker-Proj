@@ -14,7 +14,7 @@ import {
   ModalCloseButton,
   Select,
 } from "@chakra-ui/react";
-import { EditIncomeProps } from "../../../entities/model";
+import { EditIncomeProps } from "./types/IncomeTypes";
 import { useUpdateIncome } from "./hooks/useUpdateIncome";
 import useHandleSubmitWrapper from "../../shared/hooks/HandleSubmitWrapper";
 

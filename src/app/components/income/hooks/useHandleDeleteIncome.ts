@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Income } from "../../../../entities/model";
+import { Income } from "../types/IncomeTypes";
 import { useDisclosure } from "@chakra-ui/react";
 
 export const useHandleDeleteIncome = (

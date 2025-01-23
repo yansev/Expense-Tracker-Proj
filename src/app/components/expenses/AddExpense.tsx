@@ -6,7 +6,7 @@ import {
   Input,
   Select,
 } from "@chakra-ui/react";
-import { AddExpenseProps } from "../../../entities/model";
+import { AddExpenseProps } from "./types/ExpensesTypes";
 import {
   Modal,
   ModalOverlay,

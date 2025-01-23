@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import {
   Button,
   Container,
@@ -13,9 +12,10 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  useToast,
 } from "@chakra-ui/react";
 import { EditBillsProps } from "../../../entities/model";
+import { useUpdateBill } from "./hooks/useUpdateBill";
+import useHandleSubmitWrapper from "../../shared/hooks/HandleSubmitWrapper";
 
 const EditBill: React.FC<EditBillsProps> = ({
   isOpen,
@@ -23,42 +23,19 @@ const EditBill: React.FC<EditBillsProps> = ({
   bill,
   onUpdatedBill,
 }) => {
-  const [billTitle, setBillTitle] = useState(bill.billTitle);
-  const [dueDate, setDueDate] = useState(bill.dueDate);
-  const [plannedAmount, setPlannedAmount] = useState<number>(
-    bill.plannedAmount
-  );
-  const [actualAmount, setActualAmount] = useState<number>(bill.actualAmount);
+  const {
+    billTitle,
+    setBillTitle,
+    dueDate,
+    setDueDate,
+    plannedAmount,
+    setPlannedAmount,
+    actualAmount,
+    setActualAmount,
+    handleSubmit,
+  } = useUpdateBill(bill, onUpdatedBill);
 
-  useEffect(() => {
-    if (bill) {
-      setBillTitle(bill.billTitle);
-      setDueDate(bill.dueDate);
-      setPlannedAmount(bill.plannedAmount);
-      setActualAmount(bill.actualAmount);
-    }
-  }, [bill]);
-
-  const toast = useToast();
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const updatedBill = {
-      ...bill,
-      billTitle,
-      dueDate,
-      plannedAmount,
-      actualAmount,
-    };
-    toast({
-      title: "Data UpdatedSuccessfully!",
-      status: "success",
-      duration: 3000,
-      isClosable: true,
-    });
-    onUpdatedBill(updatedBill);
-    onClose();
-  };
+  const { handleSubmitWrapper } = useHandleSubmitWrapper(handleSubmit, onClose);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -69,7 +46,7 @@ const EditBill: React.FC<EditBillsProps> = ({
         <ModalBody>
           <Container>
             <VStack spacing={4}>
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmitWrapper}>
                 <FormControl>
                   <FormLabel>Bill Title</FormLabel>
                   <Input

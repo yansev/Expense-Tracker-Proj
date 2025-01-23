@@ -11,7 +11,7 @@ import {
   ModalOverlay,
 } from "@chakra-ui/react";
 import { SmallAddIcon } from "@chakra-ui/icons";
-import { AddIncomeProps } from "../../../entities/model";
+import { AddIncomeProps } from "./types/IncomeTypes";
 import { useDisclosure } from "@chakra-ui/react";
 import { useAddIncome } from "./hooks/useAddIncome";
 import useHandleSubmitWrapper from "../../shared/hooks/HandleSubmitWrapper";

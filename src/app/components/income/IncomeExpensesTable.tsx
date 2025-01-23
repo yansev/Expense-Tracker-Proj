@@ -9,7 +9,7 @@ import {
   Container,
   Heading,
 } from "@chakra-ui/react";
-import { BalanceTableProps } from "../../../entities/model";
+import { BalanceTableProps } from "../../shared/types/types";
 import { useMonth } from "../../shared/hooks/MonthContext";
 import { useTotalAmount } from "../expenses/hooks/useTotalExpenseAmount";
 import { useTotalIncome } from "./hooks/useTotalIncome";
@@ -21,7 +21,7 @@ const IncomeExpensesTable: React.FC<BalanceTableProps> = ({
   savings,
 }) => {
   const { selectedMonth } = useMonth();
-  const totalIncome = useTotalIncome(income);
+  const { totalIncome: totalIncomeValue } = useTotalIncome(income);
   const { totalExpActualAmount } = useTotalAmount(expenses);
 
   const totalBills = bills.reduce(
@@ -34,7 +34,7 @@ const IncomeExpensesTable: React.FC<BalanceTableProps> = ({
   );
 
   const balance =
-    totalIncome - totalExpActualAmount - totalBills - totalSavings;
+    totalIncomeValue - totalExpActualAmount - totalBills - totalSavings;
 
   // const amount = filteredIncome.reduce((sum, income) => sum + income.amount, 0);
 
@@ -59,7 +59,9 @@ const IncomeExpensesTable: React.FC<BalanceTableProps> = ({
           <Tbody>
             <Tr>
               <Td isNumeric>
-                {totalIncome.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                {totalIncomeValue
+                  .toFixed(2)
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
               </Td>
               <Td isNumeric>
                 {totalExpActualAmount

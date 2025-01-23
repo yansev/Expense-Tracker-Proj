@@ -1,9 +1,6 @@
-import { Income } from "../../../../entities/model";
+import { Income } from "../types/IncomeTypes";
 
 export const useTotalIncome = (income: Income[]) => {
-  const totalIncome = income.reduce(
-    (total, income) => total + (income.amount || 0),
-    0
-  );
-  return totalIncome;
+  const totalIncome = income.reduce((sum, item) => sum + item.amount, 0);
+  return { totalIncome };
 };

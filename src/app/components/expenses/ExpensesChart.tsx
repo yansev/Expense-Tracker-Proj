@@ -9,7 +9,7 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { Container, Heading } from "@chakra-ui/react";
-import { ExpensesChartProps } from "../../../entities/model";
+import { ExpensesChartProps } from "./types/ExpensesTypes";
 import { useMonth } from "../../shared/hooks/MonthContext";
 import { useTotalAmount } from "./hooks/useTotalExpenseAmount";
 import { useFilterExpenses } from "./hooks/useFilterExpenses";

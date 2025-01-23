@@ -1,27 +1,21 @@
 {
   "expenses": [
     {
-      "id": "1737616316291",
-      "title": "House",
-      "month": "January",
-      "plannedAmount": 10000,
-      "actualAmount": 10000
-    },
-    {
       "id": "1737617667623",
       "title": "clothing",
       "month": "January",
       "plannedAmount": 2000,
       "actualAmount": 2500
+    },
+    {
+      "id": 1737640063248,
+      "title": "Sit est beatae volu",
+      "month": "October",
+      "plannedAmount": 7900,
+      "actualAmount": 7600
     }
   ],
   "income": [
-    {
-      "id": "1737599289726",
-      "source": "Salary",
-      "month": "January",
-      "amount": 10000
-    },
     {
       "id": "1737609425439",
       "source": "Buy and Sell",
@@ -35,16 +29,10 @@
       "amount": 10000
     },
     {
-      "id": "1737612382363",
-      "source": "Part Time",
-      "month": "January",
-      "amount": 19999
-    },
-    {
       "id": "1737612470548",
-      "source": "hello",
-      "month": "March",
-      "amount": 68
+      "source": "hellooo",
+      "month": "February",
+      "amount": 6800
     },
     {
       "id": "1737612503748",
@@ -57,15 +45,39 @@
       "source": "part time",
       "month": "November",
       "amount": 7000
+    },
+    {
+      "id": "1737622116300",
+      "source": "Salary",
+      "month": "January",
+      "amount": 20000
+    },
+    {
+      "id": 1737625514854,
+      "source": "Salary",
+      "month": "December",
+      "amount": 20000
+    },
+    {
+      "id": 1737639251063,
+      "source": "Dolor animi laudant",
+      "month": "November",
+      "amount": 21
+    },
+    {
+      "id": 1737640342860,
+      "source": "Part Time",
+      "month": "January",
+      "amount": 10000
     }
   ],
   "bills": [
     {
       "id": "1737445172133",
-      "billTitle": "Credit",
-      "plannedAmount": 10000,
-      "actualAmount": 8000,
-      "dueDate": "2025-01-30",
+      "billTitle": "Credit Card",
+      "plannedAmount": 1000,
+      "actualAmount": 800,
+      "dueDate": "2025-01-01",
       "paid": true
     },
     {
@@ -86,10 +98,10 @@
     },
     {
       "id": "1737445421413",
-      "billTitle": "Subdivision Bills",
-      "plannedAmount": 800,
-      "actualAmount": 800,
-      "dueDate": "2025-02-05",
+      "billTitle": "Subdi Bills",
+      "plannedAmount": 1000,
+      "actualAmount": 1000,
+      "dueDate": "2025-01-01",
       "paid": true
     },
     {
@@ -98,14 +110,30 @@
       "plannedAmount": 20000,
       "actualAmount": 20000,
       "dueDate": "2025-02-05",
-      "paid": true
+      "paid": false
     },
     {
-      "id": "1737531215908",
-      "billTitle": "dqw",
-      "plannedAmount": 0,
-      "actualAmount": 0,
-      "dueDate": "2025-01-23",
+      "id": "1737623842437",
+      "billTitle": "Error sed a qui cons",
+      "plannedAmount": 51,
+      "actualAmount": 10,
+      "dueDate": "1983-10-30",
+      "paid": false
+    },
+    {
+      "id": 1737623883654,
+      "billTitle": "Credit Card",
+      "plannedAmount": 10000,
+      "actualAmount": 11000,
+      "dueDate": "2025-01-24",
+      "paid": false
+    },
+    {
+      "id": 1737623926654,
+      "billTitle": "Water",
+      "plannedAmount": 500,
+      "actualAmount": 300,
+      "dueDate": "2025-01-30",
       "paid": false
     }
   ],

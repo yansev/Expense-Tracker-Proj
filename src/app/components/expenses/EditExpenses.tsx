@@ -15,7 +15,7 @@ import {
   ModalCloseButton,
   Select,
 } from "@chakra-ui/react";
-import { EditExpensesProps } from "../../../entities/model";
+import { EditExpensesProps } from "./types/ExpensesTypes";
 import useUpdateExpense from "./hooks/useUpdateExpesne";
 import useHandleSubmitWrapper from "../../shared/hooks/HandleSubmitWrapper";
 const EditExpense: React.FC<EditExpensesProps> = ({

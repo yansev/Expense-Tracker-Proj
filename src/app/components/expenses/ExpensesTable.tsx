@@ -12,7 +12,7 @@ import {
   Container,
   Heading,
 } from "@chakra-ui/react";
-import { ExpensesTableProps } from "../../../entities/model";
+import { ExpensesTableProps } from "./types/ExpensesTypes";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import EditExpense from "./EditExpenses";
 import DeleteExpense from "./DeleteExpense";
