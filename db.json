@@ -1,0 +1,114 @@
+{
+  "expenses": [
+    {
+      "id": "1737104570492",
+      "title": "transportation",
+      "month": "January",
+      "plannedAmount": 1000,
+      "actualAmount": 500
+    },
+    {
+      "id": "1737537521054",
+      "title": "sdvewv",
+      "month": "August",
+      "plannedAmount": 1000,
+      "actualAmount": 2000
+    },
+    {
+      "id": "1737538943310",
+      "title": "shopee",
+      "month": "February",
+      "plannedAmount": 10000,
+      "actualAmount": 11000
+    },
+    {
+      "id": "1737601679674",
+      "title": "Est praesentium qui",
+      "month": "October",
+      "plannedAmount": 35,
+      "actualAmount": 60
+    }
+  ],
+  "income": [
+    {
+      "id": "1737449388706",
+      "source": "Salary",
+      "month": "March",
+      "amount": 50000
+    },
+    {
+      "id": "1737471543994",
+      "source": "Salary",
+      "month": "April",
+      "amount": 50000
+    },
+    {
+      "id": "1737509952950",
+      "source": "Salary",
+      "month": "May",
+      "amount": 50000
+    },
+    {
+      "id": "1737599289726",
+      "source": "Salary",
+      "month": "January",
+      "amount": 100000
+    }
+  ],
+  "bills": [
+    {
+      "id": "1737445172133",
+      "billTitle": "Credit",
+      "plannedAmount": 10000,
+      "actualAmount": 8000,
+      "dueDate": "2025-01-30",
+      "paid": true
+    },
+    {
+      "id": "1737445375180",
+      "billTitle": "Electricity",
+      "plannedAmount": 5000,
+      "actualAmount": 6000,
+      "dueDate": "2025-01-30",
+      "paid": true
+    },
+    {
+      "id": "1737445401796",
+      "billTitle": "Water",
+      "plannedAmount": 2000,
+      "actualAmount": 1500,
+      "dueDate": "2025-01-25",
+      "paid": true
+    },
+    {
+      "id": "1737445421413",
+      "billTitle": "Subdivision Bills",
+      "plannedAmount": 800,
+      "actualAmount": 800,
+      "dueDate": "2025-02-05",
+      "paid": true
+    },
+    {
+      "id": "1737445437613",
+      "billTitle": "Rent",
+      "plannedAmount": 20000,
+      "actualAmount": 20000,
+      "dueDate": "2025-02-05",
+      "paid": true
+    },
+    {
+      "id": "1737531215908",
+      "billTitle": "dqw",
+      "plannedAmount": 0,
+      "actualAmount": 0,
+      "dueDate": "2025-01-23",
+      "paid": false
+    }
+  ],
+  "savings": [
+    {
+      "percentage": 10,
+      "id": "b002"
+    }
+  ]
+}
