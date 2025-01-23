@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import {
   Button,
   Container,
@@ -16,39 +15,26 @@ import {
   Select,
 } from "@chakra-ui/react";
 import { EditIncomeProps } from "../../../entities/model";
+import { useUpdateIncome } from "./hooks/useUpdateIncome";
+import useHandleSubmitWrapper from "../../shared/hooks/HandleSubmitWrapper";
+
 const EditIncome: React.FC<EditIncomeProps> = ({
   income,
   isOpen,
   onClose,
   onUpdatedIncome,
 }) => {
-  const [source, setSource] = useState(income?.source || "");
-  const [month, setMonth] = useState(income?.month || "");
-  const [amount, setAmount] = useState<number>(income?.amount || 0);
+  const {
+    source,
+    setSource,
+    month,
+    setMonth,
+    amount,
+    setAmount,
+    handleSubmit,
+  } = useUpdateIncome(income, onUpdatedIncome);
 
-  useEffect(() => {
-    if (income) {
-      setSource(income.source);
-      setMonth(income.month);
-      setAmount(income.amount);
-    }
-  }, [income]);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const updatedIncome = {
-      ...income,
-      source,
-      month: new Date(month + "-01").toLocaleString("en-US", {
-        month: "long",
-      }),
-      amount,
-    };
-    console.log("Updated income:", updatedIncome);
-    onUpdatedIncome(updatedIncome);
-    onClose();
-  };
+  const { handleSubmitWrapper } = useHandleSubmitWrapper(handleSubmit, onClose);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -59,7 +45,7 @@ const EditIncome: React.FC<EditIncomeProps> = ({
         <ModalBody>
           <Container>
             <VStack spacing={4}>
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmitWrapper}>
                 <FormControl>
                   <FormLabel>Income Source</FormLabel>
                   <Input

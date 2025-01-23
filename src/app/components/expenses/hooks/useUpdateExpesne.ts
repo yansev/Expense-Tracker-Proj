@@ -26,7 +26,7 @@ const useUpdateExpense = (
 
   const toast = useToast();
 
-  const handleSubmit = (e: React.FormEvent, onClose: () => void) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const updatedExpense = {
       ...expense,
@@ -42,7 +42,6 @@ const useUpdateExpense = (
       isClosable: true,
     });
     onUpdatedExpense(updatedExpense);
-    onClose();
   };
 
   return {

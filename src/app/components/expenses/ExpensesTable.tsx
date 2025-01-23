@@ -17,10 +17,10 @@ import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import EditExpense from "./EditExpenses";
 import DeleteExpense from "./DeleteExpense";
 import { useMonth } from "../../shared/hooks/MonthContext";
-import { useTotalAmount } from "./hooks/TotalAmount";
-import { useFilterExpenses } from "./hooks/filterExpenses";
-import { useHandleEditClick } from "./hooks/HandleEditClick";
-import { useHandleDelete } from "./hooks/HandleDelete";
+import { useTotalAmount } from "./hooks/useTotalExpenseAmount";
+import { useFilterExpenses } from "./hooks/useFilterExpenses";
+import { useHandleEditExpense } from "./hooks/useHandleEditExpense";
+import { useHandleDeleteExpense } from "./hooks/useHandleDeleteExpense";
 
 const ExpensesTable: React.FC<ExpensesTableProps> = ({
   expenses,
@@ -34,19 +34,19 @@ const ExpensesTable: React.FC<ExpensesTableProps> = ({
   const formatDateToMonthName = (monthString: string) => monthString;
 
   // Hook for editing
-  const { handleEditClick, editExpense, isOpen, onClose } =
-    useHandleEditClick();
+  const { handleEditExpense, editExpense, isOpen, onClose } =
+    useHandleEditExpense();
 
   // Hook for deleting
   const {
-    handleDeleteClick,
+    handleDeleteClickExpense,
     handleDeleteExpense,
     deleteExpense,
     isDeleteModalOpen,
     closeDeleteModal,
-  } = useHandleDelete(onDeleteExpense);
+  } = useHandleDeleteExpense(onDeleteExpense);
 
-  const { totalPlannedAmount, totalActualAmount } =
+  const { totalPlannedAmount, totalExpActualAmount } =
     useTotalAmount(filteredExpenses);
 
   return (
@@ -78,7 +78,7 @@ const ExpensesTable: React.FC<ExpensesTableProps> = ({
                       as="button"
                       mr="10px"
                       aria-label="Edit Expense"
-                      onClick={() => handleEditClick(expense)}
+                      onClick={() => handleEditExpense(expense)}
                     >
                       <AiOutlineEdit color="#081F5C" />
                     </Link>
@@ -86,7 +86,7 @@ const ExpensesTable: React.FC<ExpensesTableProps> = ({
                       as="button"
                       mr="10px"
                       aria-label="Delete Expense"
-                      onClick={() => handleDeleteClick(expense)}
+                      onClick={() => handleDeleteClickExpense(expense)}
                     >
                       <AiOutlineDelete color="red" />
                     </Link>
@@ -100,7 +100,7 @@ const ExpensesTable: React.FC<ExpensesTableProps> = ({
               <Th>Total</Th>
               <Th></Th>
               <Th textAlign="right">{totalPlannedAmount}</Th>
-              <Th textAlign="right">{totalActualAmount}</Th>
+              <Th textAlign="right">{totalExpActualAmount}</Th>
             </Tr>
           </Tfoot>
         </Table>

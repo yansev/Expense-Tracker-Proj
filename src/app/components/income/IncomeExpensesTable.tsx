@@ -11,6 +11,8 @@ import {
 } from "@chakra-ui/react";
 import { BalanceTableProps } from "../../../entities/model";
 import { useMonth } from "../../shared/hooks/MonthContext";
+import { useTotalAmount } from "../expenses/hooks/useTotalExpenseAmount";
+import { useTotalIncome } from "./hooks/useTotalIncome";
 
 const IncomeExpensesTable: React.FC<BalanceTableProps> = ({
   income,
@@ -19,13 +21,8 @@ const IncomeExpensesTable: React.FC<BalanceTableProps> = ({
   savings,
 }) => {
   const { selectedMonth } = useMonth();
-
-  const totalIncome = income.reduce(
-    (total, income) => total + (income.amount || 0),
-    0
-  );
-  const totalExpenses =
-    expenses?.reduce((total, expense) => total + expense.actualAmount, 0) || 0;
+  const totalIncome = useTotalIncome(income);
+  const { totalExpActualAmount } = useTotalAmount(expenses);
 
   const totalBills = bills.reduce(
     (total, bills) => total + (bills.actualAmount || 0),
@@ -36,7 +33,8 @@ const IncomeExpensesTable: React.FC<BalanceTableProps> = ({
     0
   );
 
-  const balance = totalIncome - totalExpenses - totalBills - totalSavings;
+  const balance =
+    totalIncome - totalExpActualAmount - totalBills - totalSavings;
 
   // const amount = filteredIncome.reduce((sum, income) => sum + income.amount, 0);
 
@@ -64,7 +62,9 @@ const IncomeExpensesTable: React.FC<BalanceTableProps> = ({
                 {totalIncome.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
               </Td>
               <Td isNumeric>
-                {totalExpenses.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                {totalExpActualAmount
+                  .toFixed(2)
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
               </Td>
               <Td isNumeric>
                 {totalBills.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}

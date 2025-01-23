@@ -11,8 +11,8 @@ import { Bar } from "react-chartjs-2";
 import { Container, Heading } from "@chakra-ui/react";
 import { ExpensesChartProps } from "../../../entities/model";
 import { useMonth } from "../../shared/hooks/MonthContext";
-import { useTotalAmount } from "./hooks/TotalAmount";
-import { useFilterExpenses } from "./hooks/filterExpenses";
+import { useTotalAmount } from "./hooks/useTotalExpenseAmount";
+import { useFilterExpenses } from "./hooks/useFilterExpenses";
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -37,7 +37,7 @@ const ActualVsPlannedExpenses: React.FC<ExpensesChartProps> = ({
   });
 
   const filteredExpenses = useFilterExpenses(expenses, selectedMonth);
-  const { totalPlannedAmount, totalActualAmount } =
+  const { totalPlannedAmount, totalExpActualAmount } =
     useTotalAmount(filteredExpenses);
 
   useEffect(() => {
@@ -51,12 +51,12 @@ const ActualVsPlannedExpenses: React.FC<ExpensesChartProps> = ({
         },
         {
           label: "Actual Amount",
-          data: [totalActualAmount],
+          data: [totalExpActualAmount],
           backgroundColor: "#FFB6C1",
         },
       ],
     });
-  }, [totalPlannedAmount, totalActualAmount]);
+  }, [totalPlannedAmount, totalExpActualAmount]);
 
   return (
     <Container maxW="full">

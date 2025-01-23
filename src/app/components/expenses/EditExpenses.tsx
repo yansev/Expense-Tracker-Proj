@@ -16,7 +16,8 @@ import {
   Select,
 } from "@chakra-ui/react";
 import { EditExpensesProps } from "../../../entities/model";
-import useUpdateExpense from "./hooks/updateExpesne";
+import useUpdateExpense from "./hooks/useUpdateExpesne";
+import useHandleSubmitWrapper from "../../shared/hooks/HandleSubmitWrapper";
 const EditExpense: React.FC<EditExpensesProps> = ({
   isOpen,
   onClose,
@@ -35,10 +36,7 @@ const EditExpense: React.FC<EditExpensesProps> = ({
     handleSubmit,
   } = useUpdateExpense(expense, onUpdatedExpense);
 
-  const handleSubmitWrapper = (event: React.FormEvent) => {
-    event.preventDefault();
-    handleSubmit(event, onClose);
-  };
+  const { handleSubmitWrapper } = useHandleSubmitWrapper(handleSubmit, onClose);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>

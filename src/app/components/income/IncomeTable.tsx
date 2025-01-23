@@ -11,14 +11,15 @@ import {
   Heading,
   Flex,
   Link,
-  useDisclosure,
 } from "@chakra-ui/react";
-import { Income, IncomeTableProps } from "../../../entities/model";
+import { IncomeTableProps } from "../../../entities/model";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
-import { useState } from "react";
 import EditIncome from "./EditIncome";
 import DeleteIncome from "./DeleteIncome";
 import { useMonth } from "../../shared/hooks/MonthContext";
+import { useFilteredIncome } from "./hooks/useFilteredIncome";
+import { useHandleEditIncome } from "./hooks/useHandleEditIncome";
+import { useHandleDeleteIncome } from "./hooks/useHandleDeleteIncome";
 
 const IncomeTable: React.FC<IncomeTableProps> = ({
   income,
@@ -26,42 +27,16 @@ const IncomeTable: React.FC<IncomeTableProps> = ({
   onDeleteIncome,
 }) => {
   const { selectedMonth } = useMonth();
-  const [selectedIncome, setSelectedIncome] = useState<Income | null>(null);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const filteredIncome = useFilteredIncome(income, selectedMonth);
+  const { handleEditIncome, editIncome, isOpen, onClose } =
+    useHandleEditIncome();
   const {
-    isOpen: isOpenDeleteIncome,
-    onOpen: onOpenDeleteIncome,
-    onClose: onCloseDeleteIncome,
-  } = useDisclosure();
-
-  const formatDateToMonthName = (monthString: string) => monthString;
-
-  const filteredIncome =
-    selectedMonth === "All" || !selectedMonth
-      ? income
-      : income.filter((incomeItem) => {
-          const formattedMonth = formatDateToMonthName(incomeItem.month);
-          return formattedMonth === selectedMonth;
-        });
-
-  console.log("Filtered results:", filteredIncome);
-
-  const handleEditClick = (income: Income) => {
-    console.log("Editing income:", income);
-    setSelectedIncome(income);
-    onOpen();
-  };
-
-  const handleDeleteClick = (income: Income) => {
-    console.log("Deleting income:", income);
-    setSelectedIncome(income);
-    onOpenDeleteIncome();
-  };
-
-  const handleDeleteIncome = (income: Income) => {
-    onDeleteIncome(income);
-    onCloseDeleteIncome();
-  };
+    handleDeleteClickIncome,
+    handleDeleteIncome,
+    deleteIncome,
+    isOpenDeleteModal,
+    onCloseDeleteModal,
+  } = useHandleDeleteIncome(onDeleteIncome);
 
   const amount = filteredIncome.reduce((sum, income) => sum + income.amount, 0);
 
@@ -84,7 +59,7 @@ const IncomeTable: React.FC<IncomeTableProps> = ({
             {filteredIncome.map((income, index) => (
               <Tr key={index}>
                 <Td>{income.source}</Td>
-                <Td>{formatDateToMonthName(income.month)}</Td>
+                <Td>{income.month}</Td>
                 <Td isNumeric>{income.amount}</Td>
                 <Td>
                   <Flex>
@@ -92,7 +67,7 @@ const IncomeTable: React.FC<IncomeTableProps> = ({
                       as="button"
                       mr="10px"
                       aria-label="Edit Income"
-                      onClick={() => handleEditClick(income)}
+                      onClick={() => handleEditIncome(income)}
                     >
                       <AiOutlineEdit color="#081F5C" />
                     </Link>
@@ -100,7 +75,7 @@ const IncomeTable: React.FC<IncomeTableProps> = ({
                       as="button"
                       mr="10px"
                       aria-label="Delete Income"
-                      onClick={() => handleDeleteClick(income)}
+                      onClick={() => handleDeleteClickIncome(income)}
                     >
                       <AiOutlineDelete color="red" />
                     </Link>
@@ -118,21 +93,21 @@ const IncomeTable: React.FC<IncomeTableProps> = ({
             </Tr>
           </Tfoot>
         </Table>
-        {selectedIncome && (
-          <>
-            <EditIncome
-              isOpen={isOpen}
-              onClose={onClose}
-              income={selectedIncome}
-              onUpdatedIncome={onUpdatedIncome}
-            />
-            <DeleteIncome
-              isOpenDeleteIncome={isOpenDeleteIncome}
-              onCloseDeleteIncome={onCloseDeleteIncome}
-              income={selectedIncome}
-              onDeleteIncome={handleDeleteIncome}
-            />
-          </>
+        {editIncome && (
+          <EditIncome
+            isOpen={isOpen}
+            onClose={onClose}
+            income={editIncome}
+            onUpdatedIncome={onUpdatedIncome}
+          />
+        )}
+        {deleteIncome && (
+          <DeleteIncome
+            isOpenDeleteIncome={isOpenDeleteModal}
+            onCloseDeleteIncome={onCloseDeleteModal}
+            income={deleteIncome}
+            onDeleteIncome={handleDeleteIncome}
+          />
         )}
       </TableContainer>
     </Container>

@@ -11,6 +11,9 @@ import { Bar } from "react-chartjs-2";
 import { Container, Heading } from "@chakra-ui/react";
 import { IncomeChartProps } from "../../../entities/model";
 import { useMonth } from "../../shared/hooks/MonthContext";
+import { useFilteredIncome } from "./hooks/useFilteredIncome";
+import { useFilterExpenses } from "../expenses/hooks/useFilterExpenses";
+
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const IncomeExpensesGraph: React.FC<IncomeChartProps> = ({
@@ -34,29 +37,23 @@ const IncomeExpensesGraph: React.FC<IncomeChartProps> = ({
     ],
   });
 
-  useEffect(() => {
-    // Filter income and expenses based on the selected month
-    const filteredIncome =
-      selectedMonth === "All" || !selectedMonth
-        ? income
-        : income.filter((income) => income.month === selectedMonth);
+  // Filter income and expenses based on the selected month
+  const filteredIncome = useFilteredIncome(income, selectedMonth);
 
-    const filteredExpenses =
-      selectedMonth === "All" || !selectedMonth
-        ? expenses
-        : expenses.filter((expense) => expense.month === selectedMonth);
+  const filteredExpenses = useFilterExpenses(expenses, selectedMonth);
 
-    // Calculate totals for the filtered income and expenses
-    const totalIncome = filteredIncome.reduce(
-      (total, income) => total + (income.amount || 0),
+  // Calculate totals for the filtered income and expenses
+  const totalIncome = filteredIncome.reduce(
+    (total, income) => total + (income.amount || 0),
+    0
+  );
+  const totalExpenses =
+    filteredExpenses?.reduce(
+      (total, expense) => total + expense.actualAmount,
       0
-    );
-    const totalExpenses =
-      filteredExpenses?.reduce(
-        (total, expense) => total + expense.actualAmount,
-        0
-      ) || 0;
+    ) || 0;
 
+  useEffect(() => {
     setChartData({
       labels: ["Income vs Expenses"],
       datasets: [
@@ -72,7 +69,7 @@ const IncomeExpensesGraph: React.FC<IncomeChartProps> = ({
         },
       ],
     });
-  }, [income, selectedMonth, expenses]);
+  }, [totalIncome, totalExpenses]);
 
   return (
     <Container maxW="full">

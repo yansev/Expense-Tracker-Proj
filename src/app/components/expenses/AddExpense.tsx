@@ -18,7 +18,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { SmallAddIcon } from "@chakra-ui/icons";
-import useAddExpense from "./hooks/AddExpense";
+import useAddExpense from "./hooks/useAddExpense";
 const AddExpense: React.FC<AddExpenseProps> = ({ onAddExpense }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {

@@ -5,9 +5,9 @@ export const useTotalAmount = (filteredExpenses: Expense[]) => {
     (sum, expense) => sum + expense.plannedAmount,
     0
   );
-  const totalActualAmount = filteredExpenses.reduce(
+  const totalExpActualAmount = filteredExpenses.reduce(
     (sum, expense) => sum + expense.actualAmount,
     0
   );
-  return { totalPlannedAmount, totalActualAmount };
+  return { totalPlannedAmount, totalExpActualAmount };
 };
