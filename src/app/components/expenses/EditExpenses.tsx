@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   Button,
   Container,
@@ -14,53 +14,30 @@ import {
   ModalBody,
   ModalCloseButton,
   Select,
-  useToast,
 } from "@chakra-ui/react";
 import { EditExpensesProps } from "../../../entities/model";
-
+import useUpdateExpense from "./hooks/updateExpesne";
 const EditExpense: React.FC<EditExpensesProps> = ({
   isOpen,
   onClose,
   expense,
   onUpdatedExpense,
 }) => {
-  const [title, setTitle] = useState(expense.title);
-  const [month, setMonth] = useState(expense.month);
-  const [plannedAmount, setPlannedAmount] = useState<number>(
-    expense.plannedAmount
-  );
-  const [actualAmount, setActualAmount] = useState<number>(
-    expense.actualAmount
-  );
+  const {
+    title,
+    setTitle,
+    month,
+    setMonth,
+    plannedAmount,
+    setPlannedAmount,
+    actualAmount,
+    setActualAmount,
+    handleSubmit,
+  } = useUpdateExpense(expense, onUpdatedExpense);
 
-  useEffect(() => {
-    if (expense) {
-      setTitle(expense.title);
-      setMonth(expense.month);
-      setPlannedAmount(expense.plannedAmount);
-      setActualAmount(expense.actualAmount);
-    }
-  }, [expense]);
-
-  const toast = useToast();
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const updatedExpense = {
-      ...expense,
-      title,
-      month,
-      plannedAmount,
-      actualAmount,
-    };
-    toast({
-      title: "Data UpdatedSuccessfully!",
-      status: "success",
-      duration: 3000,
-      isClosable: true,
-    });
-    onUpdatedExpense(updatedExpense);
-    onClose();
+  const handleSubmitWrapper = (event: React.FormEvent) => {
+    event.preventDefault();
+    handleSubmit(event, onClose);
   };
 
   return (
@@ -72,7 +49,7 @@ const EditExpense: React.FC<EditExpensesProps> = ({
         <ModalBody>
           <Container>
             <VStack spacing={4}>
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmitWrapper}>
                 <FormControl>
                   <FormLabel>Expense Title</FormLabel>
                   <Input

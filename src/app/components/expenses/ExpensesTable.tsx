@@ -9,16 +9,18 @@ import {
   TableContainer,
   Link,
   Flex,
-  useDisclosure,
   Container,
   Heading,
 } from "@chakra-ui/react";
-import { Expense, ExpensesTableProps } from "../../../entities/model";
+import { ExpensesTableProps } from "../../../entities/model";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
-import { useState } from "react";
 import EditExpense from "./EditExpenses";
 import DeleteExpense from "./DeleteExpense";
-import { useMonth } from "../MonthContext";
+import { useMonth } from "../../shared/hooks/MonthContext";
+import { useTotalAmount } from "./hooks/TotalAmount";
+import { useFilterExpenses } from "./hooks/filterExpenses";
+import { useHandleEditClick } from "./hooks/HandleEditClick";
+import { useHandleDelete } from "./hooks/HandleDelete";
 
 const ExpensesTable: React.FC<ExpensesTableProps> = ({
   expenses,
@@ -27,63 +29,25 @@ const ExpensesTable: React.FC<ExpensesTableProps> = ({
 }) => {
   const { selectedMonth } = useMonth();
 
-  // Debug logs
-  console.log("Raw expenses data:", expenses);
-  console.log("Current selected month:", selectedMonth);
-
-  const filteredExpenses =
-    selectedMonth === "All" || !selectedMonth
-      ? expenses
-      : expenses.filter((expense) => {
-          // Debug each comparison
-          const matches = expense.month === selectedMonth;
-          console.log({
-            expenseMonth: expense.month,
-            selectedMonth,
-            matches,
-            expenseData: expense,
-          });
-          return matches;
-        });
-
-  console.log("Filtered results:", filteredExpenses);
-
-  const [selectedExpense, setSelectedExpense] = useState<Expense | null>(null);
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const {
-    isOpen: isOpenDelete,
-    onOpen: onOpenDelete,
-    onClose: onCloseDelete,
-  } = useDisclosure();
+  const filteredExpenses = useFilterExpenses(expenses, selectedMonth);
 
   const formatDateToMonthName = (monthString: string) => monthString;
 
-  const handleEditClick = (expense: Expense) => {
-    console.log("Edit clicked for expense:", expense);
-    setSelectedExpense(expense);
-    onOpen();
-  };
+  // Hook for editing
+  const { handleEditClick, editExpense, isOpen, onClose } =
+    useHandleEditClick();
 
-  const handleDeleteClick = (expense: Expense) => {
-    console.log("Deleted", expense);
-    setSelectedExpense(expense);
-    onOpenDelete();
-  };
+  // Hook for deleting
+  const {
+    handleDeleteClick,
+    handleDeleteExpense,
+    deleteExpense,
+    isDeleteModalOpen,
+    closeDeleteModal,
+  } = useHandleDelete(onDeleteExpense);
 
-  const handleDeleteExpense = (expense: Expense) => {
-    onDeleteExpense(expense);
-    onCloseDelete();
-  };
-
-  // Calculate totals from filtered expenses
-  const totalPlanned = filteredExpenses.reduce(
-    (sum, expense) => sum + expense.plannedAmount,
-    0
-  );
-  const totalActual = filteredExpenses.reduce(
-    (sum, expense) => sum + expense.actualAmount,
-    0
-  );
+  const { totalPlannedAmount, totalActualAmount } =
+    useTotalAmount(filteredExpenses);
 
   return (
     <Container maxW="container.xl">
@@ -135,26 +99,26 @@ const ExpensesTable: React.FC<ExpensesTableProps> = ({
             <Tr>
               <Th>Total</Th>
               <Th></Th>
-              <Th textAlign="right">{totalPlanned}</Th>
-              <Th textAlign="right">{totalActual}</Th>
+              <Th textAlign="right">{totalPlannedAmount}</Th>
+              <Th textAlign="right">{totalActualAmount}</Th>
             </Tr>
           </Tfoot>
         </Table>
-        {selectedExpense && (
-          <>
-            <EditExpense
-              isOpen={isOpen}
-              onClose={onClose}
-              expense={selectedExpense}
-              onUpdatedExpense={onUpdatedExpense}
-            />
-            <DeleteExpense
-              isOpenDelete={isOpenDelete}
-              onCloseDelete={onCloseDelete}
-              expense={selectedExpense}
-              onDeleteExpense={handleDeleteExpense}
-            />
-          </>
+        {editExpense && (
+          <EditExpense
+            isOpen={isOpen}
+            onClose={onClose}
+            expense={editExpense}
+            onUpdatedExpense={onUpdatedExpense}
+          />
+        )}
+        {deleteExpense && (
+          <DeleteExpense
+            isOpenDelete={isDeleteModalOpen}
+            onCloseDelete={closeDeleteModal}
+            expense={deleteExpense}
+            onDeleteExpense={handleDeleteExpense}
+          />
         )}
       </TableContainer>
     </Container>

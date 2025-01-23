@@ -16,10 +16,6 @@ export const Navbar = () => {
   return (
     <HStack backgroundColor="#606e52" width="100vw">
       <Breadcrumb
-        // ml="4"
-        // mt="4"
-        // mb="4"
-        // spacing="4"
         separator={<MinusIcon color="#c0cca4" />}
         width="100vw"
         px={[1, 2, 3]}

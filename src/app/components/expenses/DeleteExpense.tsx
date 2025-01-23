@@ -7,7 +7,6 @@ import {
   ModalBody,
   ModalCloseButton,
 } from "@chakra-ui/react";
-// import { useDisclosure } from '@chakra-ui/react'
 import { Button } from "@chakra-ui/react";
 import { DeleteExpensesProps } from "../../../entities/model";
 
@@ -31,7 +30,7 @@ const DeleteExpense: React.FC<DeleteExpensesProps> = ({
           <Button
             colorScheme="red"
             mr={3}
-            onClick={() => onDeleteExpense(expense)}
+            onClick={() => expense && onDeleteExpense(expense)}
           >
             Delete
           </Button>

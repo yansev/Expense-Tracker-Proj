@@ -18,7 +18,7 @@ import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { useState } from "react";
 import EditIncome from "./EditIncome";
 import DeleteIncome from "./DeleteIncome";
-import { useMonth } from "../MonthContext";
+import { useMonth } from "../../shared/hooks/MonthContext";
 
 const IncomeTable: React.FC<IncomeTableProps> = ({
   income,
@@ -34,17 +34,13 @@ const IncomeTable: React.FC<IncomeTableProps> = ({
     onClose: onCloseDeleteIncome,
   } = useDisclosure();
 
-  const formatMonthToLongName = (monthString: string) => {
-    const [year, month] = monthString.split("-");
-    const date = new Date(`${year}-${month}-01`);
-    return date.toLocaleString("default", { month: "long" });
-  };
+  const formatDateToMonthName = (monthString: string) => monthString;
 
   const filteredIncome =
     selectedMonth === "All" || !selectedMonth
       ? income
       : income.filter((incomeItem) => {
-          const formattedMonth = formatMonthToLongName(incomeItem.month);
+          const formattedMonth = formatDateToMonthName(incomeItem.month);
           return formattedMonth === selectedMonth;
         });
 
@@ -88,7 +84,7 @@ const IncomeTable: React.FC<IncomeTableProps> = ({
             {filteredIncome.map((income, index) => (
               <Tr key={index}>
                 <Td>{income.source}</Td>
-                <Td>{formatMonthToLongName(income.month)}</Td>
+                <Td>{formatDateToMonthName(income.month)}</Td>
                 <Td isNumeric>{income.amount}</Td>
                 <Td>
                   <Flex>

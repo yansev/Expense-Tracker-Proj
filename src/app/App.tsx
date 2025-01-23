@@ -6,7 +6,7 @@ import Home from "./pages/Home";
 import Expenses from "./pages/Expenses";
 import Income from "./pages/Income";
 import Bills from "./pages/Bills";
-import { MonthProvider } from "./components/MonthContext";
+import { MonthProvider } from "./shared/hooks/MonthContext";
 import "@fontsource/raleway";
 
 function App() {

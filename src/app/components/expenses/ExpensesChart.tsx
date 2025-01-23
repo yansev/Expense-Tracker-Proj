@@ -10,7 +10,9 @@ import {
 import { Bar } from "react-chartjs-2";
 import { Container, Heading } from "@chakra-ui/react";
 import { ExpensesChartProps } from "../../../entities/model";
-import { useMonth } from "../MonthContext";
+import { useMonth } from "../../shared/hooks/MonthContext";
+import { useTotalAmount } from "./hooks/TotalAmount";
+import { useFilterExpenses } from "./hooks/filterExpenses";
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -34,23 +36,11 @@ const ActualVsPlannedExpenses: React.FC<ExpensesChartProps> = ({
     ],
   });
 
+  const filteredExpenses = useFilterExpenses(expenses, selectedMonth);
+  const { totalPlannedAmount, totalActualAmount } =
+    useTotalAmount(filteredExpenses);
+
   useEffect(() => {
-    // Filter expenses based on the selected month
-    const filteredExpenses =
-      selectedMonth === "All" || !selectedMonth
-        ? expenses
-        : expenses.filter((expense) => expense.month === selectedMonth);
-
-    // Calculate totals for the filtered expenses
-    const totalPlannedAmount = filteredExpenses.reduce(
-      (total, expense) => total + (expense.plannedAmount || 0),
-      0
-    );
-    const totalActualAmount = filteredExpenses.reduce(
-      (total, expense) => total + (expense.actualAmount || 0),
-      0
-    );
-
     setChartData({
       labels: ["Expenses"],
       datasets: [
@@ -66,7 +56,7 @@ const ActualVsPlannedExpenses: React.FC<ExpensesChartProps> = ({
         },
       ],
     });
-  }, [expenses, selectedMonth]);
+  }, [totalPlannedAmount, totalActualAmount]);
 
   return (
     <Container maxW="full">

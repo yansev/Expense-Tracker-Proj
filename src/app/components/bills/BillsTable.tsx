@@ -15,7 +15,7 @@ import {
   Checkbox,
 } from "@chakra-ui/react";
 import { Bill, BillsTableProps } from "../../../entities/model";
-import { useMonth } from "../MonthContext";
+import { useMonth } from "../../shared/hooks/MonthContext";
 import { useState } from "react";
 import EditBills from "./EditBills";
 import DeleteBills from "./DeleteBills";

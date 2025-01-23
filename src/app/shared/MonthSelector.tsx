@@ -1,6 +1,6 @@
 import React from "react";
 import { Select } from "@chakra-ui/react";
-import { useMonth } from "./MonthContext";
+import { useMonth } from "../shared/hooks/MonthContext";
 
 const MonthSelector: React.FC = () => {
   const { selectedMonth, setSelectedMonth } = useMonth();

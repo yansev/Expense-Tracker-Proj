@@ -10,7 +10,7 @@ import {
   Heading,
 } from "@chakra-ui/react";
 import { BalanceTableProps } from "../../../entities/model";
-import { useMonth } from "../MonthContext";
+import { useMonth } from "../../shared/hooks/MonthContext";
 
 const IncomeExpensesTable: React.FC<BalanceTableProps> = ({
   income,

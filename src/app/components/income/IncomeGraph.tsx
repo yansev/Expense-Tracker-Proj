@@ -10,7 +10,7 @@ import {
 import { Bar } from "react-chartjs-2";
 import { Container, Heading } from "@chakra-ui/react";
 import { IncomeChartProps } from "../../../entities/model";
-import { useMonth } from "../MonthContext";
+import { useMonth } from "../../shared/hooks/MonthContext";
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const IncomeExpensesGraph: React.FC<IncomeChartProps> = ({
