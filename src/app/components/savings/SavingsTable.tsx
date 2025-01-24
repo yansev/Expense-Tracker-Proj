@@ -8,44 +8,20 @@ import {
   Td,
   TableContainer,
 } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
-import { MonthlyData, SavingsTableProps } from "../../../entities/model";
+import { SavingsTableProps } from "./types/SavingsTypes";
+import { useSavings } from "./hooks/useSavings";
+import { useTotalIncome } from "../income/hooks/useTotalIncome";
+import { useTotalSavings } from "./hooks/useTotalSavings";
 
 const SavingsTable: React.FC<SavingsTableProps> = ({
   income,
   onTotalSavingsChange,
 }) => {
-  const [incomeByMonth, setIncomeByMonth] = useState<MonthlyData[]>([]);
+  const { incomeByMonth } = useSavings(income, onTotalSavingsChange);
 
-  const formatMonthToLongName = (monthString: string) => {
-    const [year, month] = monthString.split("-");
-    const date = new Date(`${year}-${month}-01`);
-    return date.toLocaleString("default", { month: "long" });
-  };
-
-  useEffect(() => {
-    const savingsPercentage = 20; // Fixed savings percentage
-    const updatedIncomeByMonth = (income || []).map((data) => ({
-      month: formatMonthToLongName(data.month),
-      income: data.amount,
-      savings: (data.amount * savingsPercentage) / 100,
-      expenses: 0,
-      bills: 0,
-    }));
-
-    setIncomeByMonth(updatedIncomeByMonth);
-    const totalSavings = updatedIncomeByMonth.reduce(
-      (sum, item) => sum + item.savings,
-      0
-    );
-    onTotalSavingsChange(totalSavings);
-  }, [income, onTotalSavingsChange]);
-
-  const totalIncome = incomeByMonth.reduce((sum, item) => sum + item.income, 0);
-  const totalSavings = incomeByMonth.reduce(
-    (sum, item) => sum + item.savings,
-    0
-  );
+  const { totalIncome: totalIncomeValue } = useTotalIncome(income);
+  const totalIncome = Number(totalIncomeValue);
+  const { totalSavings } = useTotalSavings(income);
 
   return (
     <TableContainer>

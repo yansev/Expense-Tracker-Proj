@@ -11,44 +11,25 @@ import {
   ModalOverlay,
 } from "@chakra-ui/react";
 import { SmallAddIcon } from "@chakra-ui/icons";
-import React, { useState } from "react";
-import { AddIncomeProps } from "../../../entities/model";
-import { useDisclosure, useToast } from "@chakra-ui/react";
+import { AddIncomeProps } from "./types/IncomeTypes";
+import { useDisclosure } from "@chakra-ui/react";
+import { useAddIncome } from "./hooks/useAddIncome";
+import useHandleSubmitWrapper from "../../shared/hooks/HandleSubmitWrapper";
 
 const AddIncome: React.FC<AddIncomeProps> = ({ onAddIncome }) => {
-  const [source, setSource] = useState<string>("");
-  const [month, setMonth] = useState<string>("");
-  const [amount, setAmount] = useState<number>(0);
-
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const toast = useToast();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const {
+    handleSubmit,
+    source,
+    setSource,
+    month,
+    setMonth,
+    amount,
+    setAmount,
+  } = useAddIncome(onAddIncome);
 
-    const newIncome = {
-      id: Date.now(),
-      source,
-      month,
-      amount: amount || 0,
-    };
-
-    const resetForm = () => {
-      setSource("");
-      setMonth("");
-      setAmount(0);
-    };
-
-    onAddIncome(newIncome);
-    toast({
-      title: "Data Added Successfully!",
-      status: "success",
-      duration: 3000,
-      isClosable: true,
-    });
-    resetForm();
-    onClose();
-  };
+  const { handleSubmitWrapper } = useHandleSubmitWrapper(handleSubmit, onClose);
 
   return (
     <>
@@ -61,7 +42,7 @@ const AddIncome: React.FC<AddIncomeProps> = ({ onAddIncome }) => {
           <ModalHeader>New Income</ModalHeader>
           <ModalCloseButton color="red" />
           <ModalBody>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmitWrapper}>
               <FormControl>
                 <FormLabel>Income Source</FormLabel>
                 <Input

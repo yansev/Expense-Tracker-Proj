@@ -8,7 +8,7 @@ import {
   ModalCloseButton,
   Button,
 } from "@chakra-ui/react";
-import { DeleteIncomeProps } from "../../../entities/model";
+import { DeleteIncomeProps } from "./types/IncomeTypes";
 
 const DeleteIncome: React.FC<DeleteIncomeProps> = ({
   isOpenDeleteIncome,

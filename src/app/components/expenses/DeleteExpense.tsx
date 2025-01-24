@@ -8,7 +8,7 @@ import {
   ModalCloseButton,
 } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
-import { DeleteExpensesProps } from "../../../entities/model";
+import { DeleteExpensesProps } from "./types/ExpensesTypes";
 
 const DeleteExpense: React.FC<DeleteExpensesProps> = ({
   isOpenDelete,

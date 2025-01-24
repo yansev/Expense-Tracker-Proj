@@ -1,38 +1,34 @@
 import { useState } from "react";
+import { Bill } from "../types/BillTypes";
 import { useToast } from "@chakra-ui/react";
-import { Expense } from "../../../../entities/model";
 
-const useAddExpense = (onAddExpense: (expense: Expense) => void) => {
-  const [title, setTitle] = useState<string>("");
-  const [month, setMonth] = useState<string>("");
+export const useAddBill = (onAddBill: (bill: Bill) => void) => {
+  const [billTitle, setBillTitle] = useState<string>("");
+  const [dueDate, setDueDate] = useState<string>("");
   const [plannedAmount, setPlannedAmount] = useState<number>(0);
   const [actualAmount, setActualAmount] = useState<number>(0);
   const toast = useToast();
 
   const resetForm = () => {
-    setTitle("");
-    setMonth("");
+    setBillTitle("");
+    setDueDate("");
     setPlannedAmount(0);
     setActualAmount(0);
   };
 
   const handleSubmit = (e: React.FormEvent, onClose: () => void) => {
     e.preventDefault();
-
-    const newExpense: Expense = {
+    const newBill = {
       id: Date.now(),
-      title,
-      month: new Date(month + "-01").toLocaleString("default", {
-        month: "long",
-      }),
+      billTitle,
       plannedAmount: plannedAmount || 0,
       actualAmount: actualAmount || 0,
+      dueDate,
+      paid: false,
     };
-
-    console.log("Submitting new expense:", newExpense);
-    onAddExpense(newExpense);
+    onAddBill(newBill);
     toast({
-      title: "Data Added Successfully!",
+      title: "Bill Added Successfully!",
       status: "success",
       duration: 3000,
       isClosable: true,
@@ -42,10 +38,10 @@ const useAddExpense = (onAddExpense: (expense: Expense) => void) => {
   };
 
   return {
-    title,
-    setTitle,
-    month,
-    setMonth,
+    billTitle,
+    setBillTitle,
+    dueDate,
+    setDueDate,
     plannedAmount,
     setPlannedAmount,
     actualAmount,
@@ -54,5 +50,3 @@ const useAddExpense = (onAddExpense: (expense: Expense) => void) => {
     resetForm,
   };
 };
-
-export default useAddExpense;

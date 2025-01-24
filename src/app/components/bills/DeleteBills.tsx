@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 // import { useDisclosure } from '@chakra-ui/react'
 import { Button } from "@chakra-ui/react";
-import { DeleteBillsProps } from "../../../entities/model";
+import { DeleteBillsProps } from "./types/BillTypes";
 
 const DeleteBill: React.FC<DeleteBillsProps> = ({
   isOpenDeleteBill,

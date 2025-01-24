@@ -11,67 +11,24 @@ import {
   ModalOverlay,
 } from "@chakra-ui/react";
 import { SmallAddIcon } from "@chakra-ui/icons";
-import React, { useState } from "react";
-import { AddBillsProps } from "../../../entities/model";
-import { useDisclosure, useToast } from "@chakra-ui/react";
+import { AddBillsProps } from "./types/BillTypes";
+import { useDisclosure } from "@chakra-ui/react";
+import { useAddBill } from "./hooks/useAddBill";
 
 const AddBills: React.FC<AddBillsProps> = ({ onAddBill }) => {
-  const [billTitle, setBillTitle] = useState<string>("");
-  const [dueDate, setDueDate] = useState<string>("");
-  const [plannedAmount, setPlannedAmount] = useState<number>(0);
-  const [actualAmount, setActualAmount] = useState<number>(0);
-
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const toast = useToast();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    // Parse the dueDate and convert the month to a string
-    // const date = new Date(dueDate);
-    // const monthNames = [
-    //   "January",
-    //   "February",
-    //   "March",
-    //   "April",
-    //   "May",
-    //   "June",
-    //   "July",
-    //   "August",
-    //   "September",
-    //   "October",
-    //   "November",
-    //   "December",
-    // ];
-    // const formattedDueDate = monthNames[date.getMonth()];
-
-    const newBill = {
-      id: Date.now(),
-      billTitle: billTitle,
-      plannedAmount: plannedAmount || 0,
-      actualAmount: actualAmount || 0,
-      dueDate: dueDate,
-      paid: false,
-      // dueDate: formattedDueDate, // Use only the month
-    };
-
-    const resetForm = () => {
-      setBillTitle("");
-      setDueDate("");
-      setPlannedAmount(0);
-      setActualAmount(0);
-    };
-
-    onAddBill(newBill);
-    toast({
-      title: "Bill Added Successfully!",
-      status: "success",
-      duration: 3000,
-      isClosable: true,
-    });
-    resetForm();
-    onClose();
-  };
+  const {
+    handleSubmit,
+    billTitle,
+    dueDate,
+    plannedAmount,
+    actualAmount,
+    setBillTitle,
+    setDueDate,
+    setPlannedAmount,
+    setActualAmount,
+  } = useAddBill(onAddBill);
 
   return (
     <>
@@ -84,7 +41,7 @@ const AddBills: React.FC<AddBillsProps> = ({ onAddBill }) => {
           <ModalHeader>New Bill</ModalHeader>
           <ModalCloseButton color="red" />
           <ModalBody>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={(e) => handleSubmit(e, onClose)}>
               <FormControl>
                 <FormLabel>Bill Title</FormLabel>
                 <Input

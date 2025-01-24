@@ -1,5 +1,4 @@
-import { Expense } from "../../../../entities/model";
-
+import { Expense } from "../types/ExpensesTypes";
 export const useFilterExpenses = (
   expenses: Expense[],
   selectedMonth: string

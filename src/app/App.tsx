@@ -1,5 +1,5 @@
 import { Box, ChakraProvider } from "@chakra-ui/react";
-import { Navbar } from "./pages/Navbar";
+import { Sidebar } from "./pages/Sidebar";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Savings from "./pages/Savings";
 import Home from "./pages/Home";
@@ -12,31 +12,29 @@ import "@fontsource/raleway";
 function App() {
   return (
     <ChakraProvider>
-      <Box fontFamily="Raleway">
+      <Box fontFamily="Raleway" overflow="hidden">
         <MonthProvider>
           <Router>
-            <Navbar />
-            <Box width="100%" p={[2, 4, 6]} minHeight="calc(100vh - 64px)">
-              <Routes>
-                <Route path="/" element={<Home />} />
-
-                <Route path="/savings" element={<Savings />} />
-
-                <Route path="/expenses" element={<Expenses />} />
-                <Route path="/expenses/add" element={<Expenses />} />
-                <Route path="/expenses/:id/edit" element={<Expenses />} />
-                <Route path="/expenses/:id/delete" element={<Expenses />} />
-
-                <Route path="/income" element={<Income />} />
-                <Route path="/income/add" element={<Income />} />
-                <Route path="/income/:id/edit" element={<Income />} />
-                <Route path="/income/:id/delete" element={<Income />} />
-
-                <Route path="/bills" element={<Bills />} />
-                <Route path="/bills/add" element={<Bills />} />
-                <Route path="/bills/:id/edit" element={<Bills />} />
-                <Route path="/bills/:id/delete" element={<Bills />} />
-              </Routes>
+            <Box as="main" display="flex" minHeight="100vh" overflow="auto">
+              <Sidebar />
+              <Box flex="1" p={[2, 4, 6]} overflow="auto">
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/savings" element={<Savings />} />
+                  <Route path="/expenses" element={<Expenses />} />
+                  <Route path="/expenses/add" element={<Expenses />} />
+                  <Route path="/expenses/:id/edit" element={<Expenses />} />
+                  <Route path="/expenses/:id/delete" element={<Expenses />} />
+                  <Route path="/income" element={<Income />} />
+                  <Route path="/income/add" element={<Income />} />
+                  <Route path="/income/:id/edit" element={<Income />} />
+                  <Route path="/income/:id/delete" element={<Income />} />
+                  <Route path="/bills" element={<Bills />} />
+                  <Route path="/bills/add" element={<Bills />} />
+                  <Route path="/bills/:id/edit" element={<Bills />} />
+                  <Route path="/bills/:id/delete" element={<Bills />} />
+                </Routes>
+              </Box>
             </Box>
           </Router>
         </MonthProvider>

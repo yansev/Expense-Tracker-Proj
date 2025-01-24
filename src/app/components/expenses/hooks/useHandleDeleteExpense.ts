@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Expense } from "../../../../entities/model";
+import { Expense } from "../types/ExpensesTypes";
 import { useDisclosure } from "@chakra-ui/react";
 
-export const useHandleDelete = (
+export const useHandleDeleteExpense = (
   onDeleteExpense: (expense: Expense) => void
 ) => {
   const {
@@ -13,7 +13,7 @@ export const useHandleDelete = (
 
   const [deleteExpense, setDeleteExpense] = useState<Expense | null>(null);
 
-  const handleDeleteClick = (expense: Expense) => {
+  const handleDeleteClickExpense = (expense: Expense) => {
     console.log("Deleting expense:", expense);
     setDeleteExpense(expense);
     openDeleteModal();
@@ -29,7 +29,7 @@ export const useHandleDelete = (
   };
 
   return {
-    handleDeleteClick,
+    handleDeleteClickExpense,
     handleDeleteExpense,
     deleteExpense,
     isDeleteModalOpen,

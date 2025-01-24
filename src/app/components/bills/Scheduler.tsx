@@ -8,7 +8,7 @@ import {
 import { createEventsServicePlugin } from "@schedule-x/events-service";
 import "@schedule-x/theme-default/dist/index.css";
 import { useEffect, useState } from "react";
-import { SchedulerProps } from "../../../entities/model";
+import { SchedulerProps } from "./types/SchedulerTypes";
 
 const Scheduler: React.FC<SchedulerProps> = ({ bills }) => {
   const eventsService = useState(() => createEventsServicePlugin())[0];

@@ -1,92 +1,85 @@
 {
   "expenses": [
     {
-      "id": "1737104570492",
-      "title": "transportation",
-      "month": "January",
-      "plannedAmount": 1000,
-      "actualAmount": 500
-    },
-    {
-      "id": "1737537521054",
-      "title": "sdvewv",
-      "month": "August",
-      "plannedAmount": 1000,
-      "actualAmount": 2000
-    },
-    {
-      "id": "1737538943310",
-      "title": "shopee",
+      "id": "1737617667623",
+      "title": "CLothes",
       "month": "February",
-      "plannedAmount": 10000,
-      "actualAmount": 11000
-    },
-    {
-      "id": "1737601679674",
-      "title": "Est praesentium qui",
-      "month": "October",
-      "plannedAmount": 35,
-      "actualAmount": 60
+      "plannedAmount": 20000,
+      "actualAmount": 25000
     }
   ],
   "income": [
     {
-      "id": "1737449388706",
+      "id": "1737609466273",
       "source": "Salary",
-      "month": "March",
-      "amount": 50000
+      "month": "January",
+      "amount": 10000
     },
     {
-      "id": "1737471543994",
+      "id": "1737612470548",
+      "source": "hellooo",
+      "month": "February",
+      "amount": 6800
+    },
+    {
+      "id": "1737612503748",
+      "source": "Part Time",
+      "month": "January",
+      "amount": 900
+    },
+    {
+      "id": "1737616303509",
+      "source": "part time",
+      "month": "November",
+      "amount": 7000
+    },
+    {
+      "id": "1737622116300",
+      "source": "Salary",
+      "month": "January",
+      "amount": 20000
+    },
+    {
+      "id": "1737625514854",
+      "source": "Salary",
+      "month": "December",
+      "amount": 20000
+    },
+    {
+      "id": "1737639251063",
+      "source": "Dolor",
+      "month": "September",
+      "amount": 21000
+    },
+    {
+      "id": "1737640342860",
+      "source": "Part Time",
+      "month": "January",
+      "amount": 10000
+    },
+    {
+      "id": "1737683723327",
       "source": "Salary",
       "month": "April",
       "amount": 50000
-    },
-    {
-      "id": "1737509952950",
-      "source": "Salary",
-      "month": "May",
-      "amount": 50000
-    },
-    {
-      "id": "1737599289726",
-      "source": "Salary",
-      "month": "January",
-      "amount": 100000
     }
   ],
   "bills": [
-    {
-      "id": "1737445172133",
-      "billTitle": "Credit",
-      "plannedAmount": 10000,
-      "actualAmount": 8000,
-      "dueDate": "2025-01-30",
-      "paid": true
-    },
     {
       "id": "1737445375180",
       "billTitle": "Electricity",
       "plannedAmount": 5000,
       "actualAmount": 6000,
       "dueDate": "2025-01-30",
-      "paid": true
+      "paid": false
     },
     {
       "id": "1737445401796",
-      "billTitle": "Water",
-      "plannedAmount": 2000,
-      "actualAmount": 1500,
-      "dueDate": "2025-01-25",
-      "paid": true
-    },
-    {
-      "id": "1737445421413",
-      "billTitle": "Subdivision Bills",
-      "plannedAmount": 800,
-      "actualAmount": 800,
-      "dueDate": "2025-02-05",
-      "paid": true
+      "billTitle": "Water Bill",
+      "plannedAmount": 200,
+      "actualAmount": 150,
+      "dueDate": "2025-01-01",
+      "paid": false
     },
     {
       "id": "1737445437613",
@@ -97,11 +90,27 @@
       "paid": true
     },
     {
-      "id": "1737531215908",
-      "billTitle": "dqw",
-      "plannedAmount": 0,
-      "actualAmount": 0,
-      "dueDate": "2025-01-23",
+      "id": "1737623883654",
+      "billTitle": "Credit Card",
+      "plannedAmount": 10000,
+      "actualAmount": 11000,
+      "dueDate": "2025-01-24",
+      "paid": false
+    },
+    {
+      "id": "1737623926654",
+      "billTitle": "Water",
+      "plannedAmount": 500,
+      "actualAmount": 300,
+      "dueDate": "2025-01-30",
+      "paid": true
+    },
+    {
+      "id": 1737697485070,
+      "billTitle": "Ipsam voluptas sunt",
+      "plannedAmount": 1,
+      "actualAmount": 67,
+      "dueDate": "1972-04-03",
       "paid": false
     }
   ],
