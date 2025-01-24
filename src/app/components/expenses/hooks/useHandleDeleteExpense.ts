@@ -14,18 +14,16 @@ export const useHandleDeleteExpense = (
   const [deleteExpense, setDeleteExpense] = useState<Expense | null>(null);
 
   const handleDeleteClickExpense = (expense: Expense) => {
-    console.log("Deleting expense:", expense);
     setDeleteExpense(expense);
     openDeleteModal();
   };
 
   const handleDeleteExpense = () => {
     if (deleteExpense) {
-      console.log("Confirming delete for expense:", deleteExpense);
-      onDeleteExpense(deleteExpense); // Trigger the delete action
-      setDeleteExpense(null); // Reset the state
+      onDeleteExpense(deleteExpense);
+      setDeleteExpense(null);
     }
-    closeDeleteModal(); // Close the modal
+    closeDeleteModal();
   };
 
   return {

@@ -2,9 +2,9 @@ import React from "react";
 import {
   Box,
   VStack,
-  Stack,
-  Container,
   Button,
+  Grid,
+  Text,
   useDisclosure,
 } from "@chakra-ui/react";
 import CalcModal from "../shared/calculator/CalcModal";
@@ -13,51 +13,97 @@ import { useMonth } from "../shared/hooks/MonthContext";
 import MonthSelector from "../shared/MonthSelector";
 import AddBills from "../components/bills/AddBills";
 import BillsTable from "../components/bills/BillsTable";
-// import Scheduler from "../components/bills/Scheduler";
 import useBills from "./hooks/useBills";
+import Reminders from "../shared/Reminders";
 
 const Bills: React.FC = () => {
   const { bills, addBill, updateBill, deleteBill } = useBills();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { selectedMonth } = useMonth();
 
-  return (
-    <Container maxW="container.xl" p={[4, 6, 8]}>
-      <VStack spacing={6} align="stretch" width="100%">
-        {/* Month Selector */}
-        <MonthSelector />
+  // Count unpaid bills
+  const unpaidBills = bills.filter((bill) => !bill.paid).length;
 
-        {/* Table Section */}
-        <Box flex="1" width="100%" overflowX="auto">
+  return (
+    <Grid
+      templateRows="auto 1fr auto"
+      gap={4}
+      minH="100vh"
+      maxW="100vw"
+      overflow="hidden"
+      ml="0"
+      p={4}
+    >
+      <VStack spacing={4} align="stretch">
+        <MonthSelector />
+        <Box
+          bg="gray.50"
+          borderRadius="md"
+          p={4}
+          border="1px solid #e2e8f0"
+          textAlign="center"
+        >
+          <Text fontSize="lg" fontWeight="bold">
+            Unpaid Bills:
+          </Text>
+          <Text fontSize="2xl" color="red.600">
+            {unpaidBills}
+          </Text>
+        </Box>
+      </VStack>
+
+      <Grid
+        templateColumns={["1fr", "2fr 1fr"]}
+        gap={4}
+        alignItems="start"
+        overflow="hidden"
+      >
+        <Box flex="1" minWidth="0">
+          <Text fontSize="lg" fontWeight="bold" mb={2}>
+            Bills Table
+          </Text>
           <BillsTable
             bills={bills}
             onUpdatedBill={updateBill}
             onDeleteBill={deleteBill}
             selectedMonth={selectedMonth}
           />
+          <Box mt={4}>
+            <AddBills onAddBill={addBill} />
+          </Box>
         </Box>
 
-        {/* Add Bills and Calculator Section */}
-        <Stack
-          direction={["column", "row"]}
-          spacing={4}
-          justify="space-between"
-          align="center"
-          width="100%"
+        <Box
+          flex="1"
+          minWidth="0"
+          p={4}
+          border="1px solid #e2e8f0"
+          borderRadius="md"
+          backgroundColor="gray.50"
         >
-          {/* Add Bills */}
-          <AddBills onAddBill={addBill} />
+          <Text fontSize="lg" fontWeight="bold" mb={2}>
+            Reminders
+          </Text>
+          <Reminders
+            bills={bills.map((bill) => ({
+              id: bill.id,
+              status: bill.paid ? "Paid" : "Not Paid",
+              billName: bill.billTitle,
+              dueDate: bill.dueDate,
+              amount: bill.actualAmount || bill.plannedAmount,
+            }))}
+          />
+        </Box>
+      </Grid>
 
-          {/* Calculator Button */}
-          <Button onClick={onOpen} leftIcon={<AiFillCalculator />}>
-            Open Calculator
-          </Button>
-        </Stack>
-
-        {/* Calculator Modal */}
+      <Box position="fixed" bottom="20px" right="20px">
+        <Button onClick={onOpen} colorScheme="green" size="lg" p={4}>
+          <AiFillCalculator style={{ marginRight: "8px" }} />
+          Calculator
+        </Button>
         <CalcModal isOpen={isOpen} onClose={onClose} />
-      </VStack>
-    </Container>
+      </Box>
+    </Grid>
   );
 };
 

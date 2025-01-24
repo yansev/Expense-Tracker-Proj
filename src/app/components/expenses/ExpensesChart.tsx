@@ -26,12 +26,12 @@ const ActualVsPlannedExpenses: React.FC<ExpensesChartProps> = ({
       {
         label: "Planned Amount",
         data: [0],
-        backgroundColor: "#D0E3FF",
+        backgroundColor: "#91a56e",
       },
       {
         label: "Actual Amount",
         data: [0],
-        backgroundColor: "#FFB6C1",
+        backgroundColor: "#c0cca4",
       },
     ],
   });
@@ -47,12 +47,12 @@ const ActualVsPlannedExpenses: React.FC<ExpensesChartProps> = ({
         {
           label: "Planned Amount",
           data: [totalPlannedAmount],
-          backgroundColor: "#D0E3FF",
+          backgroundColor: "#91a56e",
         },
         {
           label: "Actual Amount",
           data: [totalExpActualAmount],
-          backgroundColor: "#FFB6C1",
+          backgroundColor: "#c0cca4",
         },
       ],
     });
@@ -60,7 +60,7 @@ const ActualVsPlannedExpenses: React.FC<ExpensesChartProps> = ({
 
   return (
     <Container maxW="full">
-      <Heading size="md" mb={4} textAlign="center">
+      <Heading size="md" mb={4} textAlign="center" color="#606e52">
         Actual Amount vs Planned Amount
         {selectedMonth === "All" ? "All Years" : selectedMonth}
       </Heading>

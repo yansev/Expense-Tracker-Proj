@@ -41,18 +41,26 @@ const IncomeExpensesTable: React.FC<BalanceTableProps> = ({
 
   return (
     <Container maxW="container.xl">
-      <TableContainer>
-        <Heading size="md" mb={4} textAlign="center" color="#081F5C">
+      <TableContainer minWidth="100%">
+        <Heading size="md" mb={4} textAlign="center" color="#606e52">
           Income for {selectedMonth || "Whole Year"}
         </Heading>
         <Table size="sm">
-          <Thead>
+          <Thead backgroundColor="#606e52">
             <Tr>
-              <Th isNumeric>Income</Th>
-              <Th isNumeric>Expenses</Th>
-              <Th isNumeric>Bills</Th>
-              <Th isNumeric>Savings</Th>
-              <Th isNumeric textAlign="right" fontWeight="bold">
+              <Th isNumeric color="#ffffff">
+                Income
+              </Th>
+              <Th isNumeric color="#ffffff">
+                Expenses
+              </Th>
+              <Th isNumeric color="#ffffff">
+                Bills
+              </Th>
+              <Th isNumeric color="#ffffff">
+                Savings
+              </Th>
+              <Th isNumeric textAlign="right" fontWeight="bold" color="#ffffff">
                 Balance
               </Th>
             </Tr>

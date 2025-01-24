@@ -1,31 +1,26 @@
 {
   "expenses": [
     {
-      "id": "1737617667623",
-      "title": "CLothes",
+      "id": "1737714445363",
+      "title": "make up",
       "month": "February",
-      "plannedAmount": 20000,
-      "actualAmount": 25000
+      "plannedAmount": 10000,
+      "actualAmount": 10000
+    },
+    {
+      "id": "1737714545523",
+      "title": "hello hello",
+      "month": "February",
+      "plannedAmount": 10000,
+      "actualAmount": 5000
     }
   ],
   "income": [
-    {
-      "id": "1737609466273",
-      "source": "Salary",
-      "month": "January",
-      "amount": 10000
-    },
     {
       "id": "1737612470548",
       "source": "hellooo",
       "month": "February",
       "amount": 6800
-    },
-    {
-      "id": "1737612503748",
-      "source": "Part Time",
-      "month": "January",
-      "amount": 900
     },
     {
       "id": "1737616303509",
@@ -62,23 +57,45 @@
       "source": "Salary",
       "month": "April",
       "amount": 50000
+    },
+    {
+      "id": "1737714408547",
+      "source": "Sit ipsum ut ratio",
+      "month": "May",
+      "amount": 2
+    },
+    {
+      "id": "1737714428231",
+      "source": "hi hello",
+      "month": "January",
+      "amount": 10000
+    },
+    {
+      "id": "1737714857253",
+      "source": "Part Time",
+      "month": "February",
+      "amount": 20000
+    },
+    {
+      "id": "1737732744605",
+      "source": "Part Time",
+      "month": "October",
+      "amount": 5000
+    },
+    {
+      "id": 1737733881794,
+      "source": "Part Time",
+      "month": "March",
+      "amount": 10000
     }
   ],
   "bills": [
     {
       "id": "1737445375180",
-      "billTitle": "Electricity",
-      "plannedAmount": 5000,
-      "actualAmount": 6000,
-      "dueDate": "2025-01-30",
-      "paid": false
-    },
-    {
-      "id": "1737445401796",
-      "billTitle": "Water Bill",
-      "plannedAmount": 200,
-      "actualAmount": 150,
-      "dueDate": "2025-01-01",
+      "billTitle": "Electricity Bill",
+      "plannedAmount": 4000,
+      "actualAmount": 7000,
+      "dueDate": "2025-01-26",
       "paid": false
     },
     {
@@ -87,7 +104,7 @@
       "plannedAmount": 20000,
       "actualAmount": 20000,
       "dueDate": "2025-02-05",
-      "paid": true
+      "paid": false
     },
     {
       "id": "1737623883654",
@@ -103,14 +120,30 @@
       "plannedAmount": 500,
       "actualAmount": 300,
       "dueDate": "2025-01-30",
-      "paid": true
+      "paid": false
     },
     {
-      "id": 1737697485070,
-      "billTitle": "Ipsam voluptas sunt",
-      "plannedAmount": 1,
-      "actualAmount": 67,
-      "dueDate": "1972-04-03",
+      "id": "1737708733948",
+      "billTitle": "Credit Card",
+      "plannedAmount": 3000,
+      "actualAmount": 4000,
+      "dueDate": "2025-01-26",
+      "paid": false
+    },
+    {
+      "id": "1737714812369",
+      "billTitle": "Tuition",
+      "plannedAmount": 20000,
+      "actualAmount": 19900,
+      "dueDate": "2025-01-27",
+      "paid": false
+    },
+    {
+      "id": "1737732301119",
+      "billTitle": "Water",
+      "plannedAmount": 500,
+      "actualAmount": 300,
+      "dueDate": "2025-04-30",
       "paid": false
     }
   ],

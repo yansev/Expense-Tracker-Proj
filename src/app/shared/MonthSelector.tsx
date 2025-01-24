@@ -23,7 +23,7 @@ const MonthSelector: React.FC = () => {
 
   const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newMonth = event.target.value;
-    console.log("Selected Month:", newMonth); // Log selected month
+    console.log("Selected Month:", newMonth);
     setSelectedMonth(newMonth);
   };
 

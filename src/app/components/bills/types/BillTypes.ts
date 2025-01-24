@@ -31,3 +31,10 @@ export type BillsTableProps = {
   onDeleteBill: (bill: Bill) => void;
   selectedMonth: string;
 };
+
+export type RemindersProps = {
+  id: number;
+  status: string;
+  billName: string;
+  dueDate: string;
+};

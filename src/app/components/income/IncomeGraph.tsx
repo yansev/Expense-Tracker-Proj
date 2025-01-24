@@ -73,7 +73,7 @@ const IncomeExpensesGraph: React.FC<IncomeChartProps> = ({
 
   return (
     <Container maxW="full">
-      <Heading size="md" mb={4} textAlign="center">
+      <Heading size="md" mb={4} textAlign="center" color="#606e52">
         Income vs Expenses
         {selectedMonth === "Whole Year" ? "Whole Year" : selectedMonth}
       </Heading>

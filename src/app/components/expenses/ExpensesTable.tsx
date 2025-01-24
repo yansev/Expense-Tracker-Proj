@@ -21,6 +21,7 @@ import { useTotalAmount } from "./hooks/useTotalExpenseAmount";
 import { useFilterExpenses } from "./hooks/useFilterExpenses";
 import { useHandleEditExpense } from "./hooks/useHandleEditExpense";
 import { useHandleDeleteExpense } from "./hooks/useHandleDeleteExpense";
+import { useMonthOrder } from "../../shared/hooks/useMonthOrder";
 
 const ExpensesTable: React.FC<ExpensesTableProps> = ({
   expenses,
@@ -28,16 +29,17 @@ const ExpensesTable: React.FC<ExpensesTableProps> = ({
   onDeleteExpense,
 }) => {
   const { selectedMonth } = useMonth();
+  const months = useMonthOrder();
 
-  const filteredExpenses = useFilterExpenses(expenses, selectedMonth);
+  const filteredExpenses = useFilterExpenses(expenses, selectedMonth).sort(
+    (a, b) => months.indexOf(a.month) - months.indexOf(b.month)
+  );
 
   const formatDateToMonthName = (monthString: string) => monthString;
 
-  // Hook for editing
   const { handleEditExpense, editExpense, isOpen, onClose } =
     useHandleEditExpense();
 
-  // Hook for deleting
   const {
     handleDeleteClickExpense,
     handleDeleteExpense,
@@ -52,17 +54,17 @@ const ExpensesTable: React.FC<ExpensesTableProps> = ({
   return (
     <Container maxW="container.xl">
       <TableContainer>
-        <Heading size="md" mb={4} textAlign="center" color="#081F5C">
+        <Heading size="md" mb={4} textAlign="center" color="#606e52">
           Expenses for {selectedMonth || "Whole Year"}
         </Heading>
         <Table size="sm">
-          <Thead backgroundColor="#081F5C">
+          <Thead backgroundColor="#606e52">
             <Tr>
-              <Th color="#f7f2eb">Expense</Th>
-              <Th color="#f7f2eb">Month</Th>
-              <Th color="#f7f2eb">Planned Amount</Th>
-              <Th color="#f7f2eb">Actual Amount</Th>
-              <Th color="#f7f2eb">Actions</Th>
+              <Th color="#ffffff">Expense</Th>
+              <Th color="#ffffff">Month</Th>
+              <Th color="#ffffff">Planned Amount</Th>
+              <Th color="#ffffff">Actual Amount</Th>
+              <Th color="#ffffff">Actions</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -70,8 +72,16 @@ const ExpensesTable: React.FC<ExpensesTableProps> = ({
               <Tr key={index}>
                 <Td>{expense.title}</Td>
                 <Td>{formatDateToMonthName(expense.month)}</Td>
-                <Td isNumeric>{expense.plannedAmount}</Td>
-                <Td isNumeric>{expense.actualAmount}</Td>
+                <Td isNumeric>
+                  {expense.plannedAmount
+                    .toFixed(2)
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                </Td>
+                <Td isNumeric>
+                  {expense.actualAmount
+                    .toFixed(2)
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                </Td>
                 <Td>
                   <Flex>
                     <Link
@@ -80,7 +90,7 @@ const ExpensesTable: React.FC<ExpensesTableProps> = ({
                       aria-label="Edit Expense"
                       onClick={() => handleEditExpense(expense)}
                     >
-                      <AiOutlineEdit color="#081F5C" />
+                      <AiOutlineEdit color="#606e52" />
                     </Link>
                     <Link
                       as="button"
@@ -99,8 +109,16 @@ const ExpensesTable: React.FC<ExpensesTableProps> = ({
             <Tr>
               <Th>Total</Th>
               <Th></Th>
-              <Th textAlign="right">{totalPlannedAmount}</Th>
-              <Th textAlign="right">{totalExpActualAmount}</Th>
+              <Th textAlign="right">
+                {totalPlannedAmount
+                  .toFixed(2)
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              </Th>
+              <Th textAlign="right">
+                {totalExpActualAmount
+                  .toFixed(2)
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              </Th>
             </Tr>
           </Tfoot>
         </Table>
