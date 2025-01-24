@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Expense } from "../../../../entities/model";
+import { Expense } from "../types/ExpensesTypes";
 import { useDisclosure } from "@chakra-ui/react";
 
 export const useHandleDeleteExpense = (

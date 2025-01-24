@@ -1,9 +1,6 @@
-import { MonthlyData } from "../../../../entities/model";
+import { Income } from "../../income/types/IncomeTypes";
 
-export const useTotalSavings = (incomeByMonth: MonthlyData[]) => {
-  const totalSavings = incomeByMonth.reduce(
-    (sum, item) => sum + item.savings,
-    0
-  );
+export const useTotalSavings = (income: Income[]) => {
+  const totalSavings = income.reduce((sum, item) => sum + item.amount * 0.2, 0);
   return { totalSavings };
 };

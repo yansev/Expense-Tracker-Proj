@@ -1,4 +1,4 @@
-import { Income } from "../../../../entities/model";
+import { Income } from "../types/IncomeTypes";
 
 export const useFilteredIncome = (income: Income[], selectedMonth: string) => {
   const formatDateToMonthName = (monthString: string) => monthString;

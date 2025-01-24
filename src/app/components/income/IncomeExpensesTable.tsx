@@ -13,30 +13,31 @@ import { BalanceTableProps } from "../../shared/types/types";
 import { useMonth } from "../../shared/hooks/MonthContext";
 import { useTotalAmount } from "../expenses/hooks/useTotalExpenseAmount";
 import { useTotalIncome } from "./hooks/useTotalIncome";
+import { useTotalBillsAmount } from "../bills/hooks/useTotalBillsAmount";
+import { useTotalSavings } from "../savings/hooks/useTotalSavings";
+import { useFilteredIncome } from "./hooks/useFilteredIncome";
+import { useFilterExpenses } from "../expenses/hooks/useFilterExpenses";
+import { useFilteredBills } from "../bills/hooks/useFilteredBills";
 
 const IncomeExpensesTable: React.FC<BalanceTableProps> = ({
   income,
   expenses,
   bills,
-  savings,
 }) => {
   const { selectedMonth } = useMonth();
-  const { totalIncome: totalIncomeValue } = useTotalIncome(income);
-  const { totalExpActualAmount } = useTotalAmount(expenses);
 
-  const totalBills = bills.reduce(
-    (total, bills) => total + (bills.actualAmount || 0),
-    0
-  );
-  const totalSavings = savings.reduce(
-    (total, savings) => total + (savings.amount || 0),
-    0
-  );
+  // Apply filtering based on the selected month
+  const filteredIncome = useFilteredIncome(income, selectedMonth);
+  const filteredExpenses = useFilterExpenses(expenses, selectedMonth);
+  const filteredBills = useFilteredBills(bills, selectedMonth);
+
+  const { totalIncome: totalIncomeValue } = useTotalIncome(filteredIncome);
+  const { totalExpActualAmount } = useTotalAmount(filteredExpenses);
+  const { totalSavings } = useTotalSavings(filteredIncome);
+  const { totalActualBills } = useTotalBillsAmount(filteredBills);
 
   const balance =
-    totalIncomeValue - totalExpActualAmount - totalBills - totalSavings;
-
-  // const amount = filteredIncome.reduce((sum, income) => sum + income.amount, 0);
+    totalIncomeValue - totalExpActualAmount - totalActualBills - totalSavings;
 
   return (
     <Container maxW="container.xl">
@@ -69,13 +70,15 @@ const IncomeExpensesTable: React.FC<BalanceTableProps> = ({
                   .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
               </Td>
               <Td isNumeric>
-                {totalBills.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                {totalActualBills
+                  .toFixed(2)
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
               </Td>
               <Td isNumeric>
                 {totalSavings.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
               </Td>
               <Td isNumeric textAlign="right" fontWeight="bold">
-                {balance}
+                {balance.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
               </Td>
             </Tr>
           </Tbody>

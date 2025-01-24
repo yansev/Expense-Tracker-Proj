@@ -13,7 +13,7 @@ import {
   ModalBody,
   ModalCloseButton,
 } from "@chakra-ui/react";
-import { EditBillsProps } from "../../../entities/model";
+import { EditBillsProps } from "./types/BillTypes";
 import { useUpdateBill } from "./hooks/useUpdateBill";
 import useHandleSubmitWrapper from "../../shared/hooks/HandleSubmitWrapper";
 

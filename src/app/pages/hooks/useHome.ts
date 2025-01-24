@@ -1,7 +1,10 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
-import { Bill, Expense, Income, Savings } from "../../../entities/model";
+import { Bill } from "../../components/bills/types/BillTypes";
+import { Expense } from "../../components/expenses/types/ExpensesTypes";
+import { Income } from "../../components/income/types/IncomeTypes";
+import { Savings } from "../../components/savings/types/SavingsTypes";
 
 const useHome = () => {
   const [totalIncome, setTotalIncome] = useState(0);

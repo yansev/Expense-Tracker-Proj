@@ -38,7 +38,7 @@ const IncomeList: React.FC = () => {
           mb={[1, 2, 3]}
           spacing={[1, 2, 3]}
         >
-          <Box width={["100vw", "75vw", "50vw"]}>
+          <Box width={["100%", "75%", "50%"]}>
             <IncomeGraph income={income} expenses={expenses} />
             <IncomeExpensesTable
               income={income}
@@ -47,7 +47,7 @@ const IncomeList: React.FC = () => {
               savings={savingsData}
             />
           </Box>
-          <Box width={["100vw", "75vw", "50vw"]} position="relative">
+          <Box width={["100%", "75%", "50%"]} position="relative">
             <IncomeTable
               income={income}
               selectedMonth={selectedMonth}

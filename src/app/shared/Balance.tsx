@@ -1,30 +1,21 @@
 import { HStack, VStack, Text, Button } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
-import { BalanceProps } from "../../entities/model";
+import { BalanceProps } from "./types/types";
+import { useCalculateBalance } from "./hooks/useCalculateBalance";
+import { useCalculateSavings } from "./hooks/useCalculateSavings";
 
 const Balance: React.FC<BalanceProps> = ({
   totalIncome,
   totalExpenses,
   totalBills,
 }) => {
-  const [remainingBalance, setRemainingBalance] = useState<number>(0);
-  const totalSavings = totalIncome * 0.2;
+  const totalSavings = useCalculateSavings(totalIncome);
 
-  const calculateRemainingBalance = (
-    income: number,
-    expenses: number,
-    savingsPercentage: number,
-    bills: number
-  ) => {
-    const savings = (income * savingsPercentage) / 100;
-    const remaining = income - expenses - bills - savings;
-    setRemainingBalance(remaining);
-  };
-
-  // Automatically apply a 20% savings percentage when the component mounts
-  useEffect(() => {
-    calculateRemainingBalance(totalIncome, totalExpenses, 20, totalBills);
-  }, [totalIncome, totalExpenses, totalBills, totalSavings]);
+  const { remainingBalance } = useCalculateBalance(
+    totalIncome,
+    totalExpenses,
+    totalBills,
+    totalSavings
+  );
 
   return (
     <VStack spacing={4} align="center" p={4}>

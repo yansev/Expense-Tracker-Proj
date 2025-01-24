@@ -2,26 +2,13 @@
   "expenses": [
     {
       "id": "1737617667623",
-      "title": "clothing",
-      "month": "January",
-      "plannedAmount": 2000,
-      "actualAmount": 2500
-    },
-    {
-      "id": 1737640063248,
-      "title": "Sit est beatae volu",
-      "month": "October",
-      "plannedAmount": 7900,
-      "actualAmount": 7600
+      "title": "CLothes",
+      "month": "February",
+      "plannedAmount": 20000,
+      "actualAmount": 25000
     }
   ],
   "income": [
-    {
-      "id": "1737609425439",
-      "source": "Buy and Sell",
-      "month": "September",
-      "amount": 28000
-    },
     {
       "id": "1737609466273",
       "source": "Salary",
@@ -53,56 +40,46 @@
       "amount": 20000
     },
     {
-      "id": 1737625514854,
+      "id": "1737625514854",
       "source": "Salary",
       "month": "December",
       "amount": 20000
     },
     {
-      "id": 1737639251063,
-      "source": "Dolor animi laudant",
-      "month": "November",
-      "amount": 21
+      "id": "1737639251063",
+      "source": "Dolor",
+      "month": "September",
+      "amount": 21000
     },
     {
-      "id": 1737640342860,
+      "id": "1737640342860",
       "source": "Part Time",
       "month": "January",
       "amount": 10000
+    },
+    {
+      "id": "1737683723327",
+      "source": "Salary",
+      "month": "April",
+      "amount": 50000
     }
   ],
   "bills": [
-    {
-      "id": "1737445172133",
-      "billTitle": "Credit Card",
-      "plannedAmount": 1000,
-      "actualAmount": 800,
-      "dueDate": "2025-01-01",
-      "paid": true
-    },
     {
       "id": "1737445375180",
       "billTitle": "Electricity",
       "plannedAmount": 5000,
       "actualAmount": 6000,
       "dueDate": "2025-01-30",
-      "paid": true
+      "paid": false
     },
     {
       "id": "1737445401796",
-      "billTitle": "Water",
-      "plannedAmount": 2000,
-      "actualAmount": 1500,
-      "dueDate": "2025-01-25",
-      "paid": true
-    },
-    {
-      "id": "1737445421413",
-      "billTitle": "Subdi Bills",
-      "plannedAmount": 1000,
-      "actualAmount": 1000,
+      "billTitle": "Water Bill",
+      "plannedAmount": 200,
+      "actualAmount": 150,
       "dueDate": "2025-01-01",
-      "paid": true
+      "paid": false
     },
     {
       "id": "1737445437613",
@@ -110,18 +87,10 @@
       "plannedAmount": 20000,
       "actualAmount": 20000,
       "dueDate": "2025-02-05",
-      "paid": false
+      "paid": true
     },
     {
-      "id": "1737623842437",
-      "billTitle": "Error sed a qui cons",
-      "plannedAmount": 51,
-      "actualAmount": 10,
-      "dueDate": "1983-10-30",
-      "paid": false
-    },
-    {
-      "id": 1737623883654,
+      "id": "1737623883654",
       "billTitle": "Credit Card",
       "plannedAmount": 10000,
       "actualAmount": 11000,
@@ -129,11 +98,19 @@
       "paid": false
     },
     {
-      "id": 1737623926654,
+      "id": "1737623926654",
       "billTitle": "Water",
       "plannedAmount": 500,
       "actualAmount": 300,
       "dueDate": "2025-01-30",
+      "paid": true
+    },
+    {
+      "id": 1737697485070,
+      "billTitle": "Ipsam voluptas sunt",
+      "plannedAmount": 1,
+      "actualAmount": 67,
+      "dueDate": "1972-04-03",
       "paid": false
     }
   ],

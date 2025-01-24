@@ -1,5 +1,5 @@
 import { useToast } from "@chakra-ui/react/toast";
-import { Bill } from "../../../../entities/model";
+import { Bill } from "../types/BillTypes";
 import { useEffect, useState } from "react";
 
 export const useUpdateBill = (

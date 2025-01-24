@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Expense } from "../../../entities/model";
+import { Expense } from "../../components/expenses/types/ExpensesTypes";
 
 const useExpenses = () => {
   const [expenses, setExpenses] = useState<Expense[]>([]);

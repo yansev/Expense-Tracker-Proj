@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
-import { Bill } from "../../../entities/model";
+import { Bill } from "../../components/bills/types/BillTypes";
 
 const useBills = () => {
   const [bills, setBills] = useState<Bill[]>([]);

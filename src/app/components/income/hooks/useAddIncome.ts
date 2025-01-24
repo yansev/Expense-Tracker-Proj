@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useToast } from "@chakra-ui/react";
-import { Income } from "../../../../entities/model";
+import { Income } from "../types/IncomeTypes";
 
 export const useAddIncome = (onAddIncome: (income: Income) => void) => {
   const [source, setSource] = useState<string>("");

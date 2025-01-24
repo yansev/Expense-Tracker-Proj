@@ -7,20 +7,22 @@ import {
   Th,
   Td,
   TableContainer,
-  useDisclosure,
   Container,
   Heading,
   Flex,
   Link,
   Checkbox,
 } from "@chakra-ui/react";
-import { Bill, BillsTableProps } from "../../../entities/model";
+import { BillsTableProps } from "./types/BillTypes";
 import { useMonth } from "../../shared/hooks/MonthContext";
-import { useState } from "react";
 import EditBills from "./EditBills";
 import DeleteBills from "./DeleteBills";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
-
+import { useFilteredBills } from "./hooks/useFilteredBills";
+import { useEditBills } from "./hooks/useEditBills";
+import { useDeleteBill } from "./hooks/useDeleteBill";
+import { useBillStatusChange } from "./hooks/useBillStatusChange";
+import { useTotalBillsAmount } from "./hooks/useTotalBillsAmount";
 const BillsTable: React.FC<BillsTableProps> = ({
   bills,
   onUpdatedBill,
@@ -28,54 +30,22 @@ const BillsTable: React.FC<BillsTableProps> = ({
 }) => {
   const { selectedMonth } = useMonth();
 
-  const filteredBills =
-    selectedMonth === "All" || !selectedMonth
-      ? bills
-      : bills.filter((bill) => {
-          const billMonth = new Date(bill.dueDate)
-            .toLocaleString("default", { month: "long" })
-            .toLowerCase();
-          return billMonth === selectedMonth.toLowerCase();
-        });
+  const filteredBills = useFilteredBills(bills, selectedMonth);
 
-  const [selectedBill, setSelectedBill] = useState<Bill | null>(null);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { handleEditBill, editBill, isOpen, onClose } = useEditBills();
+
   const {
-    isOpen: isOpenDelete,
-    onOpen: onOpenDelete,
-    onClose: onCloseDelete,
-  } = useDisclosure();
+    handleDeleteClickBill,
+    handleDeleteBill,
+    deleteBill,
+    isDeleteModalOpen,
+    closeDeleteModal,
+  } = useDeleteBill(onDeleteBill);
 
-  const handleEditClick = (bill: Bill) => {
-    console.log("Edit clicked for bill:", bill);
-    setSelectedBill(bill);
-    onOpen();
-  };
+  const { updatedBill } = useBillStatusChange(onUpdatedBill);
 
-  const handleDeleteClick = (bill: Bill) => {
-    console.log("Deleted", bill);
-    setSelectedBill(bill);
-    onOpenDelete();
-  };
-
-  const handleDeleteBill = (bill: Bill) => {
-    onDeleteBill(bill);
-    onCloseDelete();
-  };
-
-  const handlePaidStatusChange = (bill: Bill) => {
-    const updatedBill = { ...bill, paid: !bill.paid };
-    onUpdatedBill(updatedBill);
-  };
-
-  const totalPlanned = filteredBills.reduce(
-    (sum, bill) => sum + bill.plannedAmount,
-    0
-  );
-  const totalActual = filteredBills.reduce(
-    (sum, bill) => sum + bill.actualAmount,
-    0
-  );
+  const { totalPlannedBills, totalActualBills } =
+    useTotalBillsAmount(filteredBills);
 
   return (
     <Container maxW="container.xl">
@@ -100,7 +70,7 @@ const BillsTable: React.FC<BillsTableProps> = ({
                 <Td>
                   <Checkbox
                     isChecked={bill.paid}
-                    onChange={() => handlePaidStatusChange(bill)}
+                    onChange={() => updatedBill(bill)}
                   >
                     {bill.paid ? "Paid" : "Not Paid"}
                   </Checkbox>
@@ -116,7 +86,7 @@ const BillsTable: React.FC<BillsTableProps> = ({
                       as="button"
                       mr="10px"
                       aria-label="Edit Bill"
-                      onClick={() => handleEditClick(bill)}
+                      onClick={() => handleEditBill(bill)}
                     >
                       <AiOutlineEdit color="#081F5C" />
                     </Link>
@@ -124,7 +94,7 @@ const BillsTable: React.FC<BillsTableProps> = ({
                       as="button"
                       mr="10px"
                       aria-label="Delete Bill"
-                      onClick={() => handleDeleteClick(bill)}
+                      onClick={() => handleDeleteClickBill(bill)}
                     >
                       <AiOutlineDelete color="red" />
                     </Link>
@@ -136,30 +106,28 @@ const BillsTable: React.FC<BillsTableProps> = ({
           <Tfoot>
             <Tr>
               <Th>Total</Th>
-              <Th isNumeric>{totalPlanned}</Th>
-              <Th isNumeric>{totalActual}</Th>
+              <Th isNumeric>{totalPlannedBills}</Th>
+              <Th isNumeric>{totalActualBills}</Th>
               <Th></Th>
             </Tr>
           </Tfoot>
         </Table>
-        <>
-          {selectedBill && (
-            <>
-              <EditBills
-                isOpen={isOpen}
-                onClose={onClose}
-                bill={selectedBill}
-                onUpdatedBill={onUpdatedBill}
-              />
-              <DeleteBills
-                isOpenDeleteBill={isOpenDelete}
-                onCloseDeleteBill={onCloseDelete}
-                bill={selectedBill}
-                onDeleteBill={handleDeleteBill}
-              />
-            </>
-          )}
-        </>
+        {editBill && (
+          <EditBills
+            isOpen={isOpen}
+            onClose={onClose}
+            bill={editBill}
+            onUpdatedBill={onUpdatedBill}
+          />
+        )}
+        {deleteBill && (
+          <DeleteBills
+            isOpenDeleteBill={isDeleteModalOpen}
+            onCloseDeleteBill={closeDeleteModal}
+            bill={deleteBill}
+            onDeleteBill={handleDeleteBill}
+          />
+        )}
       </TableContainer>
     </Container>
   );

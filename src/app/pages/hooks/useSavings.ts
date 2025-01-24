@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Income, Expense, Bill, Savings } from "../../../entities/model";
+import { Bill } from "../../components/bills/types/BillTypes";
+import { Expense } from "../../components/expenses/types/ExpensesTypes";
+import { Income } from "../../components/income/types/IncomeTypes";
+import { Savings } from "../../components/savings/types/SavingsTypes";
 
 const useSavings = () => {
   const [incomeData, setIncomeData] = useState<Income[]>([]);

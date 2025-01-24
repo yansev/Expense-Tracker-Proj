@@ -21,7 +21,7 @@ const SavingsTable: React.FC<SavingsTableProps> = ({
 
   const { totalIncome: totalIncomeValue } = useTotalIncome(income);
   const totalIncome = Number(totalIncomeValue);
-  const { totalSavings } = useTotalSavings(incomeByMonth);
+  const { totalSavings } = useTotalSavings(income);
 
   return (
     <TableContainer>

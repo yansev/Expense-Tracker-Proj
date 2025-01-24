@@ -1,5 +1,5 @@
 import { useDisclosure } from "@chakra-ui/react";
-import { Expense } from "../../../../entities/model";
+import { Expense } from "../types/ExpensesTypes";
 import { useState } from "react";
 
 export const useHandleEditExpense = () => {

@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Box,
-  Spacer,
   VStack,
   Stack,
   Container,
@@ -14,7 +13,7 @@ import { useMonth } from "../shared/hooks/MonthContext";
 import MonthSelector from "../shared/MonthSelector";
 import AddBills from "../components/bills/AddBills";
 import BillsTable from "../components/bills/BillsTable";
-import Scheduler from "../components/bills/Scheduler";
+// import Scheduler from "../components/bills/Scheduler";
 import useBills from "./hooks/useBills";
 
 const Bills: React.FC = () => {
@@ -23,43 +22,40 @@ const Bills: React.FC = () => {
   const { selectedMonth } = useMonth();
 
   return (
-    <Container maxW="container.xl" p={[1, 2, 3]}>
-      <VStack p={[1, 2, 3]} align="center">
+    <Container maxW="container.xl" p={[4, 6, 8]}>
+      <VStack spacing={6} align="stretch" width="100%">
+        {/* Month Selector */}
         <MonthSelector />
+
+        {/* Table Section */}
+        <Box flex="1" width="100%" overflowX="auto">
+          <BillsTable
+            bills={bills}
+            onUpdatedBill={updateBill}
+            onDeleteBill={deleteBill}
+            selectedMonth={selectedMonth}
+          />
+        </Box>
+
+        {/* Add Bills and Calculator Section */}
         <Stack
-          direction={["column", "column", "row"]}
-          mt={[1, 2, 3]}
-          mb={[1, 2, 3]}
-          spacing={[1, 2, 3]}
+          direction={["column", "row"]}
+          spacing={4}
+          justify="space-between"
+          align="center"
+          width="100%"
         >
-          <Box width={["100vw", "75vw", "50vw"]}>
-            <Scheduler bills={bills} />
-          </Box>
-          <Box width={["100vw", "75vw", "50vw"]} position="relative">
-            <BillsTable
-              bills={bills}
-              onUpdatedBill={updateBill}
-              onDeleteBill={deleteBill}
-              selectedMonth={selectedMonth}
-            />
-            <Box
-              width={["100%", "50%", "33%"]}
-              position="absolute"
-              mt="5"
-              ml="5"
-            >
-              <AddBills onAddBill={addBill} />
-            </Box>
-          </Box>
-          <Spacer>
-            <Box width="300px" position="absolute" right="0" p="4">
-              <Button onClick={onOpen} position="fixed" right="0">
-                <AiFillCalculator />
-                <CalcModal isOpen={isOpen} onClose={onClose} />
-              </Button>
-            </Box>
-          </Spacer>
+          {/* Add Bills */}
+          <AddBills onAddBill={addBill} />
+
+          {/* Calculator Button */}
+          <Button onClick={onOpen} leftIcon={<AiFillCalculator />}>
+            Open Calculator
+          </Button>
         </Stack>
+
+        {/* Calculator Modal */}
+        <CalcModal isOpen={isOpen} onClose={onClose} />
       </VStack>
     </Container>
   );

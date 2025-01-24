@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Income } from "../../../../entities/model";
+import { Income } from "../types/IncomeTypes";
 import { useToast } from "@chakra-ui/react";
 
 export const useUpdateIncome = (
