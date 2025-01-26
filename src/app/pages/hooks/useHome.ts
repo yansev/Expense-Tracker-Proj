@@ -84,6 +84,10 @@ const useHome = () => {
     totalBills,
     totalSavings,
     bills,
+    setTotalIncome,
+    setTotalExpenses,
+    setTotalBills,
+    setTotalSavings,
   };
 };
 

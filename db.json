@@ -1,156 +1,77 @@
 {
   "expenses": [
     {
-      "id": "1737714445363",
-      "title": "make up",
+      "id": "1737876792973",
+      "title": "Shopping",
       "month": "February",
-      "plannedAmount": 10000,
-      "actualAmount": 10000
+      "plannedAmount": 4000,
+      "actualAmount": 5000
     },
     {
-      "id": "1737714545523",
-      "title": "hello hello",
-      "month": "February",
-      "plannedAmount": 10000,
-      "actualAmount": 5000
+      "id": 1737879107383,
+      "title": "Cellphone",
+      "month": "January",
+      "plannedAmount": 35000,
+      "actualAmount": 40000
+    },
+    {
+      "id": 1737879354216,
+      "title": "Online Shopping",
+      "month": "January",
+      "plannedAmount": 7000,
+      "actualAmount": 6000
     }
   ],
   "income": [
     {
-      "id": "1737612470548",
-      "source": "hellooo",
-      "month": "February",
-      "amount": 6800
-    },
-    {
-      "id": "1737616303509",
-      "source": "part time",
-      "month": "November",
-      "amount": 7000
-    },
-    {
-      "id": "1737622116300",
+      "id": "1737878714300",
       "source": "Salary",
-      "month": "January",
-      "amount": 20000
-    },
-    {
-      "id": "1737625514854",
-      "source": "Salary",
-      "month": "December",
-      "amount": 20000
-    },
-    {
-      "id": "1737639251063",
-      "source": "Dolor",
-      "month": "September",
-      "amount": 21000
-    },
-    {
-      "id": "1737640342860",
-      "source": "Part Time",
-      "month": "January",
-      "amount": 10000
-    },
-    {
-      "id": "1737683723327",
-      "source": "Salary",
-      "month": "April",
+      "month": "March",
       "amount": 50000
     },
     {
-      "id": "1737714408547",
-      "source": "Sit ipsum ut ratio",
-      "month": "May",
-      "amount": 2
-    },
-    {
-      "id": "1737714428231",
-      "source": "hi hello",
+      "id": 1737879174234,
+      "source": "Part Time",
       "month": "January",
-      "amount": 10000
+      "amount": 15000
     },
     {
-      "id": "1737714857253",
-      "source": "Part Time",
+      "id": 1737879238833,
+      "source": "Salary",
+      "month": "January",
+      "amount": 45000
+    },
+    {
+      "id": 1737879604382,
+      "source": "Salary",
       "month": "February",
-      "amount": 20000
-    },
-    {
-      "id": "1737732744605",
-      "source": "Part Time",
-      "month": "October",
-      "amount": 5000
-    },
-    {
-      "id": 1737733881794,
-      "source": "Part Time",
-      "month": "March",
-      "amount": 10000
+      "amount": 50000
     }
   ],
   "bills": [
     {
-      "id": "1737445375180",
-      "billTitle": "Electricity Bill",
-      "plannedAmount": 4000,
-      "actualAmount": 7000,
-      "dueDate": "2025-01-26",
-      "paid": false
-    },
-    {
-      "id": "1737445437613",
-      "billTitle": "Rent",
-      "plannedAmount": 20000,
-      "actualAmount": 20000,
-      "dueDate": "2025-02-05",
-      "paid": false
-    },
-    {
-      "id": "1737623883654",
-      "billTitle": "Credit Card",
-      "plannedAmount": 10000,
-      "actualAmount": 11000,
-      "dueDate": "2025-01-24",
-      "paid": false
-    },
-    {
-      "id": "1737623926654",
-      "billTitle": "Water",
+      "id": "1737876738803",
+      "billTitle": "Water Bill",
       "plannedAmount": 500,
-      "actualAmount": 300,
+      "actualAmount": 400,
+      "dueDate": "2025-02-01",
+      "paid": false
+    },
+    {
+      "id": 1737879145579,
+      "billTitle": "Subdivision Bills",
+      "plannedAmount": 2000,
+      "actualAmount": 2000,
       "dueDate": "2025-01-30",
       "paid": false
     },
     {
-      "id": "1737708733948",
+      "id": 1737879490298,
       "billTitle": "Credit Card",
-      "plannedAmount": 3000,
-      "actualAmount": 4000,
-      "dueDate": "2025-01-26",
+      "plannedAmount": 30000,
+      "actualAmount": 28888,
+      "dueDate": "2025-02-05",
       "paid": false
-    },
-    {
-      "id": "1737714812369",
-      "billTitle": "Tuition",
-      "plannedAmount": 20000,
-      "actualAmount": 19900,
-      "dueDate": "2025-01-27",
-      "paid": false
-    },
-    {
-      "id": "1737732301119",
-      "billTitle": "Water",
-      "plannedAmount": 500,
-      "actualAmount": 300,
-      "dueDate": "2025-04-30",
-      "paid": false
-    }
-  ],
-  "savings": [
-    {
-      "percentage": 10,
-      "id": "b002"
     }
   ]
 }
