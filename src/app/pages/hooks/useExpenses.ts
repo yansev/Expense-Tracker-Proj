@@ -18,35 +18,32 @@ const useExpenses = () => {
     fetchExpenses();
   }, []);
 
-  const addExpense = async (newExpense: Expense) => {
+  const addExpense = async (expense: Expense) => {
     try {
-      console.log("Adding expense:", newExpense);
-      const response = await axios.post(
-        "http://localhost:3030/expenses",
-        newExpense
-      );
-      setExpenses((prevExpenses) => [...prevExpenses, response.data]);
-      console.log("Added expense:", response.data);
+      const timestamp = new Date().getTime();
+      const newExpense = {
+        ...expense,
+        id: timestamp,
+      };
+
+      await axios.post("http://localhost:3030/expenses", newExpense);
+
+      const updatedResponse = await axios.get("http://localhost:3030/expenses");
+      setExpenses(updatedResponse.data);
     } catch (error) {
       console.error("Error adding expense:", error);
     }
   };
 
   const updateExpense = async (updatedExpense: Expense) => {
-    console.log("Updating expense:", updatedExpense);
     try {
-      const response = await axios.put(
+      await axios.put(
         `http://localhost:3030/expenses/${updatedExpense.id}`,
         updatedExpense
       );
-      console.log("Updated expense:", response.data);
-      if (response.status === 200 || response.status === 204) {
-        setExpenses((prevExpenses) =>
-          prevExpenses.map((expense) =>
-            expense.id === updatedExpense.id ? response.data : expense
-          )
-        );
-      }
+
+      const updatedResponse = await axios.get("http://localhost:3030/expenses");
+      setExpenses(updatedResponse.data);
     } catch (error) {
       console.error("Error updating expense:", error);
     }
@@ -54,15 +51,10 @@ const useExpenses = () => {
 
   const deleteExpense = async (expense: Expense) => {
     try {
-      const response = await axios.delete(
-        `http://localhost:3030/expenses/${expense.id}`
-      );
-      if (response.status === 200) {
-        console.log("Deleted expense:", response.data);
-        setExpenses((prevExpenses) =>
-          prevExpenses.filter((e) => e.id !== expense.id)
-        );
-      }
+      await axios.delete(`http://localhost:3030/expenses/${expense.id}`);
+
+      const updatedResponse = await axios.get("http://localhost:3030/expenses");
+      setExpenses(updatedResponse.data);
     } catch (error) {
       console.error("Error deleting expense:", error);
     }

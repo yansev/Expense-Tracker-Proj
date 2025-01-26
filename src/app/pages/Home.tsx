@@ -22,22 +22,33 @@ import AddIncome from "../components/income/AddIncome";
 import AddBill from "../components/bills/AddBills";
 
 const Summary: React.FC = () => {
-  const { totalIncome, totalExpenses, totalBills, totalSavings, bills } =
-    useHome();
+  const {
+    totalIncome,
+    totalExpenses,
+    totalBills,
+    totalSavings,
+    bills,
+    setTotalExpenses,
+    setTotalBills,
+    setTotalIncome,
+  } = useHome();
   const { addExpense } = useExpenses();
   const { addBill } = useBills();
   const { addIncome } = useIncome();
 
   const onAddExpense = (expense: Expense) => {
     addExpense(expense);
+    setTotalExpenses((prev: number) => prev + expense.actualAmount);
   };
 
   const onAddBill = (bill: Bill) => {
     addBill(bill);
+    setTotalBills((prev: number) => prev + bill.actualAmount);
   };
 
   const onAddIncome = (income: Income) => {
     addIncome(income);
+    setTotalIncome((prev: number) => prev + income.amount);
   };
 
   return (
@@ -117,6 +128,7 @@ const Summary: React.FC = () => {
             </Tooltip>
           </Box>
 
+          {/* Notifications */}
           <Box
             bg="white"
             p={6}
