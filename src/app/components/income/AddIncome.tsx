@@ -40,7 +40,7 @@ const AddIncome: React.FC<AddIncomeProps> = ({ onAddIncome }) => {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>New Income</ModalHeader>
-          <ModalCloseButton color="red" />
+          <ModalCloseButton color="#474747" />
           <ModalBody>
             <form onSubmit={handleSubmitWrapper}>
               <FormControl>
@@ -91,14 +91,25 @@ const AddIncome: React.FC<AddIncomeProps> = ({ onAddIncome }) => {
                 />
               </FormControl>
 
-              <Button type="submit" colorScheme="green" mt={3}>
+              <Button
+                type="submit"
+                backgroundColor="#606e52"
+                color="#ffffff"
+                mt={3}
+              >
                 Add Income
               </Button>
             </form>
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="red" mr={3} onClick={onClose} mt={3}>
+            <Button
+              backgroundColor="#474747"
+              color="#ffffff"
+              mr={3}
+              onClick={onClose}
+              mt={3}
+            >
               Close
             </Button>
           </ModalFooter>

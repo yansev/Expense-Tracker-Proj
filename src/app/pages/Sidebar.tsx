@@ -9,7 +9,6 @@ import {
   Text,
   Button,
   useBreakpointValue,
-  Box,
 } from "@chakra-ui/react";
 import {
   AiOutlineCreditCard,
@@ -21,10 +20,6 @@ import {
 
 export const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
-
-  const toggleSidebar = () => setIsCollapsed(!isCollapsed);
-
-  // Adjust behavior based on screen size
   const isMobile = useBreakpointValue({ base: true, md: false });
 
   const menuItems = [
@@ -36,8 +31,7 @@ export const Sidebar = () => {
   ];
 
   return (
-    <HStack height="100vh">
-      {/* Sidebar Container */}
+    <HStack height="100vh" spacing={0}>
       <VStack
         backgroundColor="#606e52"
         height="100vh"
@@ -45,16 +39,14 @@ export const Sidebar = () => {
         padding="10px"
         spacing="20px"
         align="stretch"
-        transition="width 0.3s"
-        zIndex={10}
-        {...(isMobile
-          ? {
-              position: "fixed",
-              top: 0,
-              left: isCollapsed ? "-80px" : "0",
-              boxShadow: "md",
-            }
-          : {})}
+        transition="all 0.3s"
+        position={isMobile ? "fixed" : "relative"}
+        transform={
+          isMobile && isCollapsed ? "translateX(-100%)" : "translateX(0)"
+        }
+        zIndex={20}
+        boxShadow={isMobile ? "2px 0 10px rgba(0,0,0,0.1)" : "none"}
+        marginLeft={isMobile && isCollapsed ? "-250px" : "0"}
       >
         {/* Menu List */}
         <List spacing="10px" width="100%">
@@ -90,29 +82,41 @@ export const Sidebar = () => {
             </ListItem>
           ))}
         </List>
+
+        {/* Mobile toggle button */}
+        {isMobile && (
+          <Button
+            position="fixed"
+            left={isCollapsed ? "10px" : "260px"}
+            top="10px"
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            backgroundColor="#606e52"
+            color="#ffffff"
+            _hover={{ backgroundColor: "#c0cca4" }}
+            zIndex={30}
+            size="sm"
+            marginLeft={0}
+          >
+            <Icon as={AiOutlineMenu} />
+          </Button>
+        )}
       </VStack>
-      <Box
-        position="absolute"
-        top="10px"
-        left={isCollapsed ? "80px" : "250px"}
-        transition="left 0.3s"
-        zIndex={20}
-      >
+
+      {/* Desktop toggle button */}
+      {!isMobile && (
         <Button
-          onClick={toggleSidebar}
+          position="absolute"
+          left={isCollapsed ? "90px" : "260px"}
+          bottom="20px"
+          onClick={() => setIsCollapsed(!isCollapsed)}
           backgroundColor="#606e52"
           color="#ffffff"
           _hover={{ backgroundColor: "#c0cca4" }}
-          width="40px"
-          height="40px"
-          borderRadius="5px" // Square shape
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
+          size="sm"
         >
           <Icon as={AiOutlineMenu} />
         </Button>
-      </Box>
+      )}
     </HStack>
   );
 };

@@ -93,14 +93,25 @@ const AddBills: React.FC<AddBillsProps> = ({ onAddBill }) => {
                 />
               </FormControl>
 
-              <Button type="submit" colorScheme="green" mt={3}>
+              <Button
+                type="submit"
+                backgroundColor="#606e52"
+                color="#ffffff"
+                mt={3}
+              >
                 Add Bill
               </Button>
             </form>
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="red" mr={3} onClick={onClose} mt={3}>
+            <Button
+              backgroundColor="#474747"
+              color="#ffffff"
+              mr={3}
+              onClick={onClose}
+              mt={3}
+            >
               Close
             </Button>
           </ModalFooter>

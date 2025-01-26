@@ -20,6 +20,7 @@ import { useMonth } from "../../shared/hooks/MonthContext";
 import { useFilteredIncome } from "./hooks/useFilteredIncome";
 import { useHandleEditIncome } from "./hooks/useHandleEditIncome";
 import { useHandleDeleteIncome } from "./hooks/useHandleDeleteIncome";
+import { useMonthOrder } from "../../shared/hooks/useMonthOrder";
 
 const IncomeTable: React.FC<IncomeTableProps> = ({
   income,
@@ -27,7 +28,14 @@ const IncomeTable: React.FC<IncomeTableProps> = ({
   onDeleteIncome,
 }) => {
   const { selectedMonth } = useMonth();
-  const filteredIncome = useFilteredIncome(income, selectedMonth);
+  const months = useMonthOrder();
+
+  const filteredIncome = useFilteredIncome(income, selectedMonth).sort(
+    (a, b) => months.indexOf(a.month) - months.indexOf(b.month)
+  );
+
+  const amount = filteredIncome.reduce((sum, income) => sum + income.amount, 0);
+
   const { handleEditIncome, editIncome, isOpen, onClose } =
     useHandleEditIncome();
   const {
@@ -38,12 +46,10 @@ const IncomeTable: React.FC<IncomeTableProps> = ({
     onCloseDeleteModal,
   } = useHandleDeleteIncome(onDeleteIncome);
 
-  const amount = filteredIncome.reduce((sum, income) => sum + income.amount, 0);
-
   return (
     <Container maxW="container.xl">
       <TableContainer>
-        <Heading size="md" mb={4} textAlign="center" color="#081F5C">
+        <Heading size="md" mb={4} textAlign="center" color="#606e52">
           Income for {selectedMonth || "Whole Year"}
         </Heading>
         <Table size="sm">

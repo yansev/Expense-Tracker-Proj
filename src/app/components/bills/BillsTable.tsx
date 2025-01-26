@@ -23,6 +23,7 @@ import { useEditBills } from "./hooks/useEditBills";
 import { useDeleteBill } from "./hooks/useDeleteBill";
 import { useBillStatusChange } from "./hooks/useBillStatusChange";
 import { useTotalBillsAmount } from "./hooks/useTotalBillsAmount";
+
 const BillsTable: React.FC<BillsTableProps> = ({
   bills,
   onUpdatedBill,
@@ -30,7 +31,13 @@ const BillsTable: React.FC<BillsTableProps> = ({
 }) => {
   const { selectedMonth } = useMonth();
 
-  const filteredBills = useFilteredBills(bills, selectedMonth);
+  const filteredBills = useFilteredBills(bills, selectedMonth.toLowerCase());
+
+  const sortedBills = filteredBills.sort((a, b) => {
+    const monthA = new Date(a.dueDate).getMonth();
+    const monthB = new Date(b.dueDate).getMonth();
+    return monthA - monthB;
+  });
 
   const { handleEditBill, editBill, isOpen, onClose } = useEditBills();
 
@@ -45,23 +52,23 @@ const BillsTable: React.FC<BillsTableProps> = ({
   const { updatedBill } = useBillStatusChange(onUpdatedBill);
 
   const { totalPlannedBills, totalActualBills } =
-    useTotalBillsAmount(filteredBills);
+    useTotalBillsAmount(sortedBills);
 
   return (
     <Container maxW="container.xl">
       <TableContainer>
-        <Heading size="md" mb={4} textAlign="center" color="#081F5C">
+        <Heading size="md" mb={4} textAlign="center" color="#606e52">
           Bills for {selectedMonth || "Whole Year"}
         </Heading>
         <Table size="sm">
-          <Thead backgroundColor="#081F5C">
+          <Thead backgroundColor="#606e52">
             <Tr>
-              <Th color="#f7f2eb">Status</Th>
-              <Th color="#f7f2eb">Bill</Th>
-              <Th color="#f7f2eb">Planned Amount</Th>
-              <Th color="#f7f2eb">Actual Amount</Th>
-              <Th color="#f7f2eb">Due Date</Th>
-              <Th color="#f7f2eb">Actions</Th>
+              <Th color="#ffffff">Status</Th>
+              <Th color="#ffffff">Bill</Th>
+              <Th color="#ffffff">Planned Amount</Th>
+              <Th color="#ffffff">Actual Amount</Th>
+              <Th color="#ffffff">Due Date</Th>
+              <Th color="#ffffff">Actions</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -78,8 +85,7 @@ const BillsTable: React.FC<BillsTableProps> = ({
                 <Td>{bill.billTitle}</Td>
                 <Td isNumeric>{bill.plannedAmount}</Td>
                 <Td isNumeric>{bill.actualAmount}</Td>
-                <Td>{new Date(bill.dueDate).toLocaleDateString()}</Td>{" "}
-                {/* Display full date */}
+                <Td>{new Date(bill.dueDate).toLocaleDateString()}</Td>
                 <Td>
                   <Flex>
                     <Link

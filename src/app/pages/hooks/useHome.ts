@@ -5,12 +5,14 @@ import { Bill } from "../../components/bills/types/BillTypes";
 import { Expense } from "../../components/expenses/types/ExpensesTypes";
 import { Income } from "../../components/income/types/IncomeTypes";
 import { Savings } from "../../components/savings/types/SavingsTypes";
+import useBills from "../hooks/useBills";
 
 const useHome = () => {
+  const { bills } = useBills();
   const [totalIncome, setTotalIncome] = useState(0);
   const [totalExpenses, setTotalExpenses] = useState(0);
-  const [totalBills, setTotalBills] = useState(0); // Assuming you have a component to handle bills
-  const [totalSavings, setTotalSavings] = useState(0); // Assuming you have a component to handle savings
+  const [totalBills, setTotalBills] = useState(0);
+  const [totalSavings, setTotalSavings] = useState(0);
 
   useEffect(() => {
     const fetchIncome = async () => {
@@ -37,7 +39,6 @@ const useHome = () => {
           0
         );
         setTotalExpenses(total);
-        // setExpensesData(response.data);
       } catch (error) {
         console.error("Error fetching expenses:", error);
       }
@@ -54,7 +55,6 @@ const useHome = () => {
           0
         );
         setTotalBills(total);
-        // setBillsData(response.data);
       } catch (error) {
         console.error("Error fetching bills:", error);
       }
@@ -71,7 +71,6 @@ const useHome = () => {
           0
         );
         setTotalSavings(total);
-        // setSavingsData(response.data);
       } catch (error) {
         console.error("Error fetching savings:", error);
       }
@@ -79,7 +78,13 @@ const useHome = () => {
     fetchSavings();
   }, []);
 
-  return { totalIncome, totalExpenses, totalBills, totalSavings };
+  return {
+    totalIncome,
+    totalExpenses,
+    totalBills,
+    totalSavings,
+    bills,
+  };
 };
 
 export default useHome;

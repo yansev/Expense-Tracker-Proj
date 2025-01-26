@@ -42,7 +42,7 @@ const AddExpense: React.FC<AddExpenseProps> = ({ onAddExpense }) => {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>New Expense</ModalHeader>
-          <ModalCloseButton color="red" />
+          <ModalCloseButton color="#474747" />
           <ModalBody>
             <form
               onSubmit={(e) => {
@@ -112,14 +112,25 @@ const AddExpense: React.FC<AddExpenseProps> = ({ onAddExpense }) => {
                 />
               </FormControl>
 
-              <Button type="submit" colorScheme="green" mt={3}>
+              <Button
+                type="submit"
+                backgroundColor="#606e52"
+                color="#ffffff"
+                mt={3}
+              >
                 Add Expense
               </Button>
             </form>
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="red" mr={3} onClick={onClose} mt={3}>
+            <Button
+              backgroundColor="#474747"
+              color="#ffffff"
+              mr={3}
+              onClick={onClose}
+              mt={3}
+            >
               Close
             </Button>
           </ModalFooter>

@@ -1,32 +1,56 @@
-import React from "react";
-import { Box, Grid, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  VStack,
+  Heading,
+  Text,
+  Grid,
+  Divider,
+  UnorderedList,
+  ListItem,
+} from "@chakra-ui/react";
 import SavingsPlanner from "../shared/Balance";
 import SavingsTable from "../components/savings/SavingsTable";
 import useSavings from "./hooks/useSavings";
 
 const SavingsPlannerPage: React.FC = () => {
   const {
-    incomeData,
     totalIncome,
     totalExpenses,
     totalBills,
-    savingsData,
     totalSavings,
+    incomeData,
+    savingsData,
     setTotalSavings,
   } = useSavings();
 
   return (
-    <Grid templateColumns="2fr 2fr" minH="100vh" p={4}>
-      <Box></Box>
-      <VStack
-        align="stretch"
-        spacing={8}
-        border="1px solid #081F5C"
-        borderRadius="md"
-        boxShadow="md"
-        p={8}
-      >
-        <Box mb="50px" w="100%">
+    <Grid
+      templateColumns={{ base: "1fr", lg: "2fr 1fr" }}
+      minH="100vh"
+      p={4}
+      w="100%"
+      gap={6}
+      bg="gray.50"
+    >
+      <Box gridColumn="1 / -1" textAlign="center" mb={6}>
+        <Heading as="h1" size="lg" color="teal.600">
+          Savings Planner
+        </Heading>
+        <Text fontSize="lg" color="gray.600">
+          Track your income, expenses, and savings effectively.
+        </Text>
+        <Divider my={4} />
+      </Box>
+
+      <VStack spacing={6} align="stretch">
+        <Box
+          bg="white"
+          p={6}
+          shadow="md"
+          rounded="md"
+          border="1px"
+          borderColor="gray.200"
+        >
           <SavingsPlanner
             totalIncome={totalIncome}
             totalExpenses={totalExpenses}
@@ -34,7 +58,15 @@ const SavingsPlannerPage: React.FC = () => {
             totalSavings={totalSavings}
           />
         </Box>
-        <Box w="100%" justifyContent="center">
+
+        <Box
+          bg="white"
+          p={6}
+          shadow="md"
+          rounded="md"
+          border="1px"
+          borderColor="gray.200"
+        >
           <SavingsTable
             income={incomeData}
             savings={savingsData}
@@ -42,11 +74,40 @@ const SavingsPlannerPage: React.FC = () => {
           />
         </Box>
       </VStack>
-      <Box
-        w={["100%", "75%", "50%"]}
-        display="flex"
-        justifyContent="center"
-      ></Box>
+
+      <VStack spacing={6} align="stretch">
+        <Box
+          bg="white"
+          p={6}
+          shadow="md"
+          rounded="md"
+          border="1px"
+          borderColor="gray.200"
+        >
+          <Heading as="h3" size="md" mb={4}>
+            Quick Savings Tips
+          </Heading>
+          <UnorderedList spacing={3} color="gray.700">
+            <ListItem>
+              Automate your savings to avoid spending temptations.
+            </ListItem>
+            <ListItem>
+              Set short-term goals to stay motivated and track your progress.
+            </ListItem>
+            <ListItem>
+              Cut back on non-essential expenses, like subscriptions or dining
+              out.
+            </ListItem>
+            <ListItem>
+              Build an emergency fund to avoid financial stress in unexpected
+              situations.
+            </ListItem>
+            <ListItem>
+              Regularly review your budget and adjust as needed.
+            </ListItem>
+          </UnorderedList>
+        </Box>
+      </VStack>
     </Grid>
   );
 };

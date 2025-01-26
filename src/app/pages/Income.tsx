@@ -1,11 +1,12 @@
 import {
   Box,
-  Spacer,
   VStack,
   Stack,
-  Container,
   Button,
   useDisclosure,
+  Grid,
+  Textarea,
+  Text,
 } from "@chakra-ui/react";
 import IncomeTable from "../components/income/IncomeTable";
 import CalcModal from "../shared/calculator/CalcModal";
@@ -29,17 +30,24 @@ const IncomeList: React.FC = () => {
   const { selectedMonth } = useMonth();
 
   return (
-    <Container maxW="container.xl" p={[1, 2, 3]}>
-      <VStack p={[1, 2, 3]} align="center">
-        <MonthSelector />
-        <Stack
-          direction={["column", "column", "row"]}
-          mt={[1, 2, 3]}
-          mb={[1, 2, 3]}
-          spacing={[1, 2, 3]}
-        >
-          <Box width={["100%", "75%", "50%"]}>
+    <Grid
+      templateColumns={["1fr", "1fr", "2fr 1fr"]}
+      templateRows={["1fr", "1fr", "1fr 1fr"]}
+      gap={4}
+      minH="100vh"
+      w="100%"
+      p={4}
+    >
+      <VStack spacing={6} align="stretch" w="100%">
+        <Box mb={4} w="100%">
+          <MonthSelector />
+        </Box>
+
+        <Stack direction={["column", "row"]} spacing={4} w="100%">
+          <Box flex="1">
             <IncomeGraph income={income} expenses={expenses} />
+          </Box>
+          <Box flex="1">
             <IncomeExpensesTable
               income={income}
               expenses={expenses}
@@ -47,33 +55,45 @@ const IncomeList: React.FC = () => {
               savings={savingsData}
             />
           </Box>
-          <Box width={["100%", "75%", "50%"]} position="relative">
-            <IncomeTable
-              income={income}
-              selectedMonth={selectedMonth}
-              onUpdatedIncome={updateIncome}
-              onDeleteIncome={deleteIncome}
-            />
-            <Box
-              width={["100%", "50%", "33%"]}
-              position="absolute"
-              mt="5"
-              ml="5"
-            >
-              <AddIncome onAddIncome={addIncome} />
-            </Box>
-          </Box>
-          <Spacer>
-            <Box width="300px" position="absolute" right="0" p="4">
-              <Button onClick={onOpen} position="fixed" right="0">
-                <AiFillCalculator />
-                <CalcModal isOpen={isOpen} onClose={onClose} />
-              </Button>
-            </Box>
-          </Spacer>
         </Stack>
+
+        <Box>
+          <IncomeTable
+            income={income}
+            selectedMonth={selectedMonth}
+            onUpdatedIncome={updateIncome}
+            onDeleteIncome={deleteIncome}
+          />
+          <Box mt={4}>
+            <AddIncome onAddIncome={addIncome} />
+          </Box>
+        </Box>
+
+        <Box position="fixed" bottom="20px" right="20px">
+          <Button onClick={onOpen} colorScheme="green">
+            <AiFillCalculator />
+          </Button>
+          <CalcModal isOpen={isOpen} onClose={onClose} />
+        </Box>
       </VStack>
-    </Container>
+
+      <Box
+        p={4}
+        border="1px solid #e2e8f0"
+        borderRadius="md"
+        h="fit-content"
+        w="100%"
+      >
+        <Text fontSize="lg" fontWeight="bold" mb={2}>
+          Notes
+        </Text>
+        <Textarea
+          placeholder="Add notes about your income or expenses here..."
+          size="md"
+          h="calc(100vh - 120px)"
+        />
+      </Box>
+    </Grid>
   );
 };
 
