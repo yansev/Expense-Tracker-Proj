@@ -12,10 +12,11 @@ import {
 } from "@chakra-ui/react";
 import {
   AiOutlineCreditCard,
-  AiOutlineDollarCircle,
   AiOutlineHome,
   AiOutlineCalculator,
   AiOutlineMenu,
+  AiOutlineBank,
+  AiOutlineDollar,
 } from "react-icons/ai";
 
 export const Sidebar = () => {
@@ -23,11 +24,11 @@ export const Sidebar = () => {
   const isMobile = useBreakpointValue({ base: true, md: false });
 
   const menuItems = [
-    { label: "Home", icon: AiOutlineHome, href: "/" },
+    { label: "Home", icon: AiOutlineHome, href: "/home" },
     { label: "Income", icon: AiOutlineCalculator, href: "/income" },
     { label: "Expenses", icon: AiOutlineCreditCard, href: "/expenses" },
-    { label: "Bills", icon: AiOutlineDollarCircle, href: "/bills" },
-    { label: "Savings", icon: AiOutlineDollarCircle, href: "/savings" },
+    { label: "Bills", icon: AiOutlineBank, href: "/bills" },
+    { label: "Savings", icon: AiOutlineDollar, href: "/savings" },
   ];
 
   return (

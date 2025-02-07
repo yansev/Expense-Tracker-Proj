@@ -16,8 +16,12 @@ import {
 } from "@chakra-ui/react";
 import { SettingsIcon } from "@chakra-ui/icons";
 import { UserProfile } from "./types/types";
+import { signOut } from "firebase/auth";
+import { auth } from "../config/firebase";
+import Cookies from "universal-cookie";
 
 const Navbar: React.FC = () => {
+  const cookies = new Cookies();
   const [userProfile, setUserProfile] = useState<UserProfile>({
     name: "John Doe",
     picture: "https://via.placeholder.com/40", // Default picture
@@ -42,6 +46,12 @@ const Navbar: React.FC = () => {
       };
       reader.readAsDataURL(e.target.files[0]);
     }
+  };
+
+  const signOutUser = async () => {
+    await signOut(auth);
+    cookies.remove("auth-token");
+    window.location.href = "/auth"; // Redirect to auth page after logout
   };
 
   return (
@@ -92,7 +102,7 @@ const Navbar: React.FC = () => {
                   size="sm"
                 />
               </Box>
-              <Button colorScheme="green" onClick={() => alert("Logged out")}>
+              <Button colorScheme="green" onClick={signOutUser}>
                 Logout
               </Button>
             </VStack>

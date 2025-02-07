@@ -8,18 +8,25 @@
       "actualAmount": 5000
     },
     {
-      "id": 1737879107383,
+      "id": "1737879107383",
       "title": "Cellphone",
       "month": "January",
       "plannedAmount": 35000,
       "actualAmount": 40000
     },
     {
-      "id": 1737879354216,
+      "id": "1737879354216",
       "title": "Online Shopping",
       "month": "January",
       "plannedAmount": 7000,
       "actualAmount": 6000
+    },
+    {
+      "id": "1738046680035",
+      "title": "Title",
+      "month": "February",
+      "plannedAmount": 9999,
+      "actualAmount": 8888
     }
   ],
   "income": [
@@ -30,22 +37,28 @@
       "amount": 50000
     },
     {
-      "id": 1737879174234,
+      "id": "1737879174234",
       "source": "Part Time",
       "month": "January",
       "amount": 15000
     },
     {
-      "id": 1737879238833,
+      "id": "1737879238833",
       "source": "Salary",
       "month": "January",
       "amount": 45000
     },
     {
-      "id": 1737879604382,
+      "id": "1737879604382",
       "source": "Salary",
       "month": "February",
       "amount": 50000
+    },
+    {
+      "id": 1738046774348,
+      "source": "Debitis et non lauda",
+      "month": "April",
+      "amount": 85
     }
   ],
   "bills": [
@@ -58,7 +71,7 @@
       "paid": false
     },
     {
-      "id": 1737879145579,
+      "id": "1737879145579",
       "billTitle": "Subdivision Bills",
       "plannedAmount": 2000,
       "actualAmount": 2000,
@@ -66,11 +79,27 @@
       "paid": false
     },
     {
-      "id": 1737879490298,
+      "id": "1737879490298",
       "billTitle": "Credit Card",
       "plannedAmount": 30000,
       "actualAmount": 28888,
       "dueDate": "2025-02-05",
+      "paid": false
+    },
+    {
+      "id": "1737905124806",
+      "billTitle": "Electricity Bill",
+      "plannedAmount": 7000,
+      "actualAmount": 8000,
+      "dueDate": "2025-01-27",
+      "paid": false
+    },
+    {
+      "id": "1737905153753",
+      "billTitle": "Utility Bill",
+      "plannedAmount": 6000,
+      "actualAmount": 7500,
+      "dueDate": "2025-01-25",
       "paid": false
     }
   ]
