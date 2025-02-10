@@ -14,6 +14,7 @@
     "server": "json-server --watch db.json --port 3030"
   },
   "dependencies": {
+    "@aws-amplify/ui-react": "^6.9.1",
     "@chakra-ui/icons": "^2.2.4",
     "@chakra-ui/react": "^2.10.4",
     "@emotion/react": "^11.14.0",
@@ -25,6 +26,7 @@
     "@schedule-x/events-service": "^2.14.3",
     "@schedule-x/react": "^2.13.3",
     "@schedule-x/theme-default": "^2.14.3",
+    "aws-amplify": "^6.12.3",
     "axios": "^1.7.9",
     "chart.js": "^4.4.7",
     "cors": "^2.8.5",
@@ -40,17 +42,24 @@
     "react-router-dom": "^7.1.1"
   },
   "devDependencies": {
+    "@aws-amplify/backend": "^1.14.0",
+    "@aws-amplify/backend-cli": "^1.4.9",
     "@eslint/js": "^9.17.0",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react": "^4.3.4",
+    "aws-cdk": "^2.178.1",
+    "aws-cdk-lib": "^2.178.1",
+    "constructs": "^10.4.2",
+    "esbuild": "^0.25.0",
     "eslint": "^9.17.0",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.16",
     "globals": "^15.14.0",
-    "typescript": "~5.6.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
     "typescript-eslint": "^8.18.2",
     "vite": "^6.0.5"
   }
