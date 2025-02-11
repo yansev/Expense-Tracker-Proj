@@ -26,6 +26,7 @@
     "@schedule-x/events-service": "^2.14.3",
     "@schedule-x/react": "^2.13.3",
     "@schedule-x/theme-default": "^2.14.3",
+    "amazon-cognito-identity-js": "^6.3.12",
     "aws-amplify": "^6.12.3",
     "axios": "^1.7.9",
     "chart.js": "^4.4.7",

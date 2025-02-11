@@ -16,6 +16,8 @@ import {
 } from "@chakra-ui/react";
 import { SettingsIcon } from "@chakra-ui/icons";
 import { UserProfile } from "./types/types";
+import { signOut } from "@aws-amplify/auth";
+import { useAuth } from "./auth/authContext";
 
 const Navbar: React.FC = () => {
   const [userProfile, setUserProfile] = useState<UserProfile>({
@@ -24,6 +26,9 @@ const Navbar: React.FC = () => {
   });
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const auth = useAuth();
+  if (!auth) throw new Error("Auth context is not available");
+  const { user, setUser } = auth;
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserProfile({ ...userProfile, name: e.target.value });
@@ -41,6 +46,16 @@ const Navbar: React.FC = () => {
         }
       };
       reader.readAsDataURL(e.target.files[0]);
+    }
+  };
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      setUser(null);
+      // Redirect to auth page or show success message
+    } catch (error) {
+      console.error("Error signing out:", error);
     }
   };
 
@@ -98,6 +113,11 @@ const Navbar: React.FC = () => {
             </VStack>
           </MenuList>
         </Menu>
+        {user && (
+          <Button onClick={handleSignOut} colorScheme="red">
+            Sign Out
+          </Button>
+        )}
       </HStack>
     </Flex>
   );

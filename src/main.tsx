@@ -2,17 +2,22 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./app/App.tsx";
-import { Authenticator } from "@aws-amplify/ui-react";
+import { AuthProvider } from "./app/pages/auth/authContext.tsx";
 import { Amplify } from "aws-amplify";
-import outputs from "../amplify_outputs.json";
-import "@aws-amplify/ui-react/styles.css";
 
-Amplify.configure(outputs);
+Amplify.configure({
+  Auth: {
+    Cognito: {
+      userPoolId: "ap-southeast-2_rruq9wbbt",
+      userPoolClientId: "4246clk66t94benaeu9sqj9dvb",
+    },
+  },
+});
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <Authenticator>
+    <AuthProvider>
       <App />
-    </Authenticator>
+    </AuthProvider>
   </StrictMode>
 );
